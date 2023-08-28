@@ -42,6 +42,15 @@ PORT=8080
 
 `PORT` é a porta em que o servidor Express será iniciado.
 
+## Padrões de Código
+O projeto utiliza ESLint para manter um código limpo e consistente. Certifique-se de seguir as diretrizes definidas no arquivo .eslintrc.json.
+
+## SOLID
+O projeto está estruturado com base nos princípios SOLID, visando a facilidade de manutenção e extensibilidade do código. Cada parte do projeto tem responsabilidades claras e pode ser estendida de forma independente.
+
+## Banco de Dados
+O projeto utiliza um banco de dados JSON local para armazenar dados.
+
 ## Rodando localmente
 
 1. Clone o projeto
