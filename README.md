@@ -43,12 +43,15 @@ PORT=8080
 `PORT` é a porta em que o servidor Express será iniciado.
 
 ## Padrões de Código
+
 O projeto utiliza ESLint para manter um código limpo e consistente. Certifique-se de seguir as diretrizes definidas no arquivo .eslintrc.json.
 
 ## SOLID
+
 O projeto está estruturado com base nos princípios SOLID, visando a facilidade de manutenção e extensibilidade do código. Cada parte do projeto tem responsabilidades claras e pode ser estendida de forma independente.
 
 ## Banco de Dados
+
 O projeto utiliza um banco de dados JSON local para armazenar dados.
 
 ## Rodando localmente
@@ -60,8 +63,8 @@ git clone git@github.com:Luzin7/TurmaQA-Backend.git
 ```
 
 2. Entre no diretório do projeto
-   
- ```bash
+
+```bash
 cd turmaQA-Backend
 ```
 
@@ -84,3 +87,81 @@ cd turmaQA-Backend
 
   yarn dev
 ```
+
+## Como colaborar
+
+### Passo 1: Fork do Repositório
+
+O primeiro passo é fazer um fork do repositório principal para a sua própria conta no GitHub. Isso criará uma cópia do projeto que você pode modificar sem afetar o repositório original.
+
+1. Acesse o repositório do TurmaQA em https://github.com/Luzin7/TurmaQA-Backend.
+2. No canto superior direito da página, clique no botão "Fork" para criar uma cópia do projeto na sua conta.
+
+### Passo 2: Clone o Repositório
+
+Agora você precisa clonar o seu fork do repositório para a sua máquina local para que você possa fazer alterações.
+
+```bash
+git clone git@github.com:Luzin7/TurmaQA-Backend.git
+```
+
+### Passo 3: Crie uma Branch
+
+Antes de fazer alterações, crie uma branch para trabalhar. Use um nome descritivo para a branch que indique a natureza das alterações que você está fazendo.
+
+```bash
+git checkout -b minha-tarefa
+```
+
+### Passo 4: Faça as Alterações
+
+Antes de fazer alterações, crie uma branch para trabalhar. Use um nome descritivo para a branch que indique a natureza das alterações que você está fazendo.
+
+### Passo 5: Commite Suas Alterações
+
+Quando você estiver satisfeito com suas alterações, faça um commit das mudanças. Lembre-se de utilizar [commits convencionais](https://www.conventionalcommits.org/en/v1.0.0/).
+
+```bash
+git commit -m "<type>[scope]: <description>"
+```
+
+### Passo 6: Push para o Seu Fork
+
+Envie suas alterações para o seu fork no GitHub.
+
+```bash
+git push origin minha-tarefa
+```
+
+### Passo 7: Crie um Pull Request
+
+Agora que suas alterações estão no seu fork no GitHub, você pode criar um Pull Request (PR) para enviar as alterações de volta para o repositório original.
+
+1. Acesse a página do seu fork no GitHub.
+
+2. Clique no botão "New Pull Request".
+
+3. Escolha a branch da qual você fez as alterações no seu fork para comparar com a branch principal do repositório original.
+
+4. Dê um título e uma descrição significativa para o seu PR explicando o que você fez.
+
+5. Clique no botão "Create Pull Request" para enviar o PR.
+
+### Passo 8: Revisão e Merge
+
+O codeowner revisará suas alterações e, se estiverem corretas e úteis, o seu PR estará no projeto principal.
+
+Parabéns, você contribuiu para o projeto!
+
+### Passo 9: Não esqueça!
+
+Mantenha seu fork atualizado com as últimas alterações do projeto principal. Para fazer isso, primeiro atualize seu fork localmente:
+
+```bash
+git remote add upstream git@github.com:Luzin7/TurmaQA-Backend.git
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
+Lembre-se, estamos aqui para colaborar e melhorar o projeto juntos. Se você tiver dúvidas ou precisar de ajuda, não hesite em perguntar.
