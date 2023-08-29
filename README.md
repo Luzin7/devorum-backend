@@ -165,3 +165,4 @@ git merge upstream/main
 ```
 
 Lembre-se, estamos aqui para colaborar e melhorar o projeto juntos. Se você tiver dúvidas ou precisar de ajuda, não hesite em perguntar.
+
