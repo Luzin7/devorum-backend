@@ -13,30 +13,11 @@
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/interface-name-prefix": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/ban-ts-comment": "error",
     "@typescript-eslint/indent": ["error", 2],
     "no-unused-vars": "error",
     "prettier/prettier": "error",
-    "max-len": ["error", { "code": 120 }],
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          ["builtin", "external"],
-          "internal",
-          ["parent", "sibling", "index"]
-        ],
-        "newlines-between": "always"
-      }
-    ],
-    "eslint-plugin-naming-convention/naming-convention": [
-      "error",
-      {
-        "selector": "variable",
-        "format": ["camelCase"]
-      }
-    ]
+    "max-len": ["error", { "code": 120 }]
   }
 }
