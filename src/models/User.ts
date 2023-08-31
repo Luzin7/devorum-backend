@@ -4,23 +4,13 @@ class Users {
   name: string;
   password: string;
   contact: string;
-  question: [];
+  question: string[];
 
-  constructor(
-    date: number,
-    id:number,
-    name:string,
-    password: string,
-    contact: string,
-    question: []
-    ) {
-      this.date = date,
-      this.id = id,
-      this.name = name,
-      this.password = password,
-      this.contact = contact,
-      this.question =[]
+  constructor(id: number, name: string, password: string) {
+    this.id = id;
+    this.name = name;
+    this.password = password;
   }
-};
+}
 
 export default Users;
