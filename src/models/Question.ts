@@ -1,23 +1,24 @@
-class Questions {
-  id: number;
+class Question {
+  id: string;
   author: string;
+  questionText: string;
   date: number;
   upvotes: number;
-  question: object[];
+  comment: object[];
 
   constructor(
-    id: number,
+    id: string,
     author: string,
     date: number,
     upvotes: number,
-    question: object[],
+    comment: object[],
   ) {
     this.id = id;
     this.author = author;
     this.date = date;
     this.upvotes = upvotes;
-    this.question = question;
+    this.comment = comment;
   }
 }
 
-export default Questions;
+export default Question;
