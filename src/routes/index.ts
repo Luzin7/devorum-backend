@@ -1,4 +1,4 @@
-const questionRouter = require('./questionRouter');
-const userRouter = require('./userRouter');
+import questionRouter from './questionRouter';
+import userRouter from './userRouter';
 
-module.exports = { questionRouter, userRouter };
+export default { questionRouter, userRouter };

@@ -1,12 +1,12 @@
 {
   "name": "turmaqa-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.ts",
   "repository": "git@github.com:Luzin7/TurmaQA-Backend.git",
   "author": "Luan Victor <lvictor.dutra@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
+    "dev": "nodemon ./src/server.ts",
     "lint": "eslint . --ext .js,.ts"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
     "typescript": "*"
   },
   "dependencies": {
