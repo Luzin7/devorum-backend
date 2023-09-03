@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 
-const { Router } = require('express');
+import { Router } from 'express';
+import askQuestion from '../controllers/QuestionController';
 
 const questionRouter = Router();
 
@@ -8,4 +9,6 @@ questionRouter.get('/questions', (req: Request, res: Response) => {
   res.send('All Questions');
 });
 
-module.exports = questionRouter;
+questionRouter.post('/questions', askQuestion);
+
+export default questionRouter;
