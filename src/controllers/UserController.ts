@@ -2,6 +2,15 @@ import { Request, Response } from 'express';
 import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 
+interface UsersProps {
+  date: number;
+  id: string;
+  name: string;
+  password: string;
+  contact: string;
+  question: string[];
+}
+
 const registerUsers = async (req: Request, res: Response): Promise<void> => {
   const { name, password, contact } = req.body;
 
@@ -13,8 +22,17 @@ const registerUsers = async (req: Request, res: Response): Promise<void> => {
 
   try {
     const usersData = await readFile('./src/data/users.json', 'utf-8');
-
     const parseUsers = JSON.parse(usersData);
+
+    console.log(parseUsers);
+
+    const userAlreadyExists = parseUsers.find((user: UsersProps) => {
+      return user.name === name || user.contact === contact;
+    });
+
+    if (userAlreadyExists) {
+      res.status(409).json({ message: 'Name user already exists' });
+    }
 
     const currentTime = new Date().getTime();
     const newUserID = uuidv4();
