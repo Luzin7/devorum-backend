@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import registerUsers from '../controllers/UserController';
 
 const { Router } = require('express');
 
@@ -8,4 +9,4 @@ userRouter.get('/users', (req: Request, res: Response) => {
   res.send('All Users');
 });
 
-export default userRouter;
+module.exports = userRouter;
