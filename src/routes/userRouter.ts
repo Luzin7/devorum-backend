@@ -9,4 +9,6 @@ userRouter.get('/users', (req: Request, res: Response) => {
   res.send('All Users');
 });
 
-module.exports = userRouter;
+userRouter.post('/register', registerUsers);
+
+export default userRouter;
