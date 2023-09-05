@@ -1,14 +1,10 @@
-import { Request, Response } from 'express';
 import registerUsers from '../controllers/UserController';
+import { validateNewUserRegistration } from '../middlewares';
 
 const { Router } = require('express');
 
 const userRouter = Router();
 
-userRouter.get('/users', (req: Request, res: Response) => {
-  res.send('All Users');
-});
-
-userRouter.post('/register', registerUsers);
+userRouter.post('/register', validateNewUserRegistration, registerUsers);
 
 export default userRouter;
