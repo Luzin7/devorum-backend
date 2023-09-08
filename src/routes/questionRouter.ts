@@ -1,9 +1,13 @@
 import { Router } from 'express';
-import askQuestion from '../controllers/QuestionController';
-import { validateNewQuestionRegistration } from '../middlewares';
+import { askQuestion, addComment } from '../controllers/QuestionController';
+import {
+  validateNewQuestionRegistration,
+  validateNewComment,
+} from '../middlewares';
 
 const questionRouter = Router();
 
 questionRouter.post('/questions', validateNewQuestionRegistration, askQuestion);
+questionRouter.post('/questions/comments', validateNewComment, addComment);
 
 export default questionRouter;
