@@ -2,8 +2,9 @@ import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 import Question from '../models/Question';
 import { UsersProps } from '../types';
+import User from '../models/User';
 
-type RegisterQuestionProps = {
+type QuestionProps = {
   question: string;
   authorId: string;
 };
@@ -11,7 +12,7 @@ type RegisterQuestionProps = {
 const registerNewQuestion = async ({
   question,
   authorId,
-}: RegisterQuestionProps): Promise<void> => {
+}: QuestionProps): Promise<void> => {
   const questions = await readFile('./src/data/questions.json', 'utf-8');
   const users = await readFile('./src/data/users.json', 'utf-8');
 
@@ -26,12 +27,15 @@ const registerNewQuestion = async ({
     (user: UsersProps) => user.id === authorId,
   );
 
+  const authorName = usersData.find((user: User) => user.id === authorId).name;
+
   usersData[userIndex].questions.push(newQuestionId);
 
   const newQuestion = new Question(
     currentTime,
     newQuestionId,
     authorId,
+    authorName,
     question,
     someUpvote,
   );
