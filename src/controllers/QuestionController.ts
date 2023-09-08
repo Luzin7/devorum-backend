@@ -11,4 +11,13 @@ const askQuestion = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export default askQuestion;
+const addComment = async (req: Request, res: Response): Promise<void> => {
+  try {
+    await services.addNewComment(req.body);
+    res.status(201).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export { askQuestion, addComment };
