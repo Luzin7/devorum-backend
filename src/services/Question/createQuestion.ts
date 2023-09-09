@@ -1,8 +1,8 @@
 import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
-import Question from '../models/Question';
-import { UsersProps } from '../types';
-import User from '../models/User';
+import { UsersProps } from '../../types';
+import Question from '../../models/Question';
+import User from '../../models/User';
 
 type QuestionProps = {
   question: string;

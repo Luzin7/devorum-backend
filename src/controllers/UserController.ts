@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as services from '../services';
 import handleError from '../functions/handleError';
 
-const registerUsers = async (req: Request, res: Response): Promise<void> => {
+const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
     await services.registerNewUser(req.body);
     res.status(201).json();
@@ -11,4 +11,13 @@ const registerUsers = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export default registerUsers;
+const getUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = await services.login(req.body);
+    res.json(user);
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export { createUser, getUser };

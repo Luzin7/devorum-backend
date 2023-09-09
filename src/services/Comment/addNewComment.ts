@@ -1,8 +1,8 @@
 import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
-import Comment from '../models/Comment';
-import Question from '../models/Question';
-import User from '../models/User';
+import Question from '../../models/Question';
+import User from '../../models/User';
+import Comment from '../../models/Comment';
 
 type CommentProps = {
   comment: string;
@@ -25,7 +25,15 @@ const addNewComment = async ({
     (question: Question) => question.id === questionId,
   );
 
+  if (questionIndex === -1) {
+    throw new Error('Question does not exist');
+  }
+
   const authorName = usersData.find((user: User) => user.id === authorId).name;
+
+  if (authorName === undefined) {
+    throw new Error('User does not exists');
+  }
 
   const newCommentId = uuidv4();
   const currentTime = new Date().getTime();
