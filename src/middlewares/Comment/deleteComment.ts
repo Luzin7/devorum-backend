@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 
-const validateNewQuestionRegistration = (
+const deleteComment = (
   req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
-  const { question, authorId } = req.body;
+  const { questionId, commentId } = req.params;
 
-  if (!question || !authorId) {
+  if (!questionId || !commentId) {
     res.status(409).json({ message: 'All fields must be provided' });
   } else {
     next();
   }
 };
 
-export default validateNewQuestionRegistration;
+export default deleteComment;
