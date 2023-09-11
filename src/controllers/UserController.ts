@@ -20,4 +20,21 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { createUser, getUser };
+const changeUserPassword = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  try {
+    const { userId } = req.params;
+
+    await services.changeUserPassword({
+      userId,
+      ...req.body,
+    });
+    res.status(201).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export { createUser, getUser, changeUserPassword };
