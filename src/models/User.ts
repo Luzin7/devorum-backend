@@ -5,7 +5,7 @@ class User {
   password: string;
   salt: string;
   contact: string;
-  questions?: string[];
+  questions: string[];
 
   constructor(
     date: number,
