@@ -1,17 +1,20 @@
 {
   "name": "turmaqa-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "git@github.com:Luzin7/TurmaQA-Backend.git",
   "author": "Luan Victor <lvictor.dutra@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "lint": "eslint . --ext .js,.ts"
+    "dev": "nodemon ./src/server.ts",
+    "lint": "eslint . --ext .js,.ts",
+    "build": "tsc && node copy-data.ts",
+    "start": "node dist/server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/node": "^20.5.7",
+    "@types/uuid": "^9.0.3",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.0.1",
@@ -23,6 +26,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "ts-node": "^10.9.1",
     "typescript": "*"
   },
   "dependencies": {

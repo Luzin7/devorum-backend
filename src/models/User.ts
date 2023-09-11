@@ -1,16 +1,28 @@
-class Users {
+class User {
   date: number;
-  id: number;
+  id: string;
   name: string;
   password: string;
+  salt: string;
   contact: string;
-  question: string[];
+  questions?: string[];
 
-  constructor(id: number, name: string, password: string) {
+  constructor(
+    date: number,
+    id: string,
+    name: string,
+    password: string,
+    contact: string,
+    salt: string = '',
+  ) {
+    this.date = date;
     this.id = id;
     this.name = name;
     this.password = password;
+    this.salt = salt;
+    this.contact = contact;
+    this.questions = [];
   }
 }
 
-export default Users;
+export default User;

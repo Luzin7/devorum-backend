@@ -1,0 +1,47 @@
+###
+GET http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "Usuário2",
+  "password": "123456"
+}
+
+###
+GET http://localhost:8080/questions
+
+###
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "name": "Usuário2",
+  "contact": "Contato2",
+  "password": "123456"
+}
+
+###
+POST http://localhost:8080/questions
+Content-Type: application/json
+
+{
+  "authorId": "b8b8fa94-c280-4041-9cf7-c9ec78362d4e",
+  "question": "Pegunta imaginária"
+}
+
+###
+POST http://localhost:8080/questions/comments
+Content-Type: application/json
+
+{
+  "authorId": "5b0aaf55-768d-47ca-9ce1-ad931a1994be",
+  "questionId": "968d2517-60fe-4fd9-a312-44ef5acd4ebc",
+  "comment": "Comentário imaginário"
+}
+
+###
+DELETE http://localhost:8080/questions/:questionId/comments/:commentId
+
+###
+DELETE http://localhost:8080/questions/a0ae1904-a57b-4efb-aaff-5d5a57c00003
+

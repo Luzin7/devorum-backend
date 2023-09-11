@@ -1,3 +1,6 @@
-const { PORT } = require('../config');
+import app from './app';
 
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
+require('dotenv').config();
+const port = process.env.PORT || '4321';
+
+app.listen(port, () => console.log(`Server is listening on port ${port}`));

@@ -1,15 +1,33 @@
-import { Request, Response } from 'express';
-
 import { Router } from 'express';
-
-import askQuestion from '../controllers/QuestionController';
+import {
+  getQuestions,
+  createQuestion,
+  createComment,
+  deleteComment,
+  deleteQuestion,
+} from '../controllers/QuestionController';
+import * as middlewares from '../middlewares';
 
 const questionRouter = Router();
 
-questionRouter.get('/questions', (req: Request, res: Response) => {
-  res.send('All Questions');
-});
+questionRouter.get('/questions', getQuestions);
 
-questionRouter.post('/questions', askQuestion);
+questionRouter.post('/questions', middlewares.createQuestion, createQuestion);
+questionRouter.delete(
+  '/questions/:questionId',
+  middlewares.deleteQuestion,
+  deleteQuestion,
+);
+
+questionRouter.post(
+  '/questions/comments',
+  middlewares.createComment,
+  createComment,
+);
+questionRouter.delete(
+  '/questions/:questionId/comments/:commentId',
+  middlewares.deleteComment,
+  deleteComment,
+);
 
 export default questionRouter;

@@ -1,46 +1,59 @@
 import { Request, Response } from 'express';
-import { writeFile, readFile } from 'fs/promises';
-import { v4 as uuidv4 } from 'uuid';
+import * as services from '../services';
+import handleError from '../functions/handleError';
 
-const askQuestion = async (req: Request, res: Response): Promise<void> => {
-  const { text, name } = req.body;
-  // const userId = req.user.id; this part is user id verification to submit question code
-
-  if (!text) {
-    res.status(400).json({ message: 'Missing question text.' });
-  }
-
+const getQuestions = async (req: Request, res: Response): Promise<void> => {
   try {
-    const questionsData = await readFile('./src/data/questions.json', 'utf-8');
-
-    const parseQuestions = JSON.parse(questionsData);
-
-    const newQuestionId = uuidv4();
-    const currentTime = new Date().getTime();
-    const someUpvote = 0;
-
-    const newQuestion = {
-      id: newQuestionId,
-      author: name,
-      date: currentTime,
-      upvotes: someUpvote,
-      question: text,
-      comments: [], // Se necessário, adicione os comentários aqui
-    };
-
-    parseQuestions.push(newQuestion);
-
-    await writeFile(
-      './src/data/questions.json',
-      JSON.stringify(parseQuestions, null, 2),
-      { encoding: 'utf-8' },
-    );
-
-    res.status(201).json({ id: newQuestionId });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error.' });
+    const questions = await services.getQuestions();
+    res.json(questions);
+  } catch (error) {
+    handleError(res, error);
   }
 };
 
-export default askQuestion;
+const createQuestion = async (req: Request, res: Response): Promise<void> => {
+  try {
+    await services.createQuestion(req.body);
+    res.status(201).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const createComment = async (req: Request, res: Response): Promise<void> => {
+  try {
+    await services.addNewComment(req.body);
+    res.status(201).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const deleteQuestion = async (req: Request, res: Response): Promise<void> => {
+  const { questionId } = req.params;
+
+  try {
+    await services.deleteQuestion(questionId);
+    res.status(202).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const deleteComment = async (req: Request, res: Response): Promise<void> => {
+  const { questionId, commentId } = req.params;
+  try {
+    await services.deleteComment(commentId, questionId);
+    res.status(202).json();
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+export {
+  getQuestions,
+  createQuestion,
+  createComment,
+  deleteQuestion,
+  deleteComment,
+};
