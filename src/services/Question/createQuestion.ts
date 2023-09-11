@@ -1,8 +1,7 @@
 import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
-import { UsersProps } from '../../types';
+import { ContentDataProps } from '../../types';
 import Question from '../../models/Question';
-import User from '../../models/User';
 
 type QuestionProps = {
   question: string;
@@ -13,23 +12,29 @@ const registerNewQuestion = async ({
   question,
   authorId,
 }: QuestionProps): Promise<void> => {
-  const questions = await readFile('./src/data/questions.json', 'utf-8');
-  const users = await readFile('./src/data/users.json', 'utf-8');
+  const usersData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/users.json', 'utf-8'),
+  );
+  const questionsData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/questions.json', 'utf-8'),
+  );
 
-  const questionsData = JSON.parse(questions);
-  const usersData = JSON.parse(users);
+  const { users } = usersData;
+  const { questions } = questionsData;
 
   const newQuestionId = uuidv4();
   const currentTime = new Date().getTime();
   const someUpvote = 0;
 
-  const userIndex = usersData.findIndex(
-    (user: UsersProps) => user.id === authorId,
-  );
+  const userIndex = users.findIndex((user) => user.id === authorId);
 
-  const authorName = usersData.find((user: User) => user.id === authorId).name;
+  if (userIndex === -1) {
+    throw new Error('User not found');
+  }
 
-  usersData[userIndex].questions.push(newQuestionId);
+  const authorName = users[userIndex].name;
+
+  console.log(authorName);
 
   const newQuestion = new Question(
     currentTime,
@@ -40,7 +45,8 @@ const registerNewQuestion = async ({
     someUpvote,
   );
 
-  questionsData.push(newQuestion);
+  questions.push(newQuestion);
+  users[userIndex].questions.push(newQuestionId);
 
   await writeFile(
     './src/data/questions.json',

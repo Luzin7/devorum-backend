@@ -1,14 +1,19 @@
 import { readFile, writeFile } from 'fs/promises';
 import Question from '../../models/Question';
 import User from '../../models/User';
+import { ContentDataProps } from '../../types';
 
 const deleteQuestion = async (questionId: string): Promise<void> => {
-  const questions = await readFile('./src/data/questions.json', 'utf-8');
-  const users = await readFile('./src/data/users.json', 'utf-8');
-  const questionsData = JSON.parse(questions);
-  const usersData = JSON.parse(users);
+  const usersData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/users.json', 'utf-8'),
+  );
+  const questionsData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/questions.json', 'utf-8'),
+  );
+  const { users } = usersData;
+  const { questions } = questionsData;
 
-  const questionIndex = questionsData.findIndex(
+  const questionIndex = questions.findIndex(
     (question: Question) => question.id === questionId,
   );
 
@@ -16,18 +21,18 @@ const deleteQuestion = async (questionId: string): Promise<void> => {
     throw new Error('Question does not exist');
   }
 
-  const userId = questionsData[questionIndex].authorId;
+  const userId = questions[questionIndex].authorId;
 
-  const userIndex = usersData.findIndex((user: User) => user.id === userId);
+  const userIndex = users.findIndex((user: User) => user.id === userId);
 
-  const userQuestionIndex = usersData[userIndex].questions.indexOf(questionId);
+  const userQuestionIndex = users[userIndex].questions.indexOf(questionId);
 
   if (userQuestionIndex === -1) {
     throw new Error('Question not found in User');
   }
 
-  questionsData.splice(questionIndex, 1);
-  usersData[userIndex].questions.splice(userQuestionIndex, 1);
+  questions.splice(questionIndex, 1);
+  users[userIndex].questions.splice(userQuestionIndex, 1);
 
   await writeFile(
     './src/data/questions.json',

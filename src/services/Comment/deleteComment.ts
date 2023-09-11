@@ -1,15 +1,18 @@
 import { readFile, writeFile } from 'fs/promises';
 import Question from '../../models/Question';
-import Comment from '../../models/Comment';
+import { ContentDataProps } from '../../types';
 
 const deleteComment = async (
   commentId: string,
   questionId: string,
 ): Promise<void> => {
-  const questions = await readFile('./src/data/questions.json', 'utf-8');
-  const questionsData = JSON.parse(questions);
+  const questionsData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/questions.json', 'utf-8'),
+  );
 
-  const questionIndex = questionsData.findIndex(
+  const { questions } = questionsData;
+
+  const questionIndex = questions.findIndex(
     (question: Question) => question.id === questionId,
   );
 
@@ -17,15 +20,15 @@ const deleteComment = async (
     throw new Error('Question does not exist');
   }
 
-  const commentIndex = questionsData[questionIndex].comments.findIndex(
-    (comment: Comment) => comment.id === commentId,
+  const commentIndex = questions[questionIndex].comments.findIndex(
+    (comment) => comment.id === commentId,
   );
 
   if (commentIndex === -1) {
     throw new Error('Comment does not exist for this question');
   }
 
-  questionsData[questionIndex].comments.splice(commentIndex, 1);
+  questions[questionIndex].comments.splice(commentIndex, 1);
 
   await writeFile(
     './src/data/questions.json',

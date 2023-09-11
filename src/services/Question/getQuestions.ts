@@ -1,8 +1,10 @@
 import { readFile } from 'fs/promises';
+import { ContentDataProps } from '../../types';
 
-const getQuestions = async (): Promise<void> => {
-  const questions = await readFile('./src/data/questions.json', 'utf-8');
-  const questionsData = JSON.parse(questions);
+const getQuestions = async (): Promise<ContentDataProps> => {
+  const questionsData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/questions.json', 'utf-8'),
+  );
 
   return questionsData;
 };

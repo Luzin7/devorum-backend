@@ -1,6 +1,7 @@
 import { readFile } from 'fs/promises';
 import User from '../../models/User';
 import encryptPassword from '../../functions/generateCriptoPassword';
+import { ContentDataProps } from '../../types';
 
 const login = async ({
   name,
@@ -9,10 +10,13 @@ const login = async ({
   name: string;
   password: string;
 }): Promise<User> => {
-  const users = await readFile('./src/data/users.json', 'utf-8');
-  const usersData: User[] = JSON.parse(users);
+  const usersData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/users.json', 'utf-8'),
+  );
 
-  const user = usersData.find((user) => user.name === name);
+  const { users } = usersData;
+
+  const user = users.find((user) => user.name === name);
 
   if (!user) {
     throw new Error('User does not exist');

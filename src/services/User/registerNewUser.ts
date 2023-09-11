@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import User from '../../models/User';
 import * as crypto from 'crypto'; // Import the crypto module
 import encryptPassword from '../../functions/generateCriptoPassword';
+import ContentDataProps from '../../types/IContentData';
 
 const { readFile, writeFile } = fsPromises;
 
@@ -15,11 +16,15 @@ const registerNewUser = async ({
   password: string;
   contact: string;
 }): Promise<void> => {
-  const usersData: User[] = JSON.parse(
+  const usersData: ContentDataProps = JSON.parse(
     await readFile('./src/data/users.json', 'utf-8'),
   );
 
-  const userAlreadyExists = usersData.find(
+  const { users } = usersData;
+
+  console.log(users);
+
+  const userAlreadyExists = users.find(
     (user) => user.name === name || user.contact === contact,
   );
 
@@ -43,7 +48,7 @@ const registerNewUser = async ({
     salt,
   );
 
-  usersData.push(newUser);
+  users.push(newUser);
 
   await writeFile('./src/data/users.json', JSON.stringify(usersData, null, 2), {
     encoding: 'utf-8',

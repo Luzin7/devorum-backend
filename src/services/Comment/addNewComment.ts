@@ -1,8 +1,7 @@
 import { writeFile, readFile } from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
-import Question from '../../models/Question';
-import User from '../../models/User';
 import Comment from '../../models/Comment';
+import { ContentDataProps } from '../../types';
 
 type CommentProps = {
   comment: string;
@@ -15,21 +14,26 @@ const addNewComment = async ({
   authorId,
   questionId,
 }: CommentProps): Promise<void> => {
-  const questions = await readFile('./src/data/questions.json', 'utf-8');
-  const users = await readFile('./src/data/users.json', 'utf-8');
-  const usersData = JSON.parse(users);
+  const usersData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/users.json', 'utf-8'),
+  );
+  const questionsData: ContentDataProps = JSON.parse(
+    await readFile('./src/data/questions.json', 'utf-8'),
+  );
 
-  const questionsData = JSON.parse(questions);
+  const { users } = usersData;
+  const { questions } = questionsData;
 
-  const questionIndex = questionsData.findIndex(
-    (question: Question) => question.id === questionId,
+  const questionIndex = questions.findIndex(
+    (question) => question.id === questionId,
   );
 
   if (questionIndex === -1) {
     throw new Error('Question does not exist');
   }
 
-  const authorName = usersData.find((user: User) => user.id === authorId).name;
+  const userIndex = users.findIndex((user) => user.id === authorId);
+  const authorName = users[userIndex].name;
 
   if (authorName === undefined) {
     throw new Error('User does not exists');
@@ -46,7 +50,7 @@ const addNewComment = async ({
     comment,
   );
 
-  questionsData[questionIndex].comments.push(newComment);
+  questions[questionIndex].comments.push(newComment);
 
   await writeFile(
     './src/data/questions.json',
