@@ -1,19 +1,31 @@
 import { readFile } from 'fs/promises';
 import User from '../../models/User';
+import encryptPassword from '../../functions/generateCriptoPassword';
 
-const login = async ({ name, password }: User): Promise<void> => {
+const login = async ({
+  name,
+  password,
+}: {
+  name: string;
+  password: string;
+}): Promise<User> => {
   const users = await readFile('./src/data/users.json', 'utf-8');
-  const usersData = JSON.parse(users);
+  const usersData: User[] = JSON.parse(users);
 
-  const userExists = usersData.find(
-    (user: User) => user.name === name && user.password === password,
-  );
+  const user = usersData.find((user) => user.name === name);
 
-  if (userExists === undefined) {
-    throw new Error('User does not exists');
+  if (!user) {
+    throw new Error('User does not exist');
   }
 
-  return userExists;
+  const isPasswordValid =
+    user.password === encryptPassword(password, user.salt);
+
+  if (!isPasswordValid) {
+    throw new Error('Invalid password');
+  }
+
+  return user;
 };
 
 export default login;

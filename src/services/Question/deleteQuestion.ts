@@ -27,7 +27,6 @@ const deleteQuestion = async (questionId: string): Promise<void> => {
   }
 
   questionsData.splice(questionIndex, 1);
-  // NÃO QUER APAGAR O ELEMENTO DO ARRAY DO USUARIO
   usersData[userIndex].questions.splice(userQuestionIndex, 1);
 
   await writeFile(
