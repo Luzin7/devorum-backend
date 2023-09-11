@@ -1,13 +1,3 @@
-[
-  {
-    "date": 1694468224737,
-    "id": "b8b8fa94-c280-4041-9cf7-c9ec78362d4e",
-    "name": "Usuário2",
-    "password": "c0c267160f1526afcbcee4554c4fa9dd6e7652afc6bc7da42bc44b6a2452aa53b9cb907d12422d1a51901dfe696008a4116f1db83320b0d6806ea3d75113fdf7",
-    "salt": "ceca2082afdc0dcba98dca07f9ff40b6",
-    "contact": "Contato2",
-    "questions": [
-      "701e121c-e6da-4a5d-89d5-ca0f0d0b636d"
-    ]
-  }
-]
+{
+  "users": []
+}
