@@ -1,3 +1,5 @@
+import Comment from './Comment';
+
 class Question {
   date: number;
   id: string;
@@ -5,7 +7,7 @@ class Question {
   author: string;
   question: string;
   upvotes: number;
-  comments: string[];
+  comments: Comment[];
 
   constructor(
     date: number,
