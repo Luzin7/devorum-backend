@@ -5,7 +5,7 @@ import deleteComment from './Comment/deleteComment';
 import deleteQuestion from './Question/deleteQuestion';
 import getQuestions from './Question/getQuestions';
 import login from './User/login';
-import changeUserPassword from './changePassword';
+import changeUserPassword from './User/changePassword';
 
 export {
   login,
