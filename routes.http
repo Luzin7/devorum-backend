@@ -25,7 +25,7 @@ POST http://localhost:8080/questions
 Content-Type: application/json
 
 {
-  "authorId": "6e14e2e0-5ba0-4450-ae30-ce8a0aba6aed",
+  "authorId": "b8b8fa94-c280-4041-9cf7-c9ec78362d4e",
   "question": "Pegunta imaginária"
 }
 

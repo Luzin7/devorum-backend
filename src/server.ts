@@ -1,7 +1,6 @@
 import app from './app';
 
-const { PORT } = require('../config');
-
-const port = PORT || '4425';
+require('dotenv').config();
+const port = process.env.PORT || '4321';
 
 app.listen(port, () => console.log(`Server is listening on port ${port}`));

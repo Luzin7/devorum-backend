@@ -30,10 +30,7 @@ const registerNewUser = async ({
   const currentTime = new Date().getTime();
   const newUserID = uuidv4();
 
-  let salt = '';
-  if (!('salt' in usersData[0])) {
-    salt = crypto.randomBytes(16).toString('hex');
-  }
+  const salt = crypto.randomBytes(16).toString('hex');
 
   const encryptedPassword = encryptPassword(password, salt);
 

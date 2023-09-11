@@ -15,6 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
+    "sourceMap": true,
     "strictPropertyInitialization": false
   },
   "include": ["src/**/*"],
