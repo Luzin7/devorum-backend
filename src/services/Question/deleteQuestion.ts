@@ -1,47 +1,20 @@
-import { readFile, writeFile } from 'fs/promises';
-import Question from '../../models/Question';
-import User from '../../models/User';
-import { ContentDataProps } from '../../types';
+import { QuestionsDbPg } from '../../repositories/QuestionRepository';
+import { UsersDbPg } from '../../repositories/UserRepository';
 
-const deleteQuestion = async (questionId: string): Promise<void> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
-  const questionsData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/questions.json', 'utf-8'),
-  );
-  const { users } = usersData;
-  const { questions } = questionsData;
+const questionsDb = new QuestionsDbPg();
+const usersDb = new UsersDbPg();
 
-  const questionIndex = questions.findIndex(
-    (question: Question) => question.id === questionId,
-  );
+const deleteQuestion = async (question_id: string): Promise<void> => {
+  const questionExists = await questionsDb.existingQuestion(question_id);
 
-  if (questionIndex === -1) {
-    throw new Error('Question does not exist');
+  if (questionExists.length <= 0) {
+    throw new Error('User not found');
   }
 
-  const userId = questions[questionIndex].authorId;
+  const authorId = questionExists[0].author_id;
 
-  const userIndex = users.findIndex((user: User) => user.id === userId);
-
-  const userQuestionIndex = users[userIndex].questions.indexOf(questionId);
-
-  if (userQuestionIndex === -1) {
-    throw new Error('Question not found in User');
-  }
-
-  questions.splice(questionIndex, 1);
-  users[userIndex].questions.splice(userQuestionIndex, 1);
-
-  await writeFile(
-    './src/data/questions.json',
-    JSON.stringify(questionsData, null, 2),
-    { encoding: 'utf-8' },
-  );
-  await writeFile('./src/data/users.json', JSON.stringify(usersData, null, 2), {
-    encoding: 'utf-8',
-  });
+  questionsDb.deleteQuestion(question_id);
+  usersDb.removeQuestion(authorId, question_id);
 };
 
 export default deleteQuestion;

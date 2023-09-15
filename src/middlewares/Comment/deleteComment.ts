@@ -5,10 +5,10 @@ const deleteComment = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const { questionId, commentId } = req.params;
+  const { comment_id } = req.params;
 
-  if (!questionId || !commentId) {
-    res.status(409).json({ message: 'All fields must be provided' });
+  if (!comment_id) {
+    res.status(409).json({ message: 'Comment ID must be provided' });
   } else {
     next();
   }

@@ -3,7 +3,7 @@ GET http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "name": "Usuário2",
+  "name": "Luan Victor",
   "password": "123456"
 }
 
@@ -11,12 +11,15 @@ Content-Type: application/json
 GET http://localhost:8080/questions
 
 ###
+GET http://localhost:8080/comments/2b21a907-abc0-47b7-898a-9c3f18e39702
+
+###
 POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "name": "Usuário2",
-  "contact": "Contato2",
+  "name": "Luan Victor",
+  "contact": "lvictor7",
   "password": "123456"
 }
 
@@ -25,8 +28,9 @@ POST http://localhost:8080/questions
 Content-Type: application/json
 
 {
-  "authorId": "b8b8fa94-c280-4041-9cf7-c9ec78362d4e",
-  "question": "Pegunta imaginária"
+  "author_id": "be43abbb-3e9b-4217-ba3d-788289b70e1a",
+  "title": "Dêem alusão do que são métodos de arrays",
+  "question": "Como posso definir o que são ou como posso trazer para o mundo real o que são os métodos de array?"
 }
 
 ###
@@ -34,14 +38,17 @@ POST http://localhost:8080/questions/comments
 Content-Type: application/json
 
 {
-  "authorId": "5b0aaf55-768d-47ca-9ce1-ad931a1994be",
-  "questionId": "968d2517-60fe-4fd9-a312-44ef5acd4ebc",
-  "comment": "Comentário imaginário"
+  "author_id": "b9e044c2-2d6f-4b1e-8d6e-e6db36dfe249",
+  "question_id": "2b21a907-abc0-47b7-898a-9c3f18e39702",
+  "comment": "Irmão, basta olhar as aulas do curso que já vão te ensinar o bastante (ja que pelo visto vc nao se deu o trabalho de olhar) ou vai procurar usando o google ou chatgpt. Se vira e aprende."
 }
 
 ###
-DELETE http://localhost:8080/questions/:questionId/comments/:commentId
+DELETE http://localhost:8080/comments/605835c8-d13a-413a-859f-b0385dfc4cca
 
 ###
-DELETE http://localhost:8080/questions/a0ae1904-a57b-4efb-aaff-5d5a57c00003
+DELETE http://localhost:8080/questions/12ad50e2-d039-4afa-9e6d-2fa1e73cc2ec
+
+###
+DELETE http://localhost:8080/users/87f4564e-6420-41ac-b17a-b54849c87e54
 

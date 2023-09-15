@@ -1,35 +1,36 @@
-import { readFile } from 'fs/promises';
 import User from '../../models/User';
 import encryptPassword from '../../functions/generateCriptoPassword';
-import { ContentDataProps } from '../../types';
+import { UsersDbPg } from '../../repositories/UserRepository';
+import { Row } from 'postgres';
 
-const login = async ({
-  name,
-  password,
-}: {
-  name: string;
-  password: string;
-}): Promise<User> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
+const database = new UsersDbPg();
 
-  const { users } = usersData;
+const login = async ({ name, password }: User): Promise<Row> => {
+  try {
+    const userExists = await database.existingUser(name);
 
-  const user = users.find((user) => user.name === name);
+    if (userExists.length <= 0) {
+      throw new Error('User does not exist');
+    }
 
-  if (!user) {
-    throw new Error('User does not exist');
+    const isPasswordValid =
+      userExists[0].password === encryptPassword(password, userExists[0].salt);
+
+    if (!isPasswordValid) {
+      throw new Error('Invalid password');
+    }
+
+    const user = {
+      id: userExists[0].id,
+      name: userExists[0].name,
+      contact: userExists[0].contact,
+      questions: userExists[0].questions,
+    };
+
+    return user;
+  } catch (error) {
+    throw new Error(error);
   }
-
-  const isPasswordValid =
-    user.password === encryptPassword(password, user.salt);
-
-  if (!isPasswordValid) {
-    throw new Error('Invalid password');
-  }
-
-  return user;
 };
 
 export default login;

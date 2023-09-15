@@ -5,9 +5,9 @@ const deleteQuestion = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const { questionId } = req.params;
+  const { question_id } = req.params;
 
-  if (!questionId) {
+  if (!question_id) {
     res.status(409).json({ message: 'The question ID must be provided' });
   } else {
     next();

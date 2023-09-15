@@ -1,12 +1,14 @@
-import { readFile } from 'fs/promises';
-import { ContentDataProps } from '../../types';
+import postgres from 'postgres';
+import { QuestionsDbPg } from '../../repositories/QuestionRepository';
 
-const getQuestions = async (): Promise<ContentDataProps> => {
-  const questionsData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/questions.json', 'utf-8'),
-  );
+const database = new QuestionsDbPg();
 
-  return questionsData;
+const getQuestions = async (): Promise<
+postgres.PendingQuery<postgres.Row[]>
+> => {
+  const questions = await database.list();
+
+  return questions;
 };
 
 export default getQuestions;

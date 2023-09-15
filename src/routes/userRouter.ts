@@ -1,17 +1,18 @@
+import { Router } from 'express';
 import {
-  changeUserPassword,
+  // changeUserPassword,
   createUser,
-  getUser,
+  userAuth,
+  deleteAccount,
 } from '../controllers/UserController';
 import { validateNewUserRegistration } from '../middlewares';
-
-const { Router } = require('express');
 
 const userRouter = Router();
 
 userRouter.post('/register', validateNewUserRegistration, createUser);
-userRouter.get('/login', getUser);
+userRouter.get('/login', userAuth);
+userRouter.delete('/users/:user_id', deleteAccount);
 
-userRouter.put('/change-password/:userId', changeUserPassword);
+// userRouter.put('/change-password/:userId', changeUserPassword);
 
 export default userRouter;

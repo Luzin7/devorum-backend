@@ -1,61 +1,38 @@
-import { writeFile, readFile } from 'fs/promises';
-import { v4 as uuidv4 } from 'uuid';
-import { ContentDataProps } from '../../types';
+import { randomUUID } from 'node:crypto';
 import Question from '../../models/Question';
+import { QuestionsDbPg } from '../../repositories/QuestionRepository';
+import { UsersDbPg } from '../../repositories/UserRepository';
 
-type QuestionProps = {
-  question: string;
-  authorId: string;
-};
+const questionsDb = new QuestionsDbPg();
+const usersDb = new UsersDbPg();
 
 const registerNewQuestion = async ({
   question,
-  authorId,
-}: QuestionProps): Promise<void> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
-  const questionsData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/questions.json', 'utf-8'),
-  );
+  author_id,
+  title,
+}: Question): Promise<void> => {
+  const userExists = await usersDb.existingUser(author_id);
 
-  const { users } = usersData;
-  const { questions } = questionsData;
-
-  const newQuestionId = uuidv4();
-  const currentTime = new Date().getTime();
-  const someUpvote = 0;
-
-  const userIndex = users.findIndex((user) => user.id === authorId);
-
-  if (userIndex === -1) {
+  if (userExists.length <= 0) {
     throw new Error('User not found');
   }
 
-  const authorName = users[userIndex].name;
+  const authorName = userExists[0].name;
 
-  console.log(authorName);
+  const newQuestionId = randomUUID();
+  const currentTime = new Date().getTime();
 
   const newQuestion = new Question(
     currentTime,
     newQuestionId,
-    authorId,
+    author_id,
     authorName,
+    title,
     question,
-    someUpvote,
   );
 
-  questions.push(newQuestion);
-  users[userIndex].questions.push(newQuestionId);
-
-  await writeFile(
-    './src/data/questions.json',
-    JSON.stringify(questionsData, null, 2),
-    { encoding: 'utf-8' },
-  );
-  await writeFile('./src/data/users.json', JSON.stringify(usersData, null, 2), {
-    encoding: 'utf-8',
-  });
+  questionsDb.createQuestion(newQuestion);
+  usersDb.addQuestionToUser(newQuestionId, author_id);
 };
 
 export default registerNewQuestion;

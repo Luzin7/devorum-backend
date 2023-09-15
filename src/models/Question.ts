@@ -1,29 +1,25 @@
-import Comment from './Comment';
-
 class Question {
-  date: number;
+  create_at: number;
   id: string;
-  authorId: string;
-  author: string;
+  author_id: string;
+  author_name: string;
+  title: string;
   question: string;
-  upvotes: number;
-  comments: Comment[];
 
   constructor(
-    date: number,
+    create_at: number,
     id: string,
-    authorId: string,
-    author: string,
+    author_id: string,
+    author_name: string,
+    title: string,
     question: string,
-    upvotes: number,
   ) {
-    this.date = date;
+    this.create_at = create_at;
     this.id = id;
-    this.authorId = authorId;
-    this.author = author;
+    this.author_id = author_id;
+    this.author_name = author_name;
+    this.title = title;
     this.question = question;
-    this.upvotes = upvotes;
-    this.comments = [];
   }
 }
 

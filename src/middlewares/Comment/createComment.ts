@@ -5,9 +5,9 @@ const createComment = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const { comment, authorId, questionId } = req.body;
+  const { comment, author_id, question_id } = req.body;
 
-  if (!comment || !authorId || !questionId) {
+  if (!comment || !author_id || !question_id) {
     res.status(409).json({ message: 'All fields must be provided' });
   } else {
     next();

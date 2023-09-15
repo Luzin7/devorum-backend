@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import * as services from '../services';
 import handleError from '../functions/handleError';
+import * as services from '../services';
 
 const getQuestions = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -20,40 +20,15 @@ const createQuestion = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const createComment = async (req: Request, res: Response): Promise<void> => {
-  try {
-    await services.addNewComment(req.body);
-    res.status(201).json();
-  } catch (error) {
-    handleError(res, error);
-  }
-};
-
 const deleteQuestion = async (req: Request, res: Response): Promise<void> => {
-  const { questionId } = req.params;
+  const { question_id } = req.params;
 
   try {
-    await services.deleteQuestion(questionId);
+    await services.deleteQuestion(question_id);
     res.status(202).json();
   } catch (error) {
     handleError(res, error);
   }
 };
 
-const deleteComment = async (req: Request, res: Response): Promise<void> => {
-  const { questionId, commentId } = req.params;
-  try {
-    await services.deleteComment(commentId, questionId);
-    res.status(202).json();
-  } catch (error) {
-    handleError(res, error);
-  }
-};
-
-export {
-  getQuestions,
-  createQuestion,
-  createComment,
-  deleteQuestion,
-  deleteComment,
-};
+export { getQuestions, createQuestion, deleteQuestion };

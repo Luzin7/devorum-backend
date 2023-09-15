@@ -1,24 +1,25 @@
 class Comment {
-  date: number;
+  created_at: number;
   id: string;
-  authorId: string;
-  author: string;
+  author_id: string;
+  author_name: string;
+  question_id: string;
   comment: string;
-  upvotes: number;
 
   constructor(
-    date: number,
+    created_at: number,
     id: string,
-    authorId: string,
-    author: string,
+    author_id: string,
+    author_name: string,
     comment: string,
+    question_id: string,
   ) {
-    this.date = date;
+    this.created_at = created_at;
     this.id = id;
-    this.authorId = authorId;
-    this.author = author;
+    this.author_id = author_id;
+    this.author_name = author_name;
+    this.question_id = question_id;
     this.comment = comment;
-    this.upvotes = 0;
   }
 }
 

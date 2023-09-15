@@ -1,13 +1,9 @@
-import { readFile, writeFile } from 'fs/promises';
-import { ContentDataProps } from '../../types';
+import encryptPassword from '../../functions/generateCriptoPassword';
+import { UsersDbPg } from '../../repositories/UserRepository';
+import { ChangePasswordProps } from '../../types';
+import crypto from 'node:crypto';
 
-type ChangePasswordProps = {
-  id: string;
-  userId: string;
-  currentPassword: string;
-  newPassword: string;
-  newPasswordConfirm: string;
-};
+const database = new UsersDbPg();
 
 const changeUserPassword = async ({
   userId,
@@ -15,41 +11,34 @@ const changeUserPassword = async ({
   newPassword,
   newPasswordConfirm,
 }: ChangePasswordProps): Promise<void> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
+  try {
+    const userExists = await database.existingUser(userId);
 
-  const { users } = usersData;
+    if (userExists.length <= 0) {
+      throw new Error('User not found');
+    }
+    const user = userExists[0];
 
-  const userIndex = users.findIndex((user) => user.id === userId);
+    if (user.password !== currentPassword) {
+      throw new Error('Current password is incorrect');
+    }
 
-  if (userIndex === -1) {
-    throw new Error('User not found');
+    if (newPassword !== newPasswordConfirm) {
+      throw new Error('New passwords do not match');
+    }
+
+    if (newPassword.length < 6 || newPassword.length > 16) {
+      throw new Error('New password must have at least 6 or 16 characters');
+    }
+
+    const salt = crypto.randomBytes(16).toString('hex');
+
+    const encryptedNewPassword = encryptPassword(newPassword, salt);
+
+    database.updatePassword(userId, encryptedNewPassword, salt);
+  } catch (error) {
+    throw new Error(error);
   }
-
-  const userObj = users[userIndex];
-
-  if (!userObj) {
-    throw new Error('User not found');
-  }
-
-  if (userObj.password !== currentPassword) {
-    throw new Error('Current password is incorrect');
-  }
-
-  if (newPassword !== newPasswordConfirm) {
-    throw new Error('New passwords do not match');
-  }
-
-  if (newPassword.length < 6) {
-    throw new Error('New password must have at least 6 characters');
-  }
-
-  userObj.password = newPassword;
-
-  await writeFile('./src/data/users.json', JSON.stringify(usersData, null, 2), {
-    encoding: 'utf-8',
-  });
 };
 
 export default changeUserPassword;

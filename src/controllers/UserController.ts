@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import * as services from '../services';
 import handleError from '../functions/handleError';
+import * as services from '../services';
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -11,7 +11,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const getUser = async (req: Request, res: Response): Promise<void> => {
+const userAuth = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await services.login(req.body);
     res.json(user);
@@ -20,21 +20,31 @@ const getUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const changeUserPassword = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
-  try {
-    const { userId } = req.params;
+// const changeUserPassword = async (
+//   req: Request,
+//   res: Response,
+// ): Promise<void> => {
+//   try {
+//     const { userId } = req.params;
 
-    await services.changeUserPassword({
-      userId,
-      ...req.body,
-    });
-    res.status(201).json();
+//     await services.changeUserPassword({
+//       userId,
+//       ...req.body,
+//     });
+//     res.status(201).json();
+//   } catch (error) {
+//     handleError(res, error);
+//   }
+// };
+
+const deleteAccount = async (req: Request, res: Response): Promise<void> => {
+  const { user_id } = req.params;
+  try {
+    await services.deleteUser(user_id);
+    res.status(204).json();
   } catch (error) {
     handleError(res, error);
   }
 };
 
-export { createUser, getUser, changeUserPassword };
+export { createUser, userAuth, deleteAccount };

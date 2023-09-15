@@ -1,11 +1,10 @@
-import { promises as fsPromises } from 'fs';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import User from '../../models/User';
-import * as crypto from 'crypto'; // Import the crypto module
+import crypto from 'node:crypto';
 import encryptPassword from '../../functions/generateCriptoPassword';
-import ContentDataProps from '../../types/IContentData';
+import { UsersDbPg } from '../../repositories/UserRepository';
 
-const { readFile, writeFile } = fsPromises;
+const database = new UsersDbPg();
 
 const registerNewUser = async ({
   name,
@@ -16,43 +15,29 @@ const registerNewUser = async ({
   password: string;
   contact: string;
 }): Promise<void> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
+  const userAlreadyExists = await database.existingUser(name);
 
-  const { users } = usersData;
-
-  console.log(users);
-
-  const userAlreadyExists = users.find(
-    (user) => user.name === name || user.contact === contact,
-  );
-
-  if (userAlreadyExists !== undefined) {
+  if (userAlreadyExists.length > 0) {
     throw new Error('Name or contact already exists');
   }
 
-  const currentTime = new Date().getTime();
-  const newUserID = uuidv4();
+  const createAt = new Date().getTime();
+  const id = randomUUID();
 
   const salt = crypto.randomBytes(16).toString('hex');
 
   const encryptedPassword = encryptPassword(password, salt);
 
   const newUser = new User(
-    currentTime,
-    newUserID,
+    createAt,
+    id,
     name,
     encryptedPassword,
     contact,
     salt,
   );
 
-  users.push(newUser);
-
-  await writeFile('./src/data/users.json', JSON.stringify(usersData, null, 2), {
-    encoding: 'utf-8',
-  });
+  database.createUser(newUser);
 };
 
 export default registerNewUser;

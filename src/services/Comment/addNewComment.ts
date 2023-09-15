@@ -1,62 +1,37 @@
-import { writeFile, readFile } from 'fs/promises';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'node:crypto';
+import { CommentsDbPg } from '../../repositories/CommentRepository';
 import Comment from '../../models/Comment';
-import { ContentDataProps } from '../../types';
+import { UsersDbPg } from '../../repositories/UserRepository';
 
-type CommentProps = {
-  comment: string;
-  authorId: string;
-  questionId: string;
-};
+const commentsDb = new CommentsDbPg();
+const usersDb = new UsersDbPg();
 
 const addNewComment = async ({
   comment,
-  authorId,
-  questionId,
-}: CommentProps): Promise<void> => {
-  const usersData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/users.json', 'utf-8'),
-  );
-  const questionsData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/questions.json', 'utf-8'),
-  );
+  author_id,
+  question_id,
+}: Comment): Promise<void> => {
+  const userExists = await usersDb.existingUser(author_id);
 
-  const { users } = usersData;
-  const { questions } = questionsData;
-
-  const questionIndex = questions.findIndex(
-    (question) => question.id === questionId,
-  );
-
-  if (questionIndex === -1) {
-    throw new Error('Question does not exist');
+  if (userExists.length <= 0) {
+    throw new Error('User not found');
   }
 
-  const userIndex = users.findIndex((user) => user.id === authorId);
-  const authorName = users[userIndex].name;
+  const authorName = userExists[0].name;
 
-  if (authorName === undefined) {
-    throw new Error('User does not exists');
-  }
-
-  const newCommentId = uuidv4();
+  const newQuestionId = randomUUID();
   const currentTime = new Date().getTime();
 
   const newComment = new Comment(
     currentTime,
-    newCommentId,
-    authorId,
+    newQuestionId,
+    author_id,
     authorName,
     comment,
+    question_id,
   );
 
-  questions[questionIndex].comments.push(newComment);
-
-  await writeFile(
-    './src/data/questions.json',
-    JSON.stringify(questionsData, null, 2),
-    { encoding: 'utf-8' },
-  );
+  commentsDb.createComment(newComment);
 };
 
 export default addNewComment;

@@ -1,40 +1,17 @@
-import { readFile, writeFile } from 'fs/promises';
-import Question from '../../models/Question';
-import { ContentDataProps } from '../../types';
+import { CommentsDbPg } from '../../repositories/CommentRepository';
 
-const deleteComment = async (
-  commentId: string,
-  questionId: string,
-): Promise<void> => {
-  const questionsData: ContentDataProps = JSON.parse(
-    await readFile('./src/data/questions.json', 'utf-8'),
-  );
+const commentsDb = new CommentsDbPg();
 
-  const { questions } = questionsData;
+const deleteComment = async (comment_id: string): Promise<void> => {
+  const commentExists = await commentsDb.existingComment(comment_id);
 
-  const questionIndex = questions.findIndex(
-    (question: Question) => question.id === questionId,
-  );
+  console.log(commentExists);
 
-  if (questionIndex === -1) {
-    throw new Error('Question does not exist');
+  if (commentExists.length <= 0) {
+    throw new Error('Comment not found');
   }
 
-  const commentIndex = questions[questionIndex].comments.findIndex(
-    (comment) => comment.id === commentId,
-  );
-
-  if (commentIndex === -1) {
-    throw new Error('Comment does not exist for this question');
-  }
-
-  questions[questionIndex].comments.splice(commentIndex, 1);
-
-  await writeFile(
-    './src/data/questions.json',
-    JSON.stringify(questionsData, null, 2),
-    { encoding: 'utf-8' },
-  );
+  commentsDb.deleteQuestion(comment_id);
 };
 
 export default deleteComment;
