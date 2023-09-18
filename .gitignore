@@ -130,5 +130,5 @@ dist
 .pnp.*
 vercel.json
 .vercel
-.lock
-.lockb
+*.lock
+*.lockb
