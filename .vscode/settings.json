@@ -4,6 +4,8 @@
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
   },
+  "material-icon-theme.folders.associations": {
+  },
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
   "files.eol": "\n"

@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["es5", "es6", "ES2021"],
+    "target": "ES2020",
+    "baseUrl": "./src",
+    "lib": ["es5", "es6", "ES2020"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "CommonJS",
@@ -15,7 +16,15 @@
     "strict": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@module/*": [
+        "module/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"],
