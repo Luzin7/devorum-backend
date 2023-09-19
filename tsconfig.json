@@ -1,34 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "baseUrl": "./src",
-    "lib": ["es5", "es6", "ES2020"],
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "strictNullChecks": true,
-    "allowJs": true,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2022",
     "sourceMap": true,
-    "strictPropertyInitialization": false,
+    "outDir": "/dist",
+    "baseUrl": "src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@module/*": [
-        "module/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "files": true
+      "@module/*": ["module/*"],
+      "@shared/*": ["shared/*"]
+    },
+    "types": [
+      "vitest/globals"
+    ]
   }
 }
+
