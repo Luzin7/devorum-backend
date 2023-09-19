@@ -7,7 +7,7 @@ interface UserProps {
   name: string
   password: string
   salt: string
-  contact: string
+  email: string
 }
 
 export class User extends Entity<UserProps> {
@@ -17,11 +17,31 @@ export class User extends Entity<UserProps> {
       name: props.name,
       password: props.password,
       salt: props.salt,
-      contact: props.contact,
+      email: props.email,
     }
 
     const user = new User(userProps, id)
 
     return user
+  }
+
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get name() {
+    return this.props.name
+  }
+
+  get password() {
+    return this.props.password
+  }
+
+  get salt() {
+    return this.props.salt
+  }
+
+  get email() {
+    return this.props.email
   }
 }
