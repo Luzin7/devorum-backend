@@ -3,7 +3,7 @@ import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
 interface TopicProps {
-  authorId: string
+  authorId: UniqueId
   authorName: string
   title: string
   createdAt: Date
@@ -26,5 +26,25 @@ export class Topic extends Entity<TopicProps> {
     const topic = new Topic(topicProps, id)
 
     return topic
+  }
+
+  get authorId() {
+    return this.props.createdAt
+  }
+
+  get authorName() {
+    return this.props.createdAt
+  }
+
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get title() {
+    return this.props.title
+  }
+
+  get updatedAt() {
+    return this.props.createdAt
   }
 }
