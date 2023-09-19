@@ -2,7 +2,7 @@ import { Entity } from '@shared/core/entities/Entity'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
-interface UserProps {
+export interface UserProps {
   createdAt: Date
   name: string
   password: string
