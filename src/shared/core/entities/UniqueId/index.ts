@@ -14,4 +14,8 @@ export class UniqueId {
   toValue() {
     return this.value
   }
+
+  equals(id: UniqueId) {
+    return this.value === id.toString()
+  }
 }
