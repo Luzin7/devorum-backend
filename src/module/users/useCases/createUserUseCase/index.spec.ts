@@ -1,16 +1,16 @@
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
-import { CreateUserService } from '.'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError'
+import { CreateUserUseCase } from '.'
 
 let usersRepository: UsersInMemoryRepository
-let sut: CreateUserService
+let sut: CreateUserUseCase
 
 describe('create user', () => {
   beforeEach(() => {
     usersRepository = new UsersInMemoryRepository()
 
-    sut = new CreateUserService(usersRepository)
+    sut = new CreateUserUseCase(usersRepository)
   })
 
   it('should be able to create an new user', async () => {

@@ -22,7 +22,7 @@ type Response = Either<
   }
 >
 
-export class CreateUserService {
+export class CreateUserUseCase {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({ email, name, password }: Request): Promise<Response> {
