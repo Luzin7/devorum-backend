@@ -34,6 +34,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@rocketseat/eslint-config": "^2.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
