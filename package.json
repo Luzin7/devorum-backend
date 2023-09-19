@@ -10,7 +10,8 @@
     "dev": "tsx watch ./src/server.ts",
     "lint": "eslint . --ext .js,.ts",
     "build": "tsup",
-    "start": "tsx watch src/server.ts"
+    "start": "tsx watch src/server.ts",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/cors": "^2.8.14",
@@ -29,7 +30,8 @@
     "rollup-plugin-multi-entry": "^2.1.0",
     "ts-node": "^10.9.1",
     "tsup": "^7.2.0",
-    "typescript": "*"
+    "typescript": "*",
+    "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
@@ -38,6 +40,8 @@
     "express": "^4.18.2",
     "postgres": "^3.3.5",
     "tsx": "^3.12.10",
-    "vercel": "^32.2.1"
+    "vercel": "^32.2.1",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4"
   }
 }
