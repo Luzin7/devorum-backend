@@ -10,6 +10,7 @@ export default defineConfig({
     alias: {
       '@module/': '/src/module/',
       '@shared/': '/src/shared/',
+      '@test/': '/src/test/',
     },
   },
 })
