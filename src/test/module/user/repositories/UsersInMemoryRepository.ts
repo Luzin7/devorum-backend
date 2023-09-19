@@ -9,13 +9,17 @@ export class UsersInMemoryRepository extends UsersRepository {
     this.users.push(user)
   }
 
-  async findById(id: UniqueId): Promise<User | null> {
-    const user = this.users.find((user) => user.id === id)
+  async findById(id: string): Promise<User | null> {
+    const user = this.users.find((user) => user.id.equals(new UniqueId(id)))
     return user ?? null
   }
 
   async findByEmail(email: string): Promise<User | null> {
     const user = this.users.find((user) => user.email === email)
     return user ?? null
+  }
+
+  async delete(id: string): Promise<void> {
+    this.users = this.users.filter((user) => !user.id.equals(new UniqueId(id)))
   }
 }
