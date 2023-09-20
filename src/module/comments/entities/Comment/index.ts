@@ -2,10 +2,11 @@ import { Entity } from '@shared/core/entities/Entity'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
-interface CommentProps {
+export interface CommentProps {
+  topicId: UniqueId
   authorId: UniqueId
   authorName: string
-  comment: string
+  content: string
   createdAt: Date
   updatedAt: Date | null
 }
@@ -16,9 +17,10 @@ export class Comment extends Entity<CommentProps> {
     id?: UniqueId,
   ) {
     const commentProps: CommentProps = {
+      topicId: props.topicId,
       authorId: props.authorId,
       authorName: props.authorName,
-      comment: props.comment,
+      content: props.content,
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? null,
     }
@@ -26,6 +28,10 @@ export class Comment extends Entity<CommentProps> {
     const comment = new Comment(commentProps, id)
 
     return comment
+  }
+
+  get topicId() {
+    return this.props.topicId
   }
 
   get authorId() {
@@ -36,8 +42,8 @@ export class Comment extends Entity<CommentProps> {
     return this.props.authorName
   }
 
-  get comment() {
-    return this.props.comment
+  get content() {
+    return this.props.content
   }
 
   get createdAt() {
