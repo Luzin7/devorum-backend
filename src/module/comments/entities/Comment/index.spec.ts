@@ -6,7 +6,8 @@ describe('instace comment', () => {
     const comment = Comment.create({
       authorId: new UniqueId(),
       authorName: 'John',
-      comment: 'Comentario legal',
+      content: 'Comentario legal',
+      topicId: new UniqueId(),
     })
     expect(comment.id).toBeInstanceOf(UniqueId)
     expect(comment.createdAt).toBeInstanceOf(Date)
