@@ -2,10 +2,11 @@ import { Entity } from '@shared/core/entities/Entity'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
-interface TopicProps {
+export interface TopicProps {
   authorId: UniqueId
   authorName: string
   title: string
+  content: string
   createdAt: Date
   updatedAt: Date | null
 }
@@ -20,6 +21,7 @@ export class Topic extends Entity<TopicProps> {
       authorName: props.authorName,
       createdAt: props.createdAt ?? new Date(),
       title: props.title,
+      content: props.content,
       updatedAt: props.updatedAt ?? null,
     }
 
@@ -29,11 +31,11 @@ export class Topic extends Entity<TopicProps> {
   }
 
   get authorId() {
-    return this.props.createdAt
+    return this.props.authorId
   }
 
   get authorName() {
-    return this.props.createdAt
+    return this.props.authorName
   }
 
   get createdAt() {
@@ -44,7 +46,11 @@ export class Topic extends Entity<TopicProps> {
     return this.props.title
   }
 
+  get content() {
+    return this.props.content
+  }
+
   get updatedAt() {
-    return this.props.createdAt
+    return this.props.updatedAt
   }
 }
