@@ -1,6 +1,6 @@
 import { Topic } from '@module/topics/entities/Topic'
 
-export abstract class TopicsRespository {
+export abstract class TopicsRepository {
   abstract create(topic: Topic): Promise<void>
   abstract findById(id: string): Promise<Topic | null>
   abstract delete(id: string): Promise<void>
