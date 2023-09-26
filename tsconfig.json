@@ -21,11 +21,9 @@
     "paths": {
       "@module/*": ["module/*"],
       "@shared/*": ["shared/*"],
-      "@test/*": ["test/*"]
+      "@test/*": ["test/*"],
+      "@env/*": ["env/*"]
     },
-    "types": [
-      "vitest/globals"
-    ]
+    "types": ["vitest/globals"]
   }
 }
-

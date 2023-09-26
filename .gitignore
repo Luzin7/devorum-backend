@@ -132,3 +132,4 @@ vercel.json
 .vercel
 *.lock
 *.lockb
+/data

@@ -11,6 +11,7 @@ export default defineConfig({
       '@module/': '/src/module/',
       '@shared/': '/src/shared/',
       '@test/': '/src/test/',
+      '@env/': '/src/env/',
     },
   },
 })
