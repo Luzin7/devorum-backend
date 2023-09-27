@@ -1,9 +1,11 @@
+import { Injectable } from '@infra/containers/Injectable'
 import { TopicNotFoundError } from '@module/topics/errors/TopicNotFoundError'
 import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
-import { PermissioDenidedError } from '@shared/erros/PermissionDeniedError'
+import { PermissionDeniedError } from '@shared/errors/PermissionDeniedError'
+import { inject, injectable } from 'tsyringe'
 
 interface Request {
   topicId: string
@@ -11,13 +13,17 @@ interface Request {
 }
 
 type Response = Either<
-  UserNotFoundError | TopicNotFoundError | PermissioDenidedError,
+  UserNotFoundError | TopicNotFoundError | PermissionDeniedError,
   null
 >
 
+@injectable()
 export class DeleteTopicUseCase {
   constructor(
+    @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,
+
+    @inject(Injectable.Repositories.Users)
     private readonly usersRepository: UsersRepository,
   ) {}
 
@@ -35,7 +41,7 @@ export class DeleteTopicUseCase {
     }
 
     if (!topicExists.authorId.equals(userExists.id)) {
-      return left(new PermissioDenidedError())
+      return left(new PermissionDeniedError())
     }
 
     await this.topicsRepository.delete(topicId)
