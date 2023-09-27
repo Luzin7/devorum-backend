@@ -1,13 +1,10 @@
+import { Injectable } from '@infra/containers/Injectable'
 import { User } from '@module/users/entities/User'
 import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
-import { pbkdf2Sync, randomBytes } from 'crypto'
-
-function encryptPassword(password: string, salt: string): string {
-  const hash = pbkdf2Sync(password, salt, 10000, 64, 'sha256').toString('hex')
-  return hash
-}
+import { CryptographyProvider } from 'providers/cryptography/contracts/CryptographyProvider'
+import { inject, injectable } from 'tsyringe'
 
 interface Request {
   name: string
@@ -22,8 +19,15 @@ type Response = Either<
   }
 >
 
+@injectable()
 export class CreateUserUseCase {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    @inject(Injectable.Repositories.Users)
+    private readonly usersRepository: UsersRepository,
+
+    @inject(Injectable.Providers.Cryptography)
+    private readonly cryptographyProvider: CryptographyProvider,
+  ) {}
 
   async execute({ email, name, password }: Request): Promise<Response> {
     const userAlreadyExists = await this.usersRepository.findByEmail(email)
@@ -32,13 +36,12 @@ export class CreateUserUseCase {
       return left(new UserAlreadyExitesError())
     }
 
-    const salt = randomBytes(16).toString('hex')
-    const encryptedPassword = encryptPassword(password, salt)
+    const { hash, salt } = await this.cryptographyProvider.hashCreator(password)
 
     const user = User.create({
       email,
       name,
-      password: encryptedPassword,
+      password: hash,
       salt,
     })
 
