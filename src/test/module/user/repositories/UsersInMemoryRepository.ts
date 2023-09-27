@@ -2,7 +2,7 @@ import { User } from '@module/users/entities/User'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 
-export class UsersInMemoryRepository extends UsersRepository {
+export class UsersInMemoryRepository implements UsersRepository {
   users: User[] = []
 
   async create(user: User): Promise<void> {
