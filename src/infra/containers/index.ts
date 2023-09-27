@@ -1,0 +1,5 @@
+import '@infra/containers/modules/users'
+import '@infra/containers/modules/comments'
+import '@infra/containers/modules/topics'
+import '@infra/containers/providers/cryptography'
+import '@infra/containers/providers/auth'
