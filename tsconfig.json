@@ -22,7 +22,8 @@
       "@module/*": ["module/*"],
       "@shared/*": ["shared/*"],
       "@test/*": ["test/*"],
-      "@env/*": ["env/*"]
+      "@env/*": ["env/*"],
+      "@infra/*": ["infra/*"]
     },
     "types": ["vitest/globals"]
   }
