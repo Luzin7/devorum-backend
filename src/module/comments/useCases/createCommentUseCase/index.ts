@@ -1,3 +1,4 @@
+import { Injectable } from '@infra/containers/Injectable'
 import { Comment } from '@module/comments/entities/Comment'
 import { CommentNotFoundError } from '@module/comments/errors/CommentNotFoundError'
 import { CommentsRepository } from '@module/comments/repositories/contracts/CommentsRepository'
@@ -6,6 +7,7 @@ import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRe
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
+import { inject, injectable } from 'tsyringe'
 
 interface Request {
   content: string
@@ -14,16 +16,22 @@ interface Request {
 }
 
 type Response = Either<
-  CommentNotFoundError,
+  CommentNotFoundError | UserNotFoundError,
   {
     comment: Comment
   }
 >
 
+@injectable()
 export class CreateCommentUseCase {
   constructor(
+    @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,
+
+    @inject(Injectable.Repositories.Comments)
     private readonly commentsRepository: CommentsRepository,
+
+    @inject(Injectable.Repositories.Users)
     private readonly usersRepository: UsersRepository,
   ) {}
 
