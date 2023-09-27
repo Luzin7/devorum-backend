@@ -1,3 +1,4 @@
+import { Injectable } from '@infra/containers/Injectable'
 import { CommentNotFoundError } from '@module/comments/errors/CommentNotFoundError'
 import { CommentsRepository } from '@module/comments/repositories/contracts/CommentsRepository'
 import { TopicNotFoundError } from '@module/topics/errors/TopicNotFoundError'
@@ -5,7 +6,8 @@ import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRe
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
-import { PermissioDenidedError } from '@shared/erros/PermissionDeniedError'
+import { PermissionDeniedError } from '@shared/errors/PermissionDeniedError'
+import { inject, injectable } from 'tsyringe'
 
 interface Request {
   topicId: string
@@ -16,15 +18,21 @@ interface Request {
 type Response = Either<
   | UserNotFoundError
   | TopicNotFoundError
-  | PermissioDenidedError
+  | PermissionDeniedError
   | CommentNotFoundError,
   null
 >
 
+@injectable()
 export class DeleteCommentUseCase {
   constructor(
+    @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,
+
+    @inject(Injectable.Repositories.Comments)
     private readonly commentsRepository: CommentsRepository,
+
+    @inject(Injectable.Repositories.Users)
     private readonly usersRepository: UsersRepository,
   ) {}
 
@@ -48,7 +56,7 @@ export class DeleteCommentUseCase {
     }
 
     if (!commentExists.authorId.equals(userExists.id)) {
-      return left(new PermissioDenidedError())
+      return left(new PermissionDeniedError())
     }
 
     await this.commentsRepository.delete(commentId)
