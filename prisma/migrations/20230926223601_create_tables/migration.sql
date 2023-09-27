@@ -25,11 +25,15 @@ CREATE TABLE "comments" (
     "updated_at" TIMESTAMP(3),
     "authorId" TEXT NOT NULL,
     "author_name" TEXT NOT NULL,
-    "content" TEXT NOT NULL
+    "content" TEXT NOT NULL,
+    "topic_id" TEXT NOT NULL
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "topics_id_key" ON "topics"("id");
@@ -38,7 +42,10 @@ CREATE UNIQUE INDEX "topics_id_key" ON "topics"("id");
 CREATE UNIQUE INDEX "comments_id_key" ON "comments"("id");
 
 -- AddForeignKey
-ALTER TABLE "topics" ADD CONSTRAINT "topics_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "topics" ADD CONSTRAINT "topics_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "comments" ADD CONSTRAINT "comments_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "comments" ADD CONSTRAINT "comments_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "comments" ADD CONSTRAINT "comments_topic_id_fkey" FOREIGN KEY ("topic_id") REFERENCES "topics"("id") ON DELETE CASCADE ON UPDATE CASCADE;
