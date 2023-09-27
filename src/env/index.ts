@@ -7,6 +7,8 @@ const envSchema = z.object({
   TEST_URL: z.string().url().default('https://turma-qa-frontend.vercel.app'),
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('production'),
+  JWT_PRIVATE_KEY: z.string(),
+  JWT_PUBLIC_KEY: z.string(),
 })
 type EnvSchema = z.infer<typeof envSchema>
 const _env = envSchema.safeParse(process.env)
