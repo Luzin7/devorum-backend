@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError'

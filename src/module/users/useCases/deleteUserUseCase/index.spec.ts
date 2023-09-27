@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { DeleteUserUseCase } from '.'
@@ -15,11 +16,11 @@ describe('delete user', () => {
   })
 
   it('should be able to delete an user', async () => {
-    const user = makeUser({}, new UniqueId('1'))
+    const user = makeUser({}, new UniqueId('user-1'))
     usersRepository.create(user)
 
     const response = await sut.execute({
-      id: '1',
+      id: 'user-1',
     })
 
     expect(response.isRight()).toEqual(true)
@@ -28,7 +29,7 @@ describe('delete user', () => {
 
   it('not should be able to delete an unixistent user', async () => {
     const response = await sut.execute({
-      id: 'unixistent-id',
+      id: 'non-existent-user-id',
     })
 
     expect(response.isLeft()).toEqual(true)

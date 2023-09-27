@@ -1,10 +1,11 @@
+import 'reflect-metadata'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
-import { TopicsInMemoryRepository } from '@test/module/topic/repositories/TopicsInMemoryRespository'
+import { TopicsInMemoryRepository } from '@test/module/topic/repositories/TopicsInMemoryRepository'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { CreateCommentUseCase } from '.'
 import { makeTopic } from '@test/module/topic/factories/makeTopic'
-import { CommentsInMemoryRepository } from '@test/module/comment/repositories/CommentsInMemoryRespository'
+import { CommentsInMemoryRepository } from '@test/module/comment/repositories/CommentsInMemoryRepository'
 import { TopicNotFoundError } from '@module/topics/errors/TopicNotFoundError'
 
 let topicsRepository: TopicsInMemoryRepository
@@ -54,7 +55,7 @@ describe('create comment', () => {
 
     const response = await sut.execute({
       content: 'content',
-      authorId: 'idlegal',
+      authorId: 'non-existent-user-id',
       topicId: topic.id.toString(),
     })
 
@@ -69,7 +70,7 @@ describe('create comment', () => {
     const response = await sut.execute({
       content: 'content',
       authorId: user.id.toString(),
-      topicId: 'idlegal',
+      topicId: 'non-existent-topic-id',
     })
 
     expect(response.isLeft()).toEqual(true)
