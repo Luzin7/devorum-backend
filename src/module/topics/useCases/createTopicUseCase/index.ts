@@ -1,8 +1,10 @@
+import { Injectable } from '@infra/containers/Injectable'
 import { Topic } from '@module/topics/entities/Topic'
 import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
+import { inject, injectable } from 'tsyringe'
 
 interface Request {
   content: string
@@ -17,9 +19,13 @@ type Response = Either<
   }
 >
 
+@injectable()
 export class CreateTopicUseCase {
   constructor(
+    @inject(Injectable.Repositories.Comments)
     private readonly topicsRepository: TopicsRepository,
+
+    @inject(Injectable.Repositories.Users)
     private readonly usersRepository: UsersRepository,
   ) {}
 
