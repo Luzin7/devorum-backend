@@ -1,34 +1,31 @@
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
 import { CreateSessionUseCase } from '@module/users/useCases/createSessionUseCase'
+import { AuthConfig } from '@providers/auth/config'
+import { Controller } from '@shared/core/infra/Controller'
+import { ErrorPresenter } from '@shared/presenters/ErrorPresenter'
 import { Request, Response } from 'express'
-import { AuthConfig } from 'providers/authProvider/config'
 import { container } from 'tsyringe'
 import { z } from 'zod'
 
-const CreateSessionBodySchema = z.object({
+const createSessionBodySchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 })
 
-export class CreateSessionController {
-  private readonly createSessionUseCase =
-    container.resolve(CreateSessionUseCase)
-
+export class CreateSessionController implements Controller {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { email, password } = CreateSessionBodySchema.parse(req.body)
+    const { email, password } = createSessionBodySchema.parse(req.body)
 
-    const response = await this.createSessionUseCase.execute({
+    const createSessionUseCase = container.resolve(CreateSessionUseCase)
+
+    const response = await createSessionUseCase.execute({
       email,
       password,
     })
 
     if (response.isLeft()) {
       const error = response.value
-
-      return res.status(error.statusCode).json({
-        message: error.message,
-        statusCode: error.statusCode,
-      })
+      return ErrorPresenter.toHTTP(req, res, error)
     }
 
     const { accessToken, refreshToken } = response.value

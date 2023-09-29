@@ -1,5 +1,6 @@
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
 import { DeleteCommentUseCase } from '@module/comments/useCases/deleteCommentUseCase'
+import { ErrorPresenter } from '@shared/presenters/ErrorPresenter'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { z } from 'zod'
@@ -15,6 +16,7 @@ export class DeleteCommentController {
     const { commentId, topicId } = DeleteCommentParamsSchema.parse(req.params)
 
     const deleteCommentUseCase = container.resolve(DeleteCommentUseCase)
+
     const response = await deleteCommentUseCase.execute({
       authorId: id,
       commentId,
@@ -23,11 +25,7 @@ export class DeleteCommentController {
 
     if (response.isLeft()) {
       const error = response.value
-
-      return res.status(error.statusCode).json({
-        message: error.message,
-        statusCode: error.statusCode,
-      })
+      return ErrorPresenter.toHTTP(req, res, error)
     }
 
     return res.status(statusCodeMapper.NoContent).end()
