@@ -3,9 +3,10 @@ import { User } from '@module/users/entities/User'
 import { WrongCredentialsError } from '@module/users/errors/WrongCredentialsError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
-import { AuthProvider } from 'providers/auth/contracts/AuthProvider'
-import { CryptographyProvider } from 'providers/cryptography/contracts/CryptographyProvider'
+import { AuthProvider } from '@providers/auth/contracts/AuthProvider'
+import { CryptographyProvider } from '@providers/cryptography/contracts/CryptographyProvider'
 import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@shared/core/module/UseCase'
 
 interface Request {
   email: string
@@ -22,7 +23,7 @@ type Response = Either<
 >
 
 @injectable()
-export class CreateSessionUseCase {
+export class CreateSessionUseCase implements UseCase<Request, Response> {
   constructor(
     @inject(Injectable.Providers.Cryptography)
     private readonly cryptographyProvider: CryptographyProvider,

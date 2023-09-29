@@ -6,6 +6,7 @@ import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRe
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
+import { UseCase } from '@shared/core/module/UseCase'
 import { PermissionDeniedError } from '@shared/errors/PermissionDeniedError'
 import { inject, injectable } from 'tsyringe'
 
@@ -24,7 +25,7 @@ type Response = Either<
 >
 
 @injectable()
-export class DeleteCommentUseCase {
+export class DeleteCommentUseCase implements UseCase<Request, Response> {
   constructor(
     @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,

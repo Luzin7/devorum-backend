@@ -3,8 +3,9 @@ import { User } from '@module/users/entities/User'
 import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
-import { CryptographyProvider } from 'providers/cryptography/contracts/CryptographyProvider'
+import { CryptographyProvider } from '@providers/cryptography/contracts/CryptographyProvider'
 import { inject, injectable } from 'tsyringe'
+import { UseCase } from '@shared/core/module/UseCase'
 
 interface Request {
   name: string
@@ -20,7 +21,7 @@ type Response = Either<
 >
 
 @injectable()
-export class CreateUserUseCase {
+export class CreateUserUseCase implements UseCase<Request, Response> {
   constructor(
     @inject(Injectable.Repositories.Users)
     private readonly usersRepository: UsersRepository,

@@ -7,6 +7,7 @@ import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRe
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
 import { Either, left, right } from '@shared/core/errors/Either'
+import { UseCase } from '@shared/core/module/UseCase'
 import { inject, injectable } from 'tsyringe'
 
 interface Request {
@@ -23,7 +24,7 @@ type Response = Either<
 >
 
 @injectable()
-export class CreateCommentUseCase {
+export class CreateCommentUseCase implements UseCase<Request, Response> {
   constructor(
     @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,
@@ -49,7 +50,6 @@ export class CreateCommentUseCase {
     }
 
     const comment = Comment.create({
-      authorName: userExists.name,
       content,
       authorId: userExists.id,
       topicId: topicExists.id,
