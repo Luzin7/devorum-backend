@@ -1,6 +1,6 @@
 import { env } from '@env/index'
 import { AuthProvider, PayloadSchema } from '../contracts/AuthProvider'
-import { sign, verify } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 
 export class AuthJWTProvider implements AuthProvider {
   async encrypt(
@@ -9,9 +9,8 @@ export class AuthJWTProvider implements AuthProvider {
   ): Promise<string> {
     const secretKey = Buffer.from(env.JWT_PRIVATE_KEY, 'base64')
 
-    const token = sign({ sub: userId }, secretKey, {
+    const token = jwt.sign({ sub: userId }, secretKey, {
       algorithm: 'RS256',
-      subject: userId,
       expiresIn:
         role === 'access'
           ? 60 * 5 // 5 minutes
@@ -25,7 +24,7 @@ export class AuthJWTProvider implements AuthProvider {
     const publicKey = Buffer.from(env.JWT_PUBLIC_KEY, 'base64')
 
     try {
-      const { sub } = verify(token, publicKey, {
+      const { sub } = jwt.verify(token, publicKey, {
         algorithms: ['RS256'],
       })
 
