@@ -38,13 +38,12 @@ model RefreshToken {
 }
 
 model Topic {
-  id         String    @unique @default(uuid())
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-  authorId   String
-  authorName String    @map("author_name")
-  content    String
-  title      String
+  id        String    @unique @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  authorId  String
+  content   String
+  title     String
 
   author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   commnets Comment[]
@@ -53,13 +52,12 @@ model Topic {
 }
 
 model Comment {
-  id         String    @unique @default(uuid())
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-  authorId   String
-  authorName String    @map("author_name")
-  content    String
-  topicId    String    @map("topic_id")
+  id        String    @unique @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  authorId  String
+  content   String
+  topicId   String    @map("topic_id")
 
   author User  @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   topic  Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
