@@ -12,4 +12,8 @@ export abstract class Entity<T> {
   get id(): UniqueId {
     return this._id
   }
+
+  public equals(entity: Entity<unknown>) {
+    return entity.id.equals(this.id)
+  }
 }
