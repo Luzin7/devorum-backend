@@ -1,17 +1,21 @@
-import { AuthMiddleware } from '@infra/http/middlewares/authMiddleware'
+import { authMiddleware } from '@infra/http/middlewares/authMiddleware'
+import { CreateCommentController } from '@module/comments/controllers/createCommentController'
 import { DeleteCommentController } from '@module/comments/controllers/deleteCommentController'
 import { Router } from 'express'
-import { container } from 'tsyringe'
 
+const createCommentController = new CreateCommentController()
 const deleteCommentController = new DeleteCommentController()
-
-const authMiddleware = container.resolve(AuthMiddleware)
 
 const commentsRoutes = Router()
 
-commentsRoutes.use(authMiddleware.middle)
+commentsRoutes.post(
+  '/topics/:topicId/comments',
+  authMiddleware.middle,
+  createCommentController.handle,
+)
 commentsRoutes.delete(
   '/topics/:topicId/comments/:commentId',
+  authMiddleware.middle,
   deleteCommentController.handle,
 )
 
