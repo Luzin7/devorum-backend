@@ -1,17 +1,16 @@
-import { Entity } from '@shared/core/entities/Entity'
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
 export interface CommentProps {
   topicId: UniqueId
   authorId: UniqueId
-  authorName: string
   content: string
   createdAt: Date
   updatedAt: Date | null
 }
 
-export class Comment extends Entity<CommentProps> {
+export class Comment extends AggregateRoot<CommentProps> {
   static create(
     props: Optional<CommentProps, 'createdAt' | 'updatedAt'>,
     id?: UniqueId,
@@ -19,7 +18,6 @@ export class Comment extends Entity<CommentProps> {
     const commentProps: CommentProps = {
       topicId: props.topicId,
       authorId: props.authorId,
-      authorName: props.authorName,
       content: props.content,
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? null,
@@ -36,10 +34,6 @@ export class Comment extends Entity<CommentProps> {
 
   get authorId() {
     return this.props.authorId
-  }
-
-  get authorName() {
-    return this.props.authorName
   }
 
   get content() {

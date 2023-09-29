@@ -1,4 +1,4 @@
-import { Entity } from '@shared/core/entities/Entity'
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
@@ -10,7 +10,7 @@ export interface UserProps {
   email: string
 }
 
-export class User extends Entity<UserProps> {
+export class User extends AggregateRoot<UserProps> {
   static create(props: Optional<UserProps, 'createdAt'>, id?: UniqueId) {
     const userProps: UserProps = {
       createdAt: props.createdAt ?? new Date(),
