@@ -17,7 +17,15 @@ export class CryptographyCryptoProvider implements CryptographyProvider {
     return { hash, salt }
   }
 
-  async hashComparer(props: HashComparerProps): Promise<boolean> {
-    throw new Error('Method not implemented.')
+  async hashComparer({
+    hash,
+    plainText,
+    salt,
+  }: HashComparerProps): Promise<boolean> {
+    const newHash = pbkdf2Sync(plainText, salt, 10000, 64, 'sha256').toString(
+      'hex',
+    )
+
+    return newHash === hash
   }
 }
