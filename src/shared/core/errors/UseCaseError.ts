@@ -1,4 +1,4 @@
-export abstract class ServiceError {
+export abstract class UseCaseError {
   abstract message: string
 
   abstract statusCode: number

@@ -1,7 +1,7 @@
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
-import { ServiceError } from '@shared/core/errors/ServiceError'
+import { UseCaseError } from '@shared/core/errors/UseCaseError'
 
-export class CommentNotFoundError extends Error implements ServiceError {
+export class CommentNotFoundError extends Error implements UseCaseError {
   statusCode: number = statusCodeMapper.Conflict
 
   constructor() {
