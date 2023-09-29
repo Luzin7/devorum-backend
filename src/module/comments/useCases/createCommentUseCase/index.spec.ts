@@ -15,8 +15,8 @@ let sut: CreateCommentUseCase
 
 describe('create comment', () => {
   beforeEach(() => {
-    topicsRepository = new TopicsInMemoryRepository()
     usersRepository = new UsersInMemoryRepository()
+    topicsRepository = new TopicsInMemoryRepository(usersRepository)
     commentsRepository = new CommentsInMemoryRepository()
 
     sut = new CreateCommentUseCase(
