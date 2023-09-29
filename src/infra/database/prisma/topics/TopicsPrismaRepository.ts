@@ -2,6 +2,9 @@ import { prisma } from '@infra/database/createConnection'
 import { Topic } from '@module/topics/entities/Topic'
 import { TopicsPrismaMapper } from './TopicsPrismaMapper'
 import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository'
+import { FindManyRecentProps } from '@module/topics/repositories/types/FindManyRecent'
+import { TopicWithAuthor } from '@module/topics/valueObjects/TopicWithAuthor'
+import { TopicsWithAuthorMapper } from './TopicsWithAuthorPrismaMapper'
 
 export class TopicsPrismaRepository implements TopicsRepository {
   async create(topic: Topic): Promise<void> {
@@ -39,5 +42,23 @@ export class TopicsPrismaRepository implements TopicsRepository {
       },
       data: TopicsPrismaMapper.toPrisma(topic),
     })
+  }
+
+  async findManyRecentWithAuthor({
+    page,
+    perPage,
+  }: FindManyRecentProps): Promise<TopicWithAuthor[]> {
+    const topics = await prisma.topic.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        author: true,
+      },
+      skip: (page - 1) * perPage,
+      take: page * perPage,
+    })
+
+    return topics.map(TopicsWithAuthorMapper.toTopicWithAuthor)
   }
 }
