@@ -1,18 +1,16 @@
 import { Injectable } from '@infra/containers/Injectable'
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
 import { NextFunction, Request, Response } from 'express'
-import { AuthConfig } from 'providers/auth/config'
-import { AuthProvider } from 'providers/auth/contracts/AuthProvider'
-import { inject, injectable } from 'tsyringe'
+import { AuthConfig } from '@providers/auth/config'
+import { AuthProvider } from '@providers/auth/contracts/AuthProvider'
+import { container } from 'tsyringe'
 
-@injectable()
 export class AuthMiddleware {
-  constructor(
-    @inject(Injectable.Providers.Auth)
-    private readonly authProvider: AuthProvider,
-  ) {}
-
   async middle(req: Request, res: Response, next: NextFunction) {
+    const authProvider: AuthProvider = container.resolve(
+      Injectable.Providers.Auth,
+    )
+
     const token = req.cookies[AuthConfig.accessTokenCookie]
 
     if (!token || token === undefined) {
@@ -22,7 +20,7 @@ export class AuthMiddleware {
       })
     }
 
-    const { sub } = await this.authProvider.decrypt(token)
+    const { sub } = await authProvider.decrypt(token)
 
     if (!sub) {
       return res.status(statusCodeMapper.Unauthorized).json({
@@ -38,3 +36,7 @@ export class AuthMiddleware {
     next()
   }
 }
+
+const authMiddleware = new AuthMiddleware()
+
+export { authMiddleware }
