@@ -6,10 +6,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2022",
+    "target": "es2020",
     "sourceMap": true,
     "outDir": "/dist",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -19,11 +19,12 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@module/*": ["module/*"],
-      "@shared/*": ["shared/*"],
-      "@test/*": ["test/*"],
-      "@env/*": ["env/*"],
-      "@infra/*": ["infra/*"]
+      "@module/*": ["src/module/*"],
+      "@shared/*": ["src/shared/*"],
+      "@test/*": ["src/test/*"],
+      "@env/*": ["src/env/*"],
+      "@infra/*": ["src/infra/*"],
+      "@providers/*": ["src/providers/*"]
     },
     "types": ["vitest/globals"]
   }
