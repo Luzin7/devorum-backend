@@ -46,11 +46,24 @@ export class Comment extends AggregateRoot<CommentProps> {
     return this.props.content
   }
 
+  set content(content: string) {
+    if (!content) {
+      return
+    }
+
+    this.props.content = content
+    this.update()
+  }
+
   get createdAt() {
     return this.props.createdAt
   }
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  update() {
+    this.props.updatedAt = new Date()
   }
 }
