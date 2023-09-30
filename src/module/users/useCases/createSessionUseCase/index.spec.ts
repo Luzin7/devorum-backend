@@ -5,7 +5,9 @@ import { FakeCryptographyProvider } from '@test/providers/cryptography/fakeCrypt
 import { CreateSessionUseCase } from '.'
 import { FakeAuthProvider } from '@test/providers/auth/fakeAuthProvider'
 import { WrongCredentialsError } from '@module/users/errors/WrongCredentialsError'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 
 let cryptographyProvider: FakeCryptographyProvider
@@ -15,7 +17,8 @@ let sut: CreateSessionUseCase
 
 describe('create session', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
 
     cryptographyProvider = new FakeCryptographyProvider()
     authProvider = new FakeAuthProvider()

@@ -1,16 +1,15 @@
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Topic } from '.'
 
-describe('instace topic', () => {
+describe('Instance topic', () => {
   it('should instance a new topic', () => {
     const topic = Topic.create({
       authorId: new UniqueId(),
-      authorName: 'John',
       title: 'Titulo legal',
-      content: 'conteudo legal',
+      content: 'Cool content',
     })
     expect(topic.id).toBeInstanceOf(UniqueId)
     expect(topic.createdAt).toBeInstanceOf(Date)
-    expect(topic.content).toEqual('conteudo legal')
+    expect(topic.content).toEqual('Cool content')
   })
 })

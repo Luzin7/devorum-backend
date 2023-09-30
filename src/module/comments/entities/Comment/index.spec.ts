@@ -1,12 +1,11 @@
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Comment } from '.'
 
-describe('instace comment', () => {
+describe('Instance comment', () => {
   it('should instance a new comment', () => {
     const comment = Comment.create({
       authorId: new UniqueId(),
-      authorName: 'John',
-      content: 'Comentario legal',
+      content: 'Cool comment',
       topicId: new UniqueId(),
     })
     expect(comment.id).toBeInstanceOf(UniqueId)

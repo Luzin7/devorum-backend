@@ -4,14 +4,17 @@ import { makeUser } from '@test/module/user/factories/makeUser'
 import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError'
 import { CreateUserUseCase } from '.'
 import { FakeCryptographyProvider } from '@test/providers/cryptography/fakeCryptographyProvider'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let cryptographyProvider: FakeCryptographyProvider
 let sut: CreateUserUseCase
 
 describe('create user', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
     cryptographyProvider = new FakeCryptographyProvider()
 
     sut = new CreateUserUseCase(usersRepository, cryptographyProvider)

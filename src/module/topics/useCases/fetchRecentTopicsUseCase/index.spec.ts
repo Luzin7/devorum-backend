@@ -4,14 +4,17 @@ import { makeTopic } from '@test/module/topic/factories/makeTopic'
 import { FetchRecentTopicsUseCase } from '.'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let topicsRepository: TopicsInMemoryRepository
 let sut: FetchRecentTopicsUseCase
 
 describe('Fetch recent topics', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
     topicsRepository = new TopicsInMemoryRepository(usersRepository)
 
     sut = new FetchRecentTopicsUseCase(topicsRepository)

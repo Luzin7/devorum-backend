@@ -7,15 +7,18 @@ import { UniqueId } from '@shared/core/entities/UniqueId'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { makeTopic } from '@test/module/topic/factories/makeTopic'
 import { TopicNotFoundError } from '@module/topics/errors/TopicNotFoundError'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let topicsRepository: TopicsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let sut: DeleteTopicUseCase
 
 describe('delete topic', () => {
   beforeEach(() => {
-    topicsRepository = new TopicsInMemoryRepository()
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
+    topicsRepository = new TopicsInMemoryRepository(usersRepository)
 
     sut = new DeleteTopicUseCase(topicsRepository, usersRepository)
   })

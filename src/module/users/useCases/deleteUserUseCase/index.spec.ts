@@ -4,13 +4,16 @@ import { makeUser } from '@test/module/user/factories/makeUser'
 import { DeleteUserUseCase } from '.'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let sut: DeleteUserUseCase
 
 describe('delete user', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
 
     sut = new DeleteUserUseCase(usersRepository)
   })

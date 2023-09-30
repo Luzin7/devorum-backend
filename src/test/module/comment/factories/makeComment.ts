@@ -9,7 +9,6 @@ export function makeComment(
   const comment = Comment.create(
     {
       authorId: new UniqueId(fakerPT_BR.string.uuid()),
-      authorName: fakerPT_BR.person.fullName(),
       content: fakerPT_BR.lorem.sentence(5),
       topicId: new UniqueId(fakerPT_BR.string.uuid()),
       ...override,

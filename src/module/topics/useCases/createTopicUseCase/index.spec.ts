@@ -5,15 +5,18 @@ import { TopicsInMemoryRepository } from '@test/module/topic/repositories/Topics
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let topicsRepository: TopicsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let sut: CreateTopicUseCase
 
 describe('create topic', () => {
   beforeEach(() => {
-    topicsRepository = new TopicsInMemoryRepository()
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
+    topicsRepository = new TopicsInMemoryRepository(usersRepository)
 
     sut = new CreateTopicUseCase(topicsRepository, usersRepository)
   })

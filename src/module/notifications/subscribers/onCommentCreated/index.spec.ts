@@ -21,7 +21,7 @@ let sendNotificationExecuteSpy: SpyInstance
 
 describe('On comment created', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
     commentsRepository = new CommentsInMemoryRepository()
     topicsRepository = new TopicsInMemoryRepository(usersRepository)
     notificationsRepository = new NotificationsInMemoryRepository()

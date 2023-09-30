@@ -6,7 +6,6 @@ export function makeTopic(override: Partial<TopicProps> = {}, id?: UniqueId) {
   const topic = Topic.create(
     {
       authorId: new UniqueId(fakerPT_BR.string.uuid()),
-      authorName: fakerPT_BR.person.fullName(),
       content: fakerPT_BR.lorem.sentence(5),
       title: fakerPT_BR.lorem.words(8),
       ...override,

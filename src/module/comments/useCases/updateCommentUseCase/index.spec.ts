@@ -9,7 +9,9 @@ import { UpdateCommentUseCase } from '.'
 import { CommentNotFoundError } from '@module/comments/errors/CommentNotFoundError'
 import { PermissionDeniedError } from '@shared/errors/PermissionDeniedError'
 import { CommentNotCanBeUpdatedError } from '@module/comments/errors/CommentNotCanBeUpdatedError'
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
 
+let notificationsRepository: NotificationsInMemoryRepository
 let topicsRepository: TopicsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let commentsRepository: CommentsInMemoryRepository
@@ -17,7 +19,8 @@ let sut: UpdateCommentUseCase
 
 describe('update comment', () => {
   beforeEach(() => {
-    usersRepository = new UsersInMemoryRepository()
+    notificationsRepository = new NotificationsInMemoryRepository()
+    usersRepository = new UsersInMemoryRepository(notificationsRepository)
     topicsRepository = new TopicsInMemoryRepository(usersRepository)
     commentsRepository = new CommentsInMemoryRepository()
 
