@@ -2,7 +2,7 @@ import { AggregateRoot } from '@shared/core/entities/AggregateRoot'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
 
-interface NotificationProps {
+export interface NotificationProps {
   title: string
   content: string
   recipientId: UniqueId
@@ -44,5 +44,9 @@ export class Notification extends AggregateRoot<NotificationProps> {
 
   get readAt() {
     return this.props.readAt
+  }
+
+  read() {
+    this.props.readAt = new Date()
   }
 }
