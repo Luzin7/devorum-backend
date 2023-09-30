@@ -1,5 +1,5 @@
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
-import { UserPresenter } from '@module/users/presenters/userPresenter'
+import { UserWithNotificationsPresenter } from '@module/users/presenters/userWithNotificationsPresenter'
 import { GetUserUseCase } from '@module/users/useCases/getUserUseCase'
 import { Controller } from '@shared/core/infra/Controller'
 import { ErrorPresenter } from '@shared/presenters/ErrorPresenter'
@@ -24,7 +24,7 @@ export class GetUserController implements Controller {
     const { user } = response.value
 
     return res.status(statusCodeMapper.OK).json({
-      user: UserPresenter.toHTTP(user),
+      user: UserWithNotificationsPresenter.toHTTP(user),
     })
   }
 }
