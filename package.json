@@ -13,6 +13,7 @@
     "start": "tsx watch src/infra/http/server/app.ts",
     "test": "vitest run",
     "test:ui": "vitest --ui",
+    "test:watch": "vitest  --watch",
     "changeset": "changeset",
     "version": "changeset version"
   },
