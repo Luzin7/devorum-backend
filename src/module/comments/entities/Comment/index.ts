@@ -1,3 +1,4 @@
+import { CommentCreatedEvent } from '@module/comments/events/CommentCreatedEvent'
 import { AggregateRoot } from '@shared/core/entities/AggregateRoot'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { Optional } from '@shared/core/types/optional'
@@ -24,6 +25,11 @@ export class Comment extends AggregateRoot<CommentProps> {
     }
 
     const comment = new Comment(commentProps, id)
+    const isNewComment = !id
+
+    if (isNewComment) {
+      comment.addDomainEvent(new CommentCreatedEvent(comment))
+    }
 
     return comment
   }
