@@ -1,4 +1,4 @@
-version: "2"
+version: "3.8"
 services:
   postgres:
     container_name: devorum
@@ -11,4 +11,12 @@ services:
       POSTGRES_DB: devorum
       PGDATA: /data/postgres
     volumes:
-      - ./data/pg:/data/postgres
+      - .data/pg:/data/postgres
+
+  # redis:
+  #   container_name: devorum-cache
+  #   image: redis
+  #   ports:
+  #     - 6379:6379
+  #   volumes:
+  #     - ./data/redis:/data
