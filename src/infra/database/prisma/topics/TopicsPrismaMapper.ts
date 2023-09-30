@@ -7,7 +7,6 @@ export class TopicsPrismaMapper {
     return Topic.create(
       {
         authorId: new UniqueId(raw.authorId),
-        authorName: raw.authorName,
         content: raw.content,
         title: raw.title,
         createdAt: raw.createdAt,
@@ -20,7 +19,6 @@ export class TopicsPrismaMapper {
   static toPrisma(topic: Topic): Prisma.TopicUncheckedCreateInput {
     return {
       authorId: topic.authorId.toString(),
-      authorName: topic.authorName,
       content: topic.content,
       title: topic.title,
       updatedAt: topic.updatedAt,

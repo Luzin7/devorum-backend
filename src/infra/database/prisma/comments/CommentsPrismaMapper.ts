@@ -7,7 +7,6 @@ export class CommentsPrismaMapper {
     return Comment.create(
       {
         authorId: new UniqueId(raw.authorId),
-        authorName: raw.authorName,
         content: raw.content,
         topicId: new UniqueId(raw.topicId),
         createdAt: raw.createdAt,
@@ -20,7 +19,6 @@ export class CommentsPrismaMapper {
   static toPrisma(comment: Comment): Prisma.CommentUncheckedCreateInput {
     return {
       authorId: comment.authorId.toString(),
-      authorName: comment.authorName,
       content: comment.content,
       topicId: comment.topicId.toString(),
       createdAt: comment.createdAt,
