@@ -23,7 +23,7 @@ type Response = Either<
 @injectable()
 export class CreateTopicUseCase implements UseCase<Request, Response> {
   constructor(
-    @inject(Injectable.Repositories.Comments)
+    @inject(Injectable.Repositories.Topics)
     private readonly topicsRepository: TopicsRepository,
 
     @inject(Injectable.Repositories.Users)
