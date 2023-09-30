@@ -14,10 +14,10 @@ let usersRepository: UsersInMemoryRepository
 let commentsRepository: CommentsInMemoryRepository
 let sut: DeleteCommentUseCase
 
-describe('create comment', () => {
+describe('delete comment', () => {
   beforeEach(() => {
-    topicsRepository = new TopicsInMemoryRepository()
     usersRepository = new UsersInMemoryRepository()
+    topicsRepository = new TopicsInMemoryRepository(usersRepository)
     commentsRepository = new CommentsInMemoryRepository()
 
     sut = new DeleteCommentUseCase(
@@ -54,7 +54,7 @@ describe('create comment', () => {
     topicsRepository.create(topic)
 
     const response = await sut.execute({
-      authorId: 'idlegal',
+      authorId: 'unixistent-user-id',
       topicId: topic.id.toString(),
       commentId: comment.id.toString(),
     })
@@ -63,7 +63,7 @@ describe('create comment', () => {
     expect(response.value).toBeInstanceOf(UserNotFoundError)
   })
 
-  it('not should be able to create an new comment if topic doesnt exists', async () => {
+  it('not should be able to delete a comment if topic doesnt exists', async () => {
     const user = makeUser()
     const comment = makeComment({ authorId: user.id })
 
@@ -72,7 +72,7 @@ describe('create comment', () => {
 
     const response = await sut.execute({
       authorId: user.id.toString(),
-      topicId: 'idlegal',
+      topicId: 'unixistent-topic-id',
       commentId: comment.id.toString(),
     })
 
