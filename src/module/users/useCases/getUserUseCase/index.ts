@@ -1,7 +1,7 @@
 import { Injectable } from '@infra/containers/Injectable'
-import { User } from '@module/users/entities/User'
 import { UserNotFoundError } from '@module/users/errors/UserNotFoundError'
 import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository'
+import { UserWithNotifications } from '@module/users/valueObjects/UserWithNotifications'
 import { Either, left, right } from '@shared/core/errors/Either'
 import { UseCase } from '@shared/core/module/UseCase'
 import { inject, injectable } from 'tsyringe'
@@ -13,7 +13,7 @@ interface Request {
 type Response = Either<
   UserNotFoundError,
   {
-    user: User
+    user: UserWithNotifications
   }
 >
 
@@ -25,7 +25,7 @@ export class GetUserUseCase implements UseCase<Request, Response> {
   ) {}
 
   async execute({ id }: Request): Promise<Response> {
-    const user = await this.usersRepository.findById(id)
+    const user = await this.usersRepository.findByIdWithNotifications(id)
 
     if (!user) {
       return left(new UserNotFoundError())
