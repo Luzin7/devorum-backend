@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  name      String
+  password  String
+  salt      String
+  email     String   @unique
+
+  topics        Topic[]
+  comments      Comment[]
+  refreshTokens RefreshToken[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id           String   @id @default(uuid())
+  refreshToken String   @map("refresh_token") @db.VarChar(1000)
+  expiresDate  DateTime @map("expires_date")
+  createdAt    DateTime @default(now()) @map("created_at")
+  userId       String   @map("user_id")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model Topic {
+  id        String    @unique @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  authorId  String
+  content   String
+  title     String
+
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  commnets Comment[]
+
+  @@map("topics")
+}
+
+model Comment {
+  id        String    @unique @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  authorId  String
+  content   String
+  topicId   String    @map("topic_id")
+
+  author User  @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  topic  Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@map("comments")
+}
+
+model Notification {
+  id          String    @id @unique @default(uuid())
+  title       String
+  content     String
+  recipientId String    @map("recipient_id")
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  recipient User @relation(fields: [recipientId], references: [id])
+
+  @@map("notifications")
+}

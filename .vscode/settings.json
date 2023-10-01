@@ -1,10 +1,18 @@
 {
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
     "source.fixAll.stylelint": true
   },
+  "material-icon-theme.folders.associations": {
+    "useCases": "controller",
+    "repositories": "database",
+  },
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "cSpell.words": [
+    "doesnt",
+    "unixistent"
+  ]
 }

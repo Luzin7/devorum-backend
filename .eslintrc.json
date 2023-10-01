@@ -1,23 +1,8 @@
 {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es2021": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": ["@rocketseat/eslint-config/node"],
   "rules": {
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "error",
-    "@typescript-eslint/no-non-null-assertion": "error",
-    "@typescript-eslint/no-explicit-any": "error",
-    "@typescript-eslint/ban-ts-comment": "error",
-    "@typescript-eslint/indent": ["error", 2],
-    "prettier/prettier": "error",
-    "max-len": ["error", { "code": 120 }]
+    "no-useless-constructor": "off",
+    "camelcase": "off",
+    "no-new": "off"
   }
 }

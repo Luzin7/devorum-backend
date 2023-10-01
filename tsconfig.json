@@ -1,25 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["es5", "es6", "ES2021"],
-    "experimentalDecorators": true,
+    "module": "NodeNext",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "strictNullChecks": true,
-    "allowJs": true,
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2022",
     "sourceMap": true,
-    "strictPropertyInitialization": false
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"],
-  "ts-node": {
-    "files": true
+    "outDir": "/dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@module/*": ["src/module/*"],
+      "@shared/*": ["src/shared/*"],
+      "@test/*": ["src/test/*"],
+      "@env/*": ["src/env/*"],
+      "@infra/*": ["src/infra/*"],
+      "@providers/*": ["src/providers/*"]
+    },
+    "types": ["vitest/globals", "node"]
   }
 }

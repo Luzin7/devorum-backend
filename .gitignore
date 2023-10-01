@@ -130,3 +130,7 @@ dist
 .pnp.*
 vercel.json
 .vercel
+*.lock
+*.lockb
+/data
+*.pem
