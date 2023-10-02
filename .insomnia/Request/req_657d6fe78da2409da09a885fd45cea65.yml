@@ -1,0 +1,30 @@
+_id: req_657d6fe78da2409da09a885fd45cea65
+type: Request
+parentId: fld_6b8b9c957d5a413cbd9c587ab97be68f
+modified: 1696280787297
+created: 1696280089716
+url: "{{ _.baseURL }}/comments/c9a05be0-47f7-41c2-b28b-0a876b721a7a"
+name: Update comment
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"content": "Edita comentário ehheheh"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1696280089716
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

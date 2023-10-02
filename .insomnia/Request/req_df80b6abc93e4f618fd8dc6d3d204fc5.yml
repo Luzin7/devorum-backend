@@ -1,0 +1,30 @@
+_id: req_df80b6abc93e4f618fd8dc6d3d204fc5
+type: Request
+parentId: fld_6b8b9c957d5a413cbd9c587ab97be68f
+modified: 1696107182696
+created: 1696048201284
+url: "{{ _.baseURL }}/topics/c390e015-4864-4b86-9136-87186b6eef02/comments"
+name: Create comment
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"content": "Novo comentário para o tópico"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1696107176248
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

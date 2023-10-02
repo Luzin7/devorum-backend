@@ -1,0 +1,23 @@
+_id: req_ab384bc7a0f545ffb68d339a980fcb26
+type: Request
+parentId: fld_43bb9ab62cd94f8ea7b4354cba72a664
+modified: 1696048001678
+created: 1696021961638
+url: "{{ _.baseURL }}/topics"
+name: Get recent topics
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1696021964299
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

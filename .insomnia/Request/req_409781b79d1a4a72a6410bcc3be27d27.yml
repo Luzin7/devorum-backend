@@ -1,0 +1,32 @@
+_id: req_409781b79d1a4a72a6410bcc3be27d27
+type: Request
+parentId: fld_365d79c8277f4d21b0c750e1937a3805
+modified: 1696106735485
+created: 1695947440412
+url: "{{ _.baseURL }}/users"
+name: Create User
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name": "joao paulo",
+    	"email": "jonas@gamil.com",
+    	"password": "12345678"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1695947444127
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

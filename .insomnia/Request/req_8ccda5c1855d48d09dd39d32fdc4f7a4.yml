@@ -1,0 +1,31 @@
+_id: req_8ccda5c1855d48d09dd39d32fdc4f7a4
+type: Request
+parentId: fld_43bb9ab62cd94f8ea7b4354cba72a664
+modified: 1696047964297
+created: 1696047760350
+url: "{{ _.baseURL }}/topics"
+name: Create topic
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"title": "Criando topico 2",
+    	"content": "Validando de fato a criação de um tópico"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1696021964399
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

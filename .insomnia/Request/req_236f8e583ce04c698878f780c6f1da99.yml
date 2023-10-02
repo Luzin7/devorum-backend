@@ -1,0 +1,23 @@
+_id: req_236f8e583ce04c698878f780c6f1da99
+type: Request
+parentId: fld_6b8b9c957d5a413cbd9c587ab97be68f
+modified: 1696280777084
+created: 1696107190338
+url: "{{ _.baseURL }}/"
+name: Delete comment
+description: ""
+method: DELETE
+body: {}
+parameters: []
+headers:
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1696107176348
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

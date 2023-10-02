@@ -1,0 +1,31 @@
+_id: req_1a2ee0437d954c249b431a59826e4a33
+type: Request
+parentId: fld_365d79c8277f4d21b0c750e1937a3805
+modified: 1696050957480
+created: 1695948961011
+url: "{{ _.baseURL }}/sessions"
+name: Create session
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email": "jonas@gamil.com",
+    	"password": "12345678"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.7
+authentication: {}
+metaSortKey: -1695947444227
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
