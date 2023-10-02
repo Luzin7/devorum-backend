@@ -54,6 +54,11 @@ export class TopicsPrismaRepository implements TopicsRepository {
       },
       include: {
         author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
       },
       skip: (page - 1) * perPage,
       take: page * perPage,
