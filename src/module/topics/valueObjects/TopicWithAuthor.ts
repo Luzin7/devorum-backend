@@ -1,5 +1,6 @@
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { ValueObject } from '@shared/core/entities/ValueObject'
+import { Optional } from '@shared/core/types/optional'
 
 interface TopicWithAuthorProps {
   topicId: UniqueId
@@ -8,11 +9,15 @@ interface TopicWithAuthorProps {
   content: string
   topicCreatedAt: Date
   topicUpdatedAt: Date | null
+  numberOfComments: number
 }
 
 export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
-  static create(props: TopicWithAuthorProps) {
-    return new TopicWithAuthor(props)
+  static create(props: Optional<TopicWithAuthorProps, 'numberOfComments'>) {
+    return new TopicWithAuthor({
+      ...props,
+      numberOfComments: props.numberOfComments ?? 0,
+    })
   }
 
   get topicId() {
@@ -37,5 +42,9 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
 
   get authorName() {
     return this.props.authorName
+  }
+
+  get numberOfComments() {
+    return this.props.numberOfComments
   }
 }
