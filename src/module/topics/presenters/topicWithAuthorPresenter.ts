@@ -9,6 +9,7 @@ export class TopicsWithAuthorPresenter {
       authorName: topicWithAuthor.authorName,
       topicCreatedAt: topicWithAuthor.topicCreatedAt,
       topicUpdatedAt: topicWithAuthor.topicUpdatedAt,
+      numberOfComments: topicWithAuthor.numberOfComments,
     }
   }
 }

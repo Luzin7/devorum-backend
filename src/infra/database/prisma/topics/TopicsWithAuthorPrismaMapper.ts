@@ -4,6 +4,9 @@ import { UniqueId } from '@shared/core/entities/UniqueId'
 
 type TopicWithAuthorPrisma = TopicPrisma & {
   author: UserPrisma
+  _count: {
+    comments: number
+  }
 }
 
 export class TopicsWithAuthorMapper {
@@ -15,6 +18,7 @@ export class TopicsWithAuthorMapper {
       topicCreatedAt: raw.createdAt,
       topicUpdatedAt: raw.updatedAt,
       topicId: new UniqueId(raw.id),
+      numberOfComments: raw._count.comments,
     })
   }
 }
