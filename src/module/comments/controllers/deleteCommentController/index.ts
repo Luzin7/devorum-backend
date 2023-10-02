@@ -5,7 +5,7 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { z } from 'zod'
 
-const DeleteCommentParamsSchema = z.object({
+const deleteCommentParamsSchema = z.object({
   commentId: z.string().uuid(),
   topicId: z.string().uuid(),
 })
@@ -13,7 +13,7 @@ const DeleteCommentParamsSchema = z.object({
 export class DeleteCommentController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.user
-    const { commentId, topicId } = DeleteCommentParamsSchema.parse(req.params)
+    const { commentId, topicId } = deleteCommentParamsSchema.parse(req.params)
 
     const deleteCommentUseCase = container.resolve(DeleteCommentUseCase)
 
