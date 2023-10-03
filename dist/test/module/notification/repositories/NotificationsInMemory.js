@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotificationsInMemoryRepository = void 0;
-class NotificationsInMemoryRepository {
+export class NotificationsInMemoryRepository {
     constructor() {
         this.notifications = [];
     }
@@ -22,5 +19,4 @@ class NotificationsInMemoryRepository {
         this.notifications[notificationIndex] = notification;
     }
 }
-exports.NotificationsInMemoryRepository = NotificationsInMemoryRepository;
 //# sourceMappingURL=NotificationsInMemory.js.map

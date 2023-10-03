@@ -1,11 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicCommentsList = void 0;
-const WatchedList_1 = require("@shared/core/entities/WatchedList");
-class TopicCommentsList extends WatchedList_1.WatchedList {
+import { WatchedList } from '@shared/core/entities/WatchedList';
+export class TopicCommentsList extends WatchedList {
     compareItems(a, b) {
         return a.equals(b);
     }
 }
-exports.TopicCommentsList = TopicCommentsList;
 //# sourceMappingURL=index.js.map

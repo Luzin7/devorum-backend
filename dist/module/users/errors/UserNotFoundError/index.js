@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserNotFoundError = void 0;
-const statusCodeMapper_1 = require("@infra/http/statusCode/statusCodeMapper");
-class UserNotFoundError extends Error {
+import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper';
+export class UserNotFoundError extends Error {
     constructor() {
         super('User not found');
-        this.statusCode = statusCodeMapper_1.statusCodeMapper.Conflict;
+        this.statusCode = statusCodeMapper.Conflict;
     }
 }
-exports.UserNotFoundError = UserNotFoundError;
 //# sourceMappingURL=index.js.map

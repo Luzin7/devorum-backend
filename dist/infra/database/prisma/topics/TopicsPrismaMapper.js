@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicsPrismaMapper = void 0;
-const Topic_1 = require("@module/topics/entities/Topic");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class TopicsPrismaMapper {
+import { Topic } from '@module/topics/entities/Topic';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class TopicsPrismaMapper {
     static toEntity(raw) {
-        return Topic_1.Topic.create({
-            authorId: new UniqueId_1.UniqueId(raw.authorId),
+        return Topic.create({
+            authorId: new UniqueId(raw.authorId),
             content: raw.content,
             title: raw.title,
             createdAt: raw.createdAt,
             updatedAt: raw.updatedAt,
-        }, new UniqueId_1.UniqueId(raw.id));
+        }, new UniqueId(raw.id));
     }
     static toPrisma(topic) {
         return {
@@ -24,5 +21,4 @@ class TopicsPrismaMapper {
         };
     }
 }
-exports.TopicsPrismaMapper = TopicsPrismaMapper;
 //# sourceMappingURL=TopicsPrismaMapper.js.map

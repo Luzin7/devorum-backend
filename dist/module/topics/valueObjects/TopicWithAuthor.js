@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicWithAuthor = void 0;
-const ValueObject_1 = require("@shared/core/entities/ValueObject");
-class TopicWithAuthor extends ValueObject_1.ValueObject {
+import { ValueObject } from '@shared/core/entities/ValueObject';
+export class TopicWithAuthor extends ValueObject {
     static create(props) {
         return new TopicWithAuthor({
             ...props,
@@ -31,5 +28,4 @@ class TopicWithAuthor extends ValueObject_1.ValueObject {
         return this.props.numberOfComments;
     }
 }
-exports.TopicWithAuthor = TopicWithAuthor;
 //# sourceMappingURL=TopicWithAuthor.js.map

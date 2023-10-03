@@ -1,16 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("reflect-metadata");
-const UsersInMemoryRepository_1 = require("@test/module/user/repositories/UsersInMemoryRepository");
-const TopicsInMemoryRepository_1 = require("@test/module/topic/repositories/TopicsInMemoryRepository");
-const makeUser_1 = require("@test/module/user/factories/makeUser");
-const UserNotFoundError_1 = require("@module/users/errors/UserNotFoundError");
-const makeTopic_1 = require("@test/module/topic/factories/makeTopic");
-const CommentsInMemoryRepository_1 = require("@test/module/comment/repositories/CommentsInMemoryRepository");
-const TopicNotFoundError_1 = require("@module/topics/errors/TopicNotFoundError");
-const _1 = require(".");
-const makeComment_1 = require("@test/module/comment/factories/makeComment");
-const NotificationsInMemory_1 = require("@test/module/notification/repositories/NotificationsInMemory");
+import 'reflect-metadata';
+import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository';
+import { TopicsInMemoryRepository } from '@test/module/topic/repositories/TopicsInMemoryRepository';
+import { makeUser } from '@test/module/user/factories/makeUser';
+import { UserNotFoundError } from '@module/users/errors/UserNotFoundError';
+import { makeTopic } from '@test/module/topic/factories/makeTopic';
+import { CommentsInMemoryRepository } from '@test/module/comment/repositories/CommentsInMemoryRepository';
+import { TopicNotFoundError } from '@module/topics/errors/TopicNotFoundError';
+import { DeleteCommentUseCase } from '.';
+import { makeComment } from '@test/module/comment/factories/makeComment';
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory';
 let notificationsRepository;
 let topicsRepository;
 let usersRepository;
@@ -18,16 +16,16 @@ let commentsRepository;
 let sut;
 describe('delete comment', () => {
     beforeEach(() => {
-        notificationsRepository = new NotificationsInMemory_1.NotificationsInMemoryRepository();
-        usersRepository = new UsersInMemoryRepository_1.UsersInMemoryRepository(notificationsRepository);
-        topicsRepository = new TopicsInMemoryRepository_1.TopicsInMemoryRepository(usersRepository);
-        commentsRepository = new CommentsInMemoryRepository_1.CommentsInMemoryRepository();
-        sut = new _1.DeleteCommentUseCase(topicsRepository, commentsRepository, usersRepository);
+        notificationsRepository = new NotificationsInMemoryRepository();
+        usersRepository = new UsersInMemoryRepository(notificationsRepository);
+        topicsRepository = new TopicsInMemoryRepository(usersRepository);
+        commentsRepository = new CommentsInMemoryRepository();
+        sut = new DeleteCommentUseCase(topicsRepository, commentsRepository, usersRepository);
     });
     it('should be able to delete a comment', async () => {
-        const user = (0, makeUser_1.makeUser)();
-        const topic = (0, makeTopic_1.makeTopic)({ authorId: user.id });
-        const comment = (0, makeComment_1.makeComment)({ topicId: topic.id, authorId: user.id });
+        const user = makeUser();
+        const topic = makeTopic({ authorId: user.id });
+        const comment = makeComment({ topicId: topic.id, authorId: user.id });
         usersRepository.create(user);
         topicsRepository.create(topic);
         commentsRepository.create(comment);
@@ -40,8 +38,8 @@ describe('delete comment', () => {
         expect(commentsRepository.comments.length).toEqual(0);
     });
     it('not should be able to delete a comment if user doesnt exists', async () => {
-        const topic = (0, makeTopic_1.makeTopic)();
-        const comment = (0, makeComment_1.makeComment)({ topicId: topic.id });
+        const topic = makeTopic();
+        const comment = makeComment({ topicId: topic.id });
         commentsRepository.create(comment);
         topicsRepository.create(topic);
         const response = await sut.execute({
@@ -50,11 +48,11 @@ describe('delete comment', () => {
             commentId: comment.id.toString(),
         });
         expect(response.isLeft()).toEqual(true);
-        expect(response.value).toBeInstanceOf(UserNotFoundError_1.UserNotFoundError);
+        expect(response.value).toBeInstanceOf(UserNotFoundError);
     });
     it('not should be able to delete a comment if topic doesnt exists', async () => {
-        const user = (0, makeUser_1.makeUser)();
-        const comment = (0, makeComment_1.makeComment)({ authorId: user.id });
+        const user = makeUser();
+        const comment = makeComment({ authorId: user.id });
         commentsRepository.create(comment);
         usersRepository.create(user);
         const response = await sut.execute({
@@ -63,7 +61,7 @@ describe('delete comment', () => {
             commentId: comment.id.toString(),
         });
         expect(response.isLeft()).toEqual(true);
-        expect(response.value).toBeInstanceOf(TopicNotFoundError_1.TopicNotFoundError);
+        expect(response.value).toBeInstanceOf(TopicNotFoundError);
     });
 });
 //# sourceMappingURL=index.spec.js.map

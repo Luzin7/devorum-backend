@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,13 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteUserUseCase = void 0;
-const Injectable_1 = require("@infra/containers/Injectable");
-const UserNotFoundError_1 = require("@module/users/errors/UserNotFoundError");
-const UsersRepository_1 = require("@module/users/repositories/contracts/UsersRepository");
-const Either_1 = require("@shared/core/errors/Either");
-const tsyringe_1 = require("tsyringe");
+import { Injectable } from '@infra/containers/Injectable';
+import { UserNotFoundError } from '@module/users/errors/UserNotFoundError';
+import { UsersRepository } from '@module/users/repositories/contracts/UsersRepository';
+import { left, right } from '@shared/core/errors/Either';
+import { inject, injectable } from 'tsyringe';
 let DeleteUserUseCase = class DeleteUserUseCase {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -25,16 +22,16 @@ let DeleteUserUseCase = class DeleteUserUseCase {
     async execute({ id }) {
         const user = await this.usersRepository.findById(id);
         if (!user) {
-            return (0, Either_1.left)(new UserNotFoundError_1.UserNotFoundError());
+            return left(new UserNotFoundError());
         }
         await this.usersRepository.delete(id);
-        return (0, Either_1.right)(null);
+        return right(null);
     }
 };
-exports.DeleteUserUseCase = DeleteUserUseCase;
-exports.DeleteUserUseCase = DeleteUserUseCase = __decorate([
-    (0, tsyringe_1.injectable)(),
-    __param(0, (0, tsyringe_1.inject)(Injectable_1.Injectable.Repositories.Users)),
-    __metadata("design:paramtypes", [UsersRepository_1.UsersRepository])
+DeleteUserUseCase = __decorate([
+    injectable(),
+    __param(0, inject(Injectable.Repositories.Users)),
+    __metadata("design:paramtypes", [UsersRepository])
 ], DeleteUserUseCase);
+export { DeleteUserUseCase };
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommentCreatedEvent = void 0;
-class CommentCreatedEvent {
+export class CommentCreatedEvent {
     constructor(comment) {
         this._comment = comment;
         this.ocurredAt = new Date();
@@ -13,5 +10,4 @@ class CommentCreatedEvent {
         return this._comment;
     }
 }
-exports.CommentCreatedEvent = CommentCreatedEvent;
 //# sourceMappingURL=CommentCreatedEvent.js.map

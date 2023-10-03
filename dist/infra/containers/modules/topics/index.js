@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const tsyringe_1 = require("tsyringe");
-const Repositories_1 = require("../Repositories");
-const TopicsPrismaRepository_1 = require("@infra/database/prisma/topics/TopicsPrismaRepository");
-tsyringe_1.container.registerSingleton(Repositories_1.Repositories.Topics, TopicsPrismaRepository_1.TopicsPrismaRepository);
+import { container } from 'tsyringe';
+import { Repositories } from '../Repositories';
+import { TopicsPrismaRepository } from '@infra/database/prisma/topics/TopicsPrismaRepository';
+container.registerSingleton(Repositories.Topics, TopicsPrismaRepository);
 //# sourceMappingURL=index.js.map

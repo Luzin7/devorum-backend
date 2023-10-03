@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserWithNotifications = void 0;
-const ValueObject_1 = require("@shared/core/entities/ValueObject");
-class UserWithNotifications extends ValueObject_1.ValueObject {
+import { ValueObject } from '@shared/core/entities/ValueObject';
+export class UserWithNotifications extends ValueObject {
     static create(props) {
         return new UserWithNotifications(props);
     }
@@ -19,5 +16,4 @@ class UserWithNotifications extends ValueObject_1.ValueObject {
         return this.props.notifications;
     }
 }
-exports.UserWithNotifications = UserWithNotifications;
 //# sourceMappingURL=UserWithNotifications.js.map

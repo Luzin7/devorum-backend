@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersInMemoryRepository = void 0;
-const UserWithNotifications_1 = require("@module/users/valueObjects/UserWithNotifications");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class UsersInMemoryRepository {
+import { UserWithNotifications } from '@module/users/valueObjects/UserWithNotifications';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class UsersInMemoryRepository {
     constructor(notificationsRepository) {
         this.notificationsRepository = notificationsRepository;
         this.users = [];
@@ -12,7 +9,7 @@ class UsersInMemoryRepository {
         this.users.push(user);
     }
     async findById(id) {
-        const user = this.users.find((user) => user.id.equals(new UniqueId_1.UniqueId(id)));
+        const user = this.users.find((user) => user.id.equals(new UniqueId(id)));
         return user ?? null;
     }
     async findByEmail(email) {
@@ -20,7 +17,7 @@ class UsersInMemoryRepository {
         return user ?? null;
     }
     async delete(id) {
-        this.users = this.users.filter((user) => !user.id.equals(new UniqueId_1.UniqueId(id)));
+        this.users = this.users.filter((user) => !user.id.equals(new UniqueId(id)));
     }
     async findByIdWithNotifications(id) {
         const user = this.users.find((u) => u.id.toString() === id);
@@ -28,7 +25,7 @@ class UsersInMemoryRepository {
             return null;
         }
         const notificationsOfUser = this.notificationsRepository.notifications.filter((notification) => notification.recipientId.equals(user.id));
-        return UserWithNotifications_1.UserWithNotifications.create({
+        return UserWithNotifications.create({
             email: user.email,
             name: user.name,
             notifications: notificationsOfUser,
@@ -36,5 +33,4 @@ class UsersInMemoryRepository {
         });
     }
 }
-exports.UsersInMemoryRepository = UsersInMemoryRepository;
 //# sourceMappingURL=UsersInMemoryRepository.js.map

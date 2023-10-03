@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Either_1 = require("./Either");
+import { left, right } from './Either';
 function correctTheSumValue(x, y, z) {
     const some = x + y;
     if (some === z) {
-        return (0, Either_1.right)('success');
+        return right('success');
     }
-    return (0, Either_1.left)('error');
+    return left('error');
 }
 describe('Error handling', () => {
     test('success result', () => {

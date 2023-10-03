@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Topic = void 0;
-const AggregateRoot_1 = require("@shared/core/entities/AggregateRoot");
-const TopicCommentsList_1 = require("../TopicCommentsList");
-class Topic extends AggregateRoot_1.AggregateRoot {
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot';
+import { TopicCommentsList } from '../TopicCommentsList';
+export class Topic extends AggregateRoot {
     static create(props, id) {
         const topicProps = {
             authorId: props.authorId,
@@ -11,7 +8,7 @@ class Topic extends AggregateRoot_1.AggregateRoot {
             title: props.title,
             content: props.content,
             updatedAt: props.updatedAt ?? null,
-            comments: props.comments ?? new TopicCommentsList_1.TopicCommentsList(),
+            comments: props.comments ?? new TopicCommentsList(),
         };
         const topic = new Topic(topicProps, id);
         return topic;
@@ -35,5 +32,4 @@ class Topic extends AggregateRoot_1.AggregateRoot {
         return this.props.comments;
     }
 }
-exports.Topic = Topic;
 //# sourceMappingURL=index.js.map

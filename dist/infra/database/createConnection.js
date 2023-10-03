@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.prisma = void 0;
-const index_1 = require("@env/index");
-const client_1 = require("@prisma/client");
-exports.prisma = new client_1.PrismaClient({
+import { env } from '@env/index';
+import { PrismaClient } from '@prisma/client';
+export const prisma = new PrismaClient({
     errorFormat: 'colorless',
-    log: index_1.env.NODE_ENV === 'dev' ? ['query'] : [],
+    log: env.NODE_ENV === 'dev' ? ['query'] : [],
 });
-exports.prisma
+prisma
     .$connect()
     .then(() => console.log('database is conectado'))
     .catch((error) => console.error(error));

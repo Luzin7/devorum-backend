@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersPrismaMapper = void 0;
-const User_1 = require("@module/users/entities/User");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class UsersPrismaMapper {
+import { User } from '@module/users/entities/User';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class UsersPrismaMapper {
     static toEntity(raw) {
-        return User_1.User.create({
+        return User.create({
             email: raw.email,
             name: raw.name,
             password: raw.password,
             salt: raw.salt,
             createdAt: raw.createdAt,
-        }, new UniqueId_1.UniqueId(raw.id));
+        }, new UniqueId(raw.id));
     }
     static toPrisma(user) {
         return {
@@ -24,5 +21,4 @@ class UsersPrismaMapper {
         };
     }
 }
-exports.UsersPrismaMapper = UsersPrismaMapper;
 //# sourceMappingURL=UsersPrismaMapper.js.map

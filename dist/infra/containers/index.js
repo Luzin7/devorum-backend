@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("@infra/containers/modules/users");
-require("@infra/containers/modules/comments");
-require("@infra/containers/modules/topics");
-require("@infra/containers/modules/notifications");
-require("@infra/containers/providers/cryptography");
-require("@infra/containers/providers/auth");
-require("@infra/containers/events/comments");
+import '@infra/containers/modules/users';
+import '@infra/containers/modules/comments';
+import '@infra/containers/modules/topics';
+import '@infra/containers/modules/notifications';
+import '@infra/containers/providers/cryptography';
+import '@infra/containers/providers/auth';
+import '@infra/containers/events/comments';
 //# sourceMappingURL=index.js.map

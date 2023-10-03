@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersPrismaRepository = void 0;
-const createConnection_1 = require("@infra/database/createConnection");
-const UsersPrismaMapper_1 = require("./UsersPrismaMapper");
-const UsersWithNotificationsPrismaMapper_1 = require("./UsersWithNotificationsPrismaMapper");
-class UsersPrismaRepository {
+import { prisma } from '@infra/database/createConnection';
+import { UsersPrismaMapper } from './UsersPrismaMapper';
+import { UsersWithNotificationsPrismaMapper } from './UsersWithNotificationsPrismaMapper';
+export class UsersPrismaRepository {
     async create(user) {
-        await createConnection_1.prisma.user.create({
-            data: UsersPrismaMapper_1.UsersPrismaMapper.toPrisma(user),
+        await prisma.user.create({
+            data: UsersPrismaMapper.toPrisma(user),
         });
     }
     async findById(id) {
-        const user = await createConnection_1.prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id,
             },
@@ -19,10 +16,10 @@ class UsersPrismaRepository {
         if (!user) {
             return null;
         }
-        return UsersPrismaMapper_1.UsersPrismaMapper.toEntity(user);
+        return UsersPrismaMapper.toEntity(user);
     }
     async findByIdWithNotifications(id) {
-        const user = await createConnection_1.prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id,
             },
@@ -37,10 +34,10 @@ class UsersPrismaRepository {
         });
         if (!user)
             return null;
-        return UsersWithNotificationsPrismaMapper_1.UsersWithNotificationsPrismaMapper.toEntity(user);
+        return UsersWithNotificationsPrismaMapper.toEntity(user);
     }
     async findByEmail(email) {
-        const user = await createConnection_1.prisma.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 email,
             },
@@ -48,15 +45,14 @@ class UsersPrismaRepository {
         if (!user) {
             return null;
         }
-        return UsersPrismaMapper_1.UsersPrismaMapper.toEntity(user);
+        return UsersPrismaMapper.toEntity(user);
     }
     async delete(id) {
-        await createConnection_1.prisma.user.delete({
+        await prisma.user.delete({
             where: {
                 id,
             },
         });
     }
 }
-exports.UsersPrismaRepository = UsersPrismaRepository;
 //# sourceMappingURL=UsersPrismaRepository.js.map

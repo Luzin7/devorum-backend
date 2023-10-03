@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("reflect-metadata");
-const UsersInMemoryRepository_1 = require("@test/module/user/repositories/UsersInMemoryRepository");
-const makeUser_1 = require("@test/module/user/factories/makeUser");
-const fakeCryptographyProvider_1 = require("@test/providers/cryptography/fakeCryptographyProvider");
-const _1 = require(".");
-const fakeAuthProvider_1 = require("@test/providers/auth/fakeAuthProvider");
-const WrongCredentialsError_1 = require("@module/users/errors/WrongCredentialsError");
-const NotificationsInMemory_1 = require("@test/module/notification/repositories/NotificationsInMemory");
+import 'reflect-metadata';
+import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository';
+import { makeUser } from '@test/module/user/factories/makeUser';
+import { FakeCryptographyProvider } from '@test/providers/cryptography/fakeCryptographyProvider';
+import { CreateSessionUseCase } from '.';
+import { FakeAuthProvider } from '@test/providers/auth/fakeAuthProvider';
+import { WrongCredentialsError } from '@module/users/errors/WrongCredentialsError';
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory';
 let notificationsRepository;
 let usersRepository;
 let cryptographyProvider;
@@ -15,15 +13,15 @@ let authProvider;
 let sut;
 describe('create session', () => {
     beforeEach(() => {
-        notificationsRepository = new NotificationsInMemory_1.NotificationsInMemoryRepository();
-        usersRepository = new UsersInMemoryRepository_1.UsersInMemoryRepository(notificationsRepository);
-        cryptographyProvider = new fakeCryptographyProvider_1.FakeCryptographyProvider();
-        authProvider = new fakeAuthProvider_1.FakeAuthProvider();
-        sut = new _1.CreateSessionUseCase(cryptographyProvider, usersRepository, authProvider);
+        notificationsRepository = new NotificationsInMemoryRepository();
+        usersRepository = new UsersInMemoryRepository(notificationsRepository);
+        cryptographyProvider = new FakeCryptographyProvider();
+        authProvider = new FakeAuthProvider();
+        sut = new CreateSessionUseCase(cryptographyProvider, usersRepository, authProvider);
     });
     it('should be able to create an new session for user', async () => {
         const { hash, salt } = await cryptographyProvider.hashCreator('12345678');
-        const user = (0, makeUser_1.makeUser)({
+        const user = makeUser({
             password: hash,
             salt,
             email: 'test@test.com',
@@ -41,7 +39,7 @@ describe('create session', () => {
     });
     it('not should be able to create an new session for user if pass is wrong', async () => {
         const { hash, salt } = await cryptographyProvider.hashCreator('12345678');
-        const user = (0, makeUser_1.makeUser)({
+        const user = makeUser({
             password: hash,
             salt,
             email: 'test@test.com',
@@ -52,7 +50,7 @@ describe('create session', () => {
             password: 'wrong-password',
         });
         expect(response.isLeft()).toEqual(true);
-        expect(response.value).toBeInstanceOf(WrongCredentialsError_1.WrongCredentialsError);
+        expect(response.value).toBeInstanceOf(WrongCredentialsError);
     });
     it('not should be able to create an new session for user if user not exist', async () => {
         const response = await sut.execute({
@@ -60,7 +58,7 @@ describe('create session', () => {
             password: '12345678',
         });
         expect(response.isLeft()).toEqual(true);
-        expect(response.value).toBeInstanceOf(WrongCredentialsError_1.WrongCredentialsError);
+        expect(response.value).toBeInstanceOf(WrongCredentialsError);
     });
 });
 //# sourceMappingURL=index.spec.js.map

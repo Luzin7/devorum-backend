@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicsInMemoryRepository = void 0;
-const TopicWithAuthor_1 = require("@module/topics/valueObjects/TopicWithAuthor");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class TopicsInMemoryRepository {
+import { TopicWithAuthor } from '@module/topics/valueObjects/TopicWithAuthor';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class TopicsInMemoryRepository {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
         this.topics = [];
@@ -15,11 +12,11 @@ class TopicsInMemoryRepository {
         this.topics.push(topic);
     }
     async findById(id) {
-        const topic = this.topics.find((topic) => topic.id.equals(new UniqueId_1.UniqueId(id)));
+        const topic = this.topics.find((topic) => topic.id.equals(new UniqueId(id)));
         return topic ?? null;
     }
     async delete(id) {
-        this.topics = this.topics.filter((topic) => !topic.id.equals(new UniqueId_1.UniqueId(id)));
+        this.topics = this.topics.filter((topic) => !topic.id.equals(new UniqueId(id)));
     }
     async findManyRecentWithAuthor({ page, perPage, }) {
         const topics = this.topics
@@ -30,7 +27,7 @@ class TopicsInMemoryRepository {
             if (!user) {
                 throw Error('User not created for topic');
             }
-            const topicWithAuthor = TopicWithAuthor_1.TopicWithAuthor.create({
+            const topicWithAuthor = TopicWithAuthor.create({
                 authorId: user.id,
                 authorName: user.name,
                 content: topic.content,
@@ -43,5 +40,4 @@ class TopicsInMemoryRepository {
         return topicsWithAuthor;
     }
 }
-exports.TopicsInMemoryRepository = TopicsInMemoryRepository;
 //# sourceMappingURL=TopicsInMemoryRepository.js.map

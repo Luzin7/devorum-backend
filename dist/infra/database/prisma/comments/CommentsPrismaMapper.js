@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommentsPrismaMapper = void 0;
-const Comment_1 = require("@module/comments/entities/Comment");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class CommentsPrismaMapper {
+import { Comment } from '@module/comments/entities/Comment';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class CommentsPrismaMapper {
     static toEntity(raw) {
-        return Comment_1.Comment.create({
-            authorId: new UniqueId_1.UniqueId(raw.authorId),
+        return Comment.create({
+            authorId: new UniqueId(raw.authorId),
             content: raw.content,
-            topicId: new UniqueId_1.UniqueId(raw.topicId),
+            topicId: new UniqueId(raw.topicId),
             createdAt: raw.createdAt,
             updatedAt: raw.updatedAt,
-        }, new UniqueId_1.UniqueId(raw.id));
+        }, new UniqueId(raw.id));
     }
     static toPrisma(comment) {
         return {
@@ -24,5 +21,4 @@ class CommentsPrismaMapper {
         };
     }
 }
-exports.CommentsPrismaMapper = CommentsPrismaMapper;
 //# sourceMappingURL=CommentsPrismaMapper.js.map

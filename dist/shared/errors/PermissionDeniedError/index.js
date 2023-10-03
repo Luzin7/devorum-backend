@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PermissionDeniedError = void 0;
-const statusCodeMapper_1 = require("@infra/http/statusCode/statusCodeMapper");
-class PermissionDeniedError extends Error {
+import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper';
+export class PermissionDeniedError extends Error {
     constructor() {
         super('Permission denied');
-        this.statusCode = statusCodeMapper_1.statusCodeMapper.Unauthorized;
+        this.statusCode = statusCodeMapper.Unauthorized;
     }
 }
-exports.PermissionDeniedError = PermissionDeniedError;
 //# sourceMappingURL=index.js.map

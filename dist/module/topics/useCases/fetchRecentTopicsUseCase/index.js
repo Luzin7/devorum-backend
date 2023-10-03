@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FetchRecentTopicsUseCase = void 0;
-const Injectable_1 = require("@infra/containers/Injectable");
-const TopicsRepository_1 = require("@module/topics/repositories/contracts/TopicsRepository");
-const Either_1 = require("@shared/core/errors/Either");
-const tsyringe_1 = require("tsyringe");
+import { Injectable } from '@infra/containers/Injectable';
+import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository';
+import { right } from '@shared/core/errors/Either';
+import { inject, injectable } from 'tsyringe';
 let FetchRecentTopicsUseCase = class FetchRecentTopicsUseCase {
     constructor(topicsRepository) {
         this.topicsRepository = topicsRepository;
@@ -26,15 +23,15 @@ let FetchRecentTopicsUseCase = class FetchRecentTopicsUseCase {
             page,
             perPage,
         });
-        return (0, Either_1.right)({
+        return right({
             topics,
         });
     }
 };
-exports.FetchRecentTopicsUseCase = FetchRecentTopicsUseCase;
-exports.FetchRecentTopicsUseCase = FetchRecentTopicsUseCase = __decorate([
-    (0, tsyringe_1.injectable)(),
-    __param(0, (0, tsyringe_1.inject)(Injectable_1.Injectable.Repositories.Topics)),
-    __metadata("design:paramtypes", [TopicsRepository_1.TopicsRepository])
+FetchRecentTopicsUseCase = __decorate([
+    injectable(),
+    __param(0, inject(Injectable.Repositories.Topics)),
+    __metadata("design:paramtypes", [TopicsRepository])
 ], FetchRecentTopicsUseCase);
+export { FetchRecentTopicsUseCase };
 //# sourceMappingURL=index.js.map

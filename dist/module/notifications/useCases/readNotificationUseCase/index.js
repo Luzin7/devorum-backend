@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,14 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReadNotificationUseCase = void 0;
-const Injectable_1 = require("@infra/containers/Injectable");
-const NotificationNotFoundError_1 = require("@module/notifications/errors/NotificationNotFoundError");
-const NotificationsRepository_1 = require("@module/notifications/repositories/contracts/NotificationsRepository");
-const Either_1 = require("@shared/core/errors/Either");
-const PermissionDeniedError_1 = require("@shared/errors/PermissionDeniedError");
-const tsyringe_1 = require("tsyringe");
+import { Injectable } from '@infra/containers/Injectable';
+import { NotificationNotFoundError } from '@module/notifications/errors/NotificationNotFoundError';
+import { NotificationsRepository } from '@module/notifications/repositories/contracts/NotificationsRepository';
+import { left, right } from '@shared/core/errors/Either';
+import { PermissionDeniedError } from '@shared/errors/PermissionDeniedError';
+import { inject, injectable } from 'tsyringe';
 let ReadNotificationUseCase = class ReadNotificationUseCase {
     constructor(notificationRepository) {
         this.notificationRepository = notificationRepository;
@@ -26,22 +23,22 @@ let ReadNotificationUseCase = class ReadNotificationUseCase {
     async execute({ recipientId, notificationId }) {
         const notification = await this.notificationRepository.findById(notificationId);
         if (!notification) {
-            return (0, Either_1.left)(new NotificationNotFoundError_1.NotificationNotFoundError());
+            return left(new NotificationNotFoundError());
         }
         if (notification.recipientId.toString() !== recipientId) {
-            return (0, Either_1.left)(new PermissionDeniedError_1.PermissionDeniedError());
+            return left(new PermissionDeniedError());
         }
         notification.read();
         await this.notificationRepository.save(notification);
-        return (0, Either_1.right)({
+        return right({
             notification,
         });
     }
 };
-exports.ReadNotificationUseCase = ReadNotificationUseCase;
-exports.ReadNotificationUseCase = ReadNotificationUseCase = __decorate([
-    (0, tsyringe_1.injectable)(),
-    __param(0, (0, tsyringe_1.inject)(Injectable_1.Injectable.Repositories.Notifications)),
-    __metadata("design:paramtypes", [NotificationsRepository_1.NotificationsRepository])
+ReadNotificationUseCase = __decorate([
+    injectable(),
+    __param(0, inject(Injectable.Repositories.Notifications)),
+    __metadata("design:paramtypes", [NotificationsRepository])
 ], ReadNotificationUseCase);
+export { ReadNotificationUseCase };
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const AggregateRoot_1 = require("@shared/core/entities/AggregateRoot");
-class User extends AggregateRoot_1.AggregateRoot {
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot';
+export class User extends AggregateRoot {
     static create(props, id) {
         const userProps = {
             createdAt: props.createdAt ?? new Date(),
@@ -30,5 +27,4 @@ class User extends AggregateRoot_1.AggregateRoot {
         return this.props.email;
     }
 }
-exports.User = User;
 //# sourceMappingURL=index.js.map

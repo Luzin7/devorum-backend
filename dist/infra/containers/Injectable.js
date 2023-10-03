@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Injectable = void 0;
-const Repositories_1 = require("./modules/Repositories");
-const Providers_1 = require("./providers/Providers");
-exports.Injectable = {
-    Repositories: Repositories_1.Repositories,
-    Providers: Providers_1.Providers,
+import { Repositories } from './modules/Repositories';
+import { Providers } from './providers/Providers';
+export const Injectable = {
+    Repositories,
+    Providers,
 };
 //# sourceMappingURL=Injectable.js.map

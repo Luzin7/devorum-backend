@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserPresenter = void 0;
-class UserPresenter {
+export class UserPresenter {
     static toHTTP(user) {
         return {
             id: user.id.toString(),
@@ -10,5 +7,4 @@ class UserPresenter {
         };
     }
 }
-exports.UserPresenter = UserPresenter;
 //# sourceMappingURL=userPresenter.js.map

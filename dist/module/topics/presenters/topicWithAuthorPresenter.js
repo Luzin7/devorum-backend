@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicsWithAuthorPresenter = void 0;
-class TopicsWithAuthorPresenter {
+export class TopicsWithAuthorPresenter {
     static toHTTP(topicWithAuthor) {
         return {
             topicId: topicWithAuthor.topicId.toString(),
@@ -14,5 +11,4 @@ class TopicsWithAuthorPresenter {
         };
     }
 }
-exports.TopicsWithAuthorPresenter = TopicsWithAuthorPresenter;
 //# sourceMappingURL=topicWithAuthorPresenter.js.map

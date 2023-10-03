@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,14 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.OnCommentCreated = void 0;
-const Injectable_1 = require("@infra/containers/Injectable");
-const CommentCreatedEvent_1 = require("@module/comments/events/CommentCreatedEvent");
-const sendNotificationUseCase_1 = require("@module/notifications/useCases/sendNotificationUseCase");
-const TopicsRepository_1 = require("@module/topics/repositories/contracts/TopicsRepository");
-const DomainEvents_1 = require("@shared/core/events/DomainEvents");
-const tsyringe_1 = require("tsyringe");
+import { Injectable } from '@infra/containers/Injectable';
+import { CommentCreatedEvent } from '@module/comments/events/CommentCreatedEvent';
+import { SendNotificationUseCase } from '@module/notifications/useCases/sendNotificationUseCase';
+import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository';
+import { DomainEvents } from '@shared/core/events/DomainEvents';
+import { container, inject, injectable } from 'tsyringe';
 let OnCommentCreated = class OnCommentCreated {
     constructor(topicsRepository, sendNotificationUseCase) {
         this.topicsRepository = topicsRepository;
@@ -26,11 +23,11 @@ let OnCommentCreated = class OnCommentCreated {
         this.setupSubscriptions();
     }
     setupSubscriptions() {
-        DomainEvents_1.DomainEvents.register(CommentCreatedEvent_1.CommentCreatedEvent.name, this.sendNewCommentNotification.bind(this));
+        DomainEvents.register(CommentCreatedEvent.name, this.sendNewCommentNotification.bind(this));
     }
     async sendNewCommentNotification({ comment }) {
         if (!this.sendNotificationUseCase) {
-            this.sendNotificationUseCase = tsyringe_1.container.resolve(sendNotificationUseCase_1.SendNotificationUseCase);
+            this.sendNotificationUseCase = container.resolve(SendNotificationUseCase);
         }
         const topic = await this.topicsRepository.findById(comment.topicId.toString());
         if (topic) {
@@ -44,11 +41,11 @@ let OnCommentCreated = class OnCommentCreated {
         }
     }
 };
-exports.OnCommentCreated = OnCommentCreated;
-exports.OnCommentCreated = OnCommentCreated = __decorate([
-    (0, tsyringe_1.injectable)(),
-    __param(0, (0, tsyringe_1.inject)(Injectable_1.Injectable.Repositories.Topics)),
-    __metadata("design:paramtypes", [TopicsRepository_1.TopicsRepository,
-        sendNotificationUseCase_1.SendNotificationUseCase])
+OnCommentCreated = __decorate([
+    injectable(),
+    __param(0, inject(Injectable.Repositories.Topics)),
+    __metadata("design:paramtypes", [TopicsRepository,
+        SendNotificationUseCase])
 ], OnCommentCreated);
+export { OnCommentCreated };
 //# sourceMappingURL=index.js.map

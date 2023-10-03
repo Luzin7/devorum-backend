@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TopicsPrismaRepository = void 0;
-const createConnection_1 = require("@infra/database/createConnection");
-const TopicsPrismaMapper_1 = require("./TopicsPrismaMapper");
-const TopicsWithAuthorPrismaMapper_1 = require("./TopicsWithAuthorPrismaMapper");
-class TopicsPrismaRepository {
+import { prisma } from '@infra/database/createConnection';
+import { TopicsPrismaMapper } from './TopicsPrismaMapper';
+import { TopicsWithAuthorMapper } from './TopicsWithAuthorPrismaMapper';
+export class TopicsPrismaRepository {
     async create(topic) {
-        await createConnection_1.prisma.topic.create({
-            data: TopicsPrismaMapper_1.TopicsPrismaMapper.toPrisma(topic),
+        await prisma.topic.create({
+            data: TopicsPrismaMapper.toPrisma(topic),
         });
     }
     async findById(id) {
-        const topic = await createConnection_1.prisma.topic.findUnique({
+        const topic = await prisma.topic.findUnique({
             where: {
                 id,
             },
@@ -19,25 +16,25 @@ class TopicsPrismaRepository {
         if (!topic) {
             return null;
         }
-        return TopicsPrismaMapper_1.TopicsPrismaMapper.toEntity(topic);
+        return TopicsPrismaMapper.toEntity(topic);
     }
     async delete(id) {
-        await createConnection_1.prisma.topic.delete({
+        await prisma.topic.delete({
             where: {
                 id,
             },
         });
     }
     async save(topic) {
-        await createConnection_1.prisma.topic.update({
+        await prisma.topic.update({
             where: {
                 id: topic.id.toString(),
             },
-            data: TopicsPrismaMapper_1.TopicsPrismaMapper.toPrisma(topic),
+            data: TopicsPrismaMapper.toPrisma(topic),
         });
     }
     async findManyRecentWithAuthor({ page, perPage, }) {
-        const topics = await createConnection_1.prisma.topic.findMany({
+        const topics = await prisma.topic.findMany({
             orderBy: {
                 createdAt: 'desc',
             },
@@ -52,8 +49,7 @@ class TopicsPrismaRepository {
             skip: (page - 1) * perPage,
             take: page * perPage,
         });
-        return topics.map(TopicsWithAuthorPrismaMapper_1.TopicsWithAuthorMapper.toTopicWithAuthor);
+        return topics.map(TopicsWithAuthorMapper.toTopicWithAuthor);
     }
 }
-exports.TopicsPrismaRepository = TopicsPrismaRepository;
 //# sourceMappingURL=TopicsPrismaRepository.js.map

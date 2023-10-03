@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const AggregateRoot_1 = require("@shared/core/entities/AggregateRoot");
-const _1 = require(".");
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot';
+import { DomainEvents } from '.';
 class CustomAggregateCreated {
     constructor(customAggregate) {
         this.customAggregate = customAggregate;
@@ -11,7 +9,7 @@ class CustomAggregateCreated {
         return this.customAggregate.id;
     }
 }
-class CustomAggregate extends AggregateRoot_1.AggregateRoot {
+class CustomAggregate extends AggregateRoot {
     static create() {
         const customAggregate = new CustomAggregate(null);
         customAggregate.addDomainEvent(new CustomAggregateCreated(customAggregate));
@@ -21,10 +19,10 @@ class CustomAggregate extends AggregateRoot_1.AggregateRoot {
 describe('domain events', () => {
     it('should be able to dispatch and listen domain events', () => {
         const callbackSpy = vi.fn();
-        _1.DomainEvents.register(CustomAggregateCreated.name, callbackSpy);
+        DomainEvents.register(CustomAggregateCreated.name, callbackSpy);
         const customAggregate = CustomAggregate.create();
         expect(customAggregate.domainEvents).toHaveLength(1);
-        _1.DomainEvents.dispatchEventsForAggregate(customAggregate.id);
+        DomainEvents.dispatchEventsForAggregate(customAggregate.id);
         expect(callbackSpy).toBeCalled();
         expect(customAggregate.domainEvents).toHaveLength(0);
     });

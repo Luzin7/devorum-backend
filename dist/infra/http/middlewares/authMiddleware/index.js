@@ -1,25 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.authMiddleware = exports.AuthMiddleware = void 0;
-const Injectable_1 = require("@infra/containers/Injectable");
-const statusCodeMapper_1 = require("@infra/http/statusCode/statusCodeMapper");
-const config_1 = require("@providers/auth/config");
-const tsyringe_1 = require("tsyringe");
-class AuthMiddleware {
+import { Injectable } from '@infra/containers/Injectable';
+import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper';
+import { AuthConfig } from '@providers/auth/config';
+import { container } from 'tsyringe';
+export class AuthMiddleware {
     async middle(req, res, next) {
-        const authProvider = tsyringe_1.container.resolve(Injectable_1.Injectable.Providers.Auth);
-        const token = req.cookies[config_1.AuthConfig.accessTokenCookie];
+        const authProvider = container.resolve(Injectable.Providers.Auth);
+        const token = req.cookies[AuthConfig.accessTokenCookie];
         if (!token || token === undefined) {
-            return res.status(statusCodeMapper_1.statusCodeMapper.Unauthorized).json({
+            return res.status(statusCodeMapper.Unauthorized).json({
                 message: 'Unauthorized',
-                statusCode: statusCodeMapper_1.statusCodeMapper.Unauthorized,
+                statusCode: statusCodeMapper.Unauthorized,
             });
         }
         const { sub } = await authProvider.decrypt(token);
         if (!sub) {
-            return res.status(statusCodeMapper_1.statusCodeMapper.Unauthorized).json({
+            return res.status(statusCodeMapper.Unauthorized).json({
                 message: 'Unauthorized',
-                statusCode: statusCodeMapper_1.statusCodeMapper.Unauthorized,
+                statusCode: statusCodeMapper.Unauthorized,
             });
         }
         req.user = {
@@ -28,7 +25,6 @@ class AuthMiddleware {
         next();
     }
 }
-exports.AuthMiddleware = AuthMiddleware;
 const authMiddleware = new AuthMiddleware();
-exports.authMiddleware = authMiddleware;
+export { authMiddleware };
 //# sourceMappingURL=index.js.map

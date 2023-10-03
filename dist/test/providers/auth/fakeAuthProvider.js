@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FakeAuthProvider = void 0;
-class FakeAuthProvider {
+export class FakeAuthProvider {
     async encrypt(userId, role = 'access') {
         return `${userId}-${role}`;
     }
@@ -12,5 +9,4 @@ class FakeAuthProvider {
         };
     }
 }
-exports.FakeAuthProvider = FakeAuthProvider;
 //# sourceMappingURL=fakeAuthProvider.js.map

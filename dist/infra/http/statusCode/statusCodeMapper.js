@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.statusCodeMapper = void 0;
-exports.statusCodeMapper = {
+export const statusCodeMapper = {
     BadRequest: 400,
     Unauthorized: 401,
     PaymentRequired: 402,

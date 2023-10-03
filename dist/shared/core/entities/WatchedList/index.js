@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.WatchedList = void 0;
-class WatchedList {
+export class WatchedList {
     constructor(initialItems) {
         this.currentItems = initialItems || [];
         this.initial = initialItems || [];
@@ -75,5 +72,4 @@ class WatchedList {
         this.removed = removedItems;
     }
 }
-exports.WatchedList = WatchedList;
 //# sourceMappingURL=index.js.map

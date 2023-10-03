@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AggregateRoot = void 0;
-const Entity_1 = require("../Entity");
-const DomainEvents_1 = require("@shared/core/events/DomainEvents");
-class AggregateRoot extends Entity_1.Entity {
+import { Entity } from '../Entity';
+import { DomainEvents } from '@shared/core/events/DomainEvents';
+export class AggregateRoot extends Entity {
     constructor() {
         super(...arguments);
         this._domainEvents = [];
@@ -13,11 +10,10 @@ class AggregateRoot extends Entity_1.Entity {
     }
     addDomainEvent(domainEvent) {
         this._domainEvents.push(domainEvent);
-        DomainEvents_1.DomainEvents.markAggregateForDispatch(this);
+        DomainEvents.markAggregateForDispatch(this);
     }
     clearEvents() {
         this._domainEvents = [];
     }
 }
-exports.AggregateRoot = AggregateRoot;
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DomainEvents = void 0;
-class DomainEvents {
+export class DomainEvents {
     static markAggregateForDispatch(aggregate) {
         const aggregateFound = !!this.findMarkedAggregateByID(aggregate.id);
         if (!aggregateFound) {
@@ -48,7 +45,6 @@ class DomainEvents {
         }
     }
 }
-exports.DomainEvents = DomainEvents;
 DomainEvents.handlersMap = {};
 DomainEvents.markedAggregates = [];
 //# sourceMappingURL=index.js.map

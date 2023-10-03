@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Comment = void 0;
-const CommentCreatedEvent_1 = require("@module/comments/events/CommentCreatedEvent");
-const AggregateRoot_1 = require("@shared/core/entities/AggregateRoot");
-class Comment extends AggregateRoot_1.AggregateRoot {
+import { CommentCreatedEvent } from '@module/comments/events/CommentCreatedEvent';
+import { AggregateRoot } from '@shared/core/entities/AggregateRoot';
+export class Comment extends AggregateRoot {
     static create(props, id) {
         const commentProps = {
             topicId: props.topicId,
@@ -15,7 +12,7 @@ class Comment extends AggregateRoot_1.AggregateRoot {
         const comment = new Comment(commentProps, id);
         const isNewComment = !id;
         if (isNewComment) {
-            comment.addDomainEvent(new CommentCreatedEvent_1.CommentCreatedEvent(comment));
+            comment.addDomainEvent(new CommentCreatedEvent(comment));
         }
         return comment;
     }
@@ -45,5 +42,4 @@ class Comment extends AggregateRoot_1.AggregateRoot {
         this.props.updatedAt = new Date();
     }
 }
-exports.Comment = Comment;
 //# sourceMappingURL=index.js.map

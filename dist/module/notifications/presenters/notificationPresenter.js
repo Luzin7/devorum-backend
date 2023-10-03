@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotificationPresenter = void 0;
-class NotificationPresenter {
+export class NotificationPresenter {
     static toHTTP(notification) {
         return {
             title: notification.title,
@@ -11,5 +8,4 @@ class NotificationPresenter {
         };
     }
 }
-exports.NotificationPresenter = NotificationPresenter;
 //# sourceMappingURL=notificationPresenter.js.map

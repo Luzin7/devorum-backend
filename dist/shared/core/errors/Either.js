@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.right = exports.left = exports.Right = exports.Left = void 0;
-class Left {
+export class Left {
     constructor(value) {
         this.value = value;
     }
@@ -12,8 +9,7 @@ class Left {
         return true;
     }
 }
-exports.Left = Left;
-class Right {
+export class Right {
     constructor(value) {
         this.value = value;
     }
@@ -24,13 +20,10 @@ class Right {
         return false;
     }
 }
-exports.Right = Right;
-const left = (value) => {
+export const left = (value) => {
     return new Left(value);
 };
-exports.left = left;
-const right = (value) => {
+export const right = (value) => {
     return new Right(value);
 };
-exports.right = right;
 //# sourceMappingURL=Either.js.map

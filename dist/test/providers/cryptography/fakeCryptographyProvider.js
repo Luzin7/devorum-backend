@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FakeCryptographyProvider = void 0;
-const crypto_1 = require("crypto");
-class FakeCryptographyProvider {
+import { randomBytes } from 'crypto';
+export class FakeCryptographyProvider {
     async hashCreator(plainText) {
-        const randomSalt = (0, crypto_1.randomBytes)(8).toString();
+        const randomSalt = randomBytes(8).toString();
         return {
             hash: `${plainText}${randomSalt}-hashed`,
             salt: randomSalt,
@@ -14,5 +11,4 @@ class FakeCryptographyProvider {
         return `${plainText}${salt}-hashed` === hash;
     }
 }
-exports.FakeCryptographyProvider = FakeCryptographyProvider;
 //# sourceMappingURL=fakeCryptographyProvider.js.map

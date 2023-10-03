@@ -1,17 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotificationsPrismaMapper = void 0;
-const Notification_1 = require("@module/notifications/entities/Notification");
-const UniqueId_1 = require("@shared/core/entities/UniqueId");
-class NotificationsPrismaMapper {
+import { Notification } from '@module/notifications/entities/Notification';
+import { UniqueId } from '@shared/core/entities/UniqueId';
+export class NotificationsPrismaMapper {
     static toEntity(raw) {
-        return Notification_1.Notification.create({
+        return Notification.create({
             content: raw.content,
             title: raw.title,
             createdAt: raw.createdAt,
             readAt: raw.readAt,
-            recipientId: new UniqueId_1.UniqueId(raw.recipientId),
-        }, new UniqueId_1.UniqueId(raw.id));
+            recipientId: new UniqueId(raw.recipientId),
+        }, new UniqueId(raw.id));
     }
     static toPrisma(notification) {
         return {
@@ -24,5 +21,4 @@ class NotificationsPrismaMapper {
         };
     }
 }
-exports.NotificationsPrismaMapper = NotificationsPrismaMapper;
 //# sourceMappingURL=notificationsPrismaMapper.js.map

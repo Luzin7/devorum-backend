@@ -1,20 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteCommentController = void 0;
-const statusCodeMapper_1 = require("@infra/http/statusCode/statusCodeMapper");
-const deleteCommentUseCase_1 = require("@module/comments/useCases/deleteCommentUseCase");
-const ErrorPresenter_1 = require("@shared/presenters/ErrorPresenter");
-const tsyringe_1 = require("tsyringe");
-const zod_1 = require("zod");
-const deleteCommentParamsSchema = zod_1.z.object({
-    commentId: zod_1.z.string().uuid(),
-    topicId: zod_1.z.string().uuid(),
+import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper';
+import { DeleteCommentUseCase } from '@module/comments/useCases/deleteCommentUseCase';
+import { ErrorPresenter } from '@shared/presenters/ErrorPresenter';
+import { container } from 'tsyringe';
+import { z } from 'zod';
+const deleteCommentParamsSchema = z.object({
+    commentId: z.string().uuid(),
+    topicId: z.string().uuid(),
 });
-class DeleteCommentController {
+export class DeleteCommentController {
     async handle(req, res) {
         const { id } = req.user;
         const { commentId, topicId } = deleteCommentParamsSchema.parse(req.params);
-        const deleteCommentUseCase = tsyringe_1.container.resolve(deleteCommentUseCase_1.DeleteCommentUseCase);
+        const deleteCommentUseCase = container.resolve(DeleteCommentUseCase);
         const response = await deleteCommentUseCase.execute({
             authorId: id,
             commentId,
@@ -22,10 +19,9 @@ class DeleteCommentController {
         });
         if (response.isLeft()) {
             const error = response.value;
-            return ErrorPresenter_1.ErrorPresenter.toHTTP(req, res, error);
+            return ErrorPresenter.toHTTP(req, res, error);
         }
-        return res.status(statusCodeMapper_1.statusCodeMapper.NoContent).end();
+        return res.status(statusCodeMapper.NoContent).end();
     }
 }
-exports.DeleteCommentController = DeleteCommentController;
 //# sourceMappingURL=index.js.map

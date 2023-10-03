@@ -1,20 +1,17 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateUserController = void 0;
-const statusCodeMapper_1 = require("@infra/http/statusCode/statusCodeMapper");
-const createUserUseCase_1 = require("@module/users/useCases/createUserUseCase");
-const ErrorPresenter_1 = require("@shared/presenters/ErrorPresenter");
-const tsyringe_1 = require("tsyringe");
-const zod_1 = require("zod");
-const createUserBodySchema = zod_1.z.object({
-    email: zod_1.z.string().email(),
-    password: zod_1.z.string().min(8),
-    name: zod_1.z.string().min(4),
+import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper';
+import { CreateUserUseCase } from '@module/users/useCases/createUserUseCase';
+import { ErrorPresenter } from '@shared/presenters/ErrorPresenter';
+import { container } from 'tsyringe';
+import { z } from 'zod';
+const createUserBodySchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+    name: z.string().min(4),
 });
-class CreateUserController {
+export class CreateUserController {
     async handle(req, res) {
         const { email, name, password } = createUserBodySchema.parse(req.body);
-        const createUserUseCase = tsyringe_1.container.resolve(createUserUseCase_1.CreateUserUseCase);
+        const createUserUseCase = container.resolve(CreateUserUseCase);
         const response = await createUserUseCase.execute({
             email,
             name,
@@ -22,10 +19,9 @@ class CreateUserController {
         });
         if (response.isLeft()) {
             const error = response.value;
-            return ErrorPresenter_1.ErrorPresenter.toHTTP(req, res, error);
+            return ErrorPresenter.toHTTP(req, res, error);
         }
-        return res.status(statusCodeMapper_1.statusCodeMapper.Created).end();
+        return res.status(statusCodeMapper.Created).end();
     }
 }
-exports.CreateUserController = CreateUserController;
 //# sourceMappingURL=index.js.map

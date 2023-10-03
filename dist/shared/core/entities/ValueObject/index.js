@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValueObject = void 0;
-class ValueObject {
+export class ValueObject {
     constructor(props) {
         this.props = props;
     }
@@ -15,5 +12,4 @@ class ValueObject {
         return JSON.stringify(this.props) === JSON.stringify(vo.props);
     }
 }
-exports.ValueObject = ValueObject;
 //# sourceMappingURL=index.js.map

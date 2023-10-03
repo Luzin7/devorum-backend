@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UniqueId = void 0;
-const node_crypto_1 = require("node:crypto");
-class UniqueId {
+import { randomUUID } from 'node:crypto';
+export class UniqueId {
     constructor(id) {
-        this.value = id ?? (0, node_crypto_1.randomUUID)();
+        this.value = id ?? randomUUID();
     }
     toString() {
         return this.value;
@@ -16,5 +13,4 @@ class UniqueId {
         return this.value === id.toString();
     }
 }
-exports.UniqueId = UniqueId;
 //# sourceMappingURL=index.js.map

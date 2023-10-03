@@ -1,22 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("reflect-metadata");
-const UsersInMemoryRepository_1 = require("@test/module/user/repositories/UsersInMemoryRepository");
-const makeUser_1 = require("@test/module/user/factories/makeUser");
-const UserAlreadyExitesError_1 = require("@module/users/errors/UserAlreadyExitesError");
-const _1 = require(".");
-const fakeCryptographyProvider_1 = require("@test/providers/cryptography/fakeCryptographyProvider");
-const NotificationsInMemory_1 = require("@test/module/notification/repositories/NotificationsInMemory");
+import 'reflect-metadata';
+import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository';
+import { makeUser } from '@test/module/user/factories/makeUser';
+import { UserAlreadyExitesError } from '@module/users/errors/UserAlreadyExitesError';
+import { CreateUserUseCase } from '.';
+import { FakeCryptographyProvider } from '@test/providers/cryptography/fakeCryptographyProvider';
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory';
 let notificationsRepository;
 let usersRepository;
 let cryptographyProvider;
 let sut;
 describe('create user', () => {
     beforeEach(() => {
-        notificationsRepository = new NotificationsInMemory_1.NotificationsInMemoryRepository();
-        usersRepository = new UsersInMemoryRepository_1.UsersInMemoryRepository(notificationsRepository);
-        cryptographyProvider = new fakeCryptographyProvider_1.FakeCryptographyProvider();
-        sut = new _1.CreateUserUseCase(usersRepository, cryptographyProvider);
+        notificationsRepository = new NotificationsInMemoryRepository();
+        usersRepository = new UsersInMemoryRepository(notificationsRepository);
+        cryptographyProvider = new FakeCryptographyProvider();
+        sut = new CreateUserUseCase(usersRepository, cryptographyProvider);
     });
     it('should be able to create an new user', async () => {
         const response = await sut.execute({
@@ -28,7 +26,7 @@ describe('create user', () => {
         expect(usersRepository.users[0].password).not.equal('password');
     });
     it('not should be able to create an new user if user already registered with same email', async () => {
-        const user = (0, makeUser_1.makeUser)({
+        const user = makeUser({
             email: 'jonh@doe.com',
         });
         usersRepository.create(user);
@@ -38,7 +36,7 @@ describe('create user', () => {
             password: 'password',
         });
         expect(response.isLeft()).toEqual(true);
-        expect(response.value).toBeInstanceOf(UserAlreadyExitesError_1.UserAlreadyExitesError);
+        expect(response.value).toBeInstanceOf(UserAlreadyExitesError);
     });
 });
 //# sourceMappingURL=index.spec.js.map

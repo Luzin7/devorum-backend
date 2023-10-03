@@ -1,28 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-require("reflect-metadata");
-const TopicsInMemoryRepository_1 = require("@test/module/topic/repositories/TopicsInMemoryRepository");
-const makeTopic_1 = require("@test/module/topic/factories/makeTopic");
-const _1 = require(".");
-const makeUser_1 = require("@test/module/user/factories/makeUser");
-const UsersInMemoryRepository_1 = require("@test/module/user/repositories/UsersInMemoryRepository");
-const NotificationsInMemory_1 = require("@test/module/notification/repositories/NotificationsInMemory");
+import 'reflect-metadata';
+import { TopicsInMemoryRepository } from '@test/module/topic/repositories/TopicsInMemoryRepository';
+import { makeTopic } from '@test/module/topic/factories/makeTopic';
+import { FetchRecentTopicsUseCase } from '.';
+import { makeUser } from '@test/module/user/factories/makeUser';
+import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository';
+import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory';
 let notificationsRepository;
 let usersRepository;
 let topicsRepository;
 let sut;
 describe('Fetch recent topics', () => {
     beforeEach(() => {
-        notificationsRepository = new NotificationsInMemory_1.NotificationsInMemoryRepository();
-        usersRepository = new UsersInMemoryRepository_1.UsersInMemoryRepository(notificationsRepository);
-        topicsRepository = new TopicsInMemoryRepository_1.TopicsInMemoryRepository(usersRepository);
-        sut = new _1.FetchRecentTopicsUseCase(topicsRepository);
+        notificationsRepository = new NotificationsInMemoryRepository();
+        usersRepository = new UsersInMemoryRepository(notificationsRepository);
+        topicsRepository = new TopicsInMemoryRepository(usersRepository);
+        sut = new FetchRecentTopicsUseCase(topicsRepository);
     });
     it('should be able to fetch a recent topics', async () => {
-        const user = (0, makeUser_1.makeUser)();
+        const user = makeUser();
         usersRepository.create(user);
         for (let i = 0; i < 30; i++) {
-            const topic = (0, makeTopic_1.makeTopic)({
+            const topic = makeTopic({
                 authorId: user.id,
             });
             topicsRepository.create(topic);
@@ -36,10 +34,10 @@ describe('Fetch recent topics', () => {
         }
     });
     it('should be able to fetch a recent topics whit 10 per page', async () => {
-        const user = (0, makeUser_1.makeUser)();
+        const user = makeUser();
         usersRepository.create(user);
         for (let i = 0; i < 30; i++) {
-            const topic = (0, makeTopic_1.makeTopic)({
+            const topic = makeTopic({
                 authorId: user.id,
             });
             topicsRepository.create(topic);
@@ -55,10 +53,10 @@ describe('Fetch recent topics', () => {
         }
     });
     it('should be able to fetch a recent topics on different page', async () => {
-        const user = (0, makeUser_1.makeUser)();
+        const user = makeUser();
         usersRepository.create(user);
         for (let i = 0; i < 30; i++) {
-            const topic = (0, makeTopic_1.makeTopic)({
+            const topic = makeTopic({
                 authorId: user.id,
             });
             topicsRepository.create(topic);
