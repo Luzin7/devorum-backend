@@ -7,10 +7,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch ./src/infra/http/server/app.ts",
+    "dev": "tsx watch ./src/infra/http/server/app.js",
     "lint": "eslint --fix",
     "build": "tsc",
-    "start": "tsx watch src/infra/http/server/app.ts",
+    "start": "node dist/infra/http/server/app.ts",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest  --watch",
