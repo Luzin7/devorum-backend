@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "tsx watch ./src/infra/http/server/app.ts",
     "lint": "eslint --fix",
-    "build": "tsup",
+    "build": "tsc",
     "start": "tsx watch src/infra/http/server/app.ts",
     "test": "vitest run",
     "test:ui": "vitest --ui",
