@@ -10,10 +10,10 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "tsx watch ./src/infra/http/server/app.js",
+    "dev": "tsx watch ./src/infra/http/server/app.ts",
     "lint": "eslint --fix",
     "build": "tsc",
-    "start": "node ../dist/infra/http/server/app.ts",
+    "start": "node ./dist/infra/http/server/app.js",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest  --watch",
