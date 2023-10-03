@@ -12,8 +12,8 @@
   "scripts": {
     "dev": "tsx watch ./src/infra/http/server/app.ts",
     "lint": "eslint --fix",
-    "build": "tsc",
-    "start": "node ./dist/infra/http/server/app.js",
+    "build": "tsc  -p tsconfig.json",
+    "start": "tsx watch ./src/infra/http/server/app.ts",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest  --watch",
