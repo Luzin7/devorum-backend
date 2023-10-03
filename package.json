@@ -13,7 +13,7 @@
     "dev": "tsx watch ./src/infra/http/server/app.js",
     "lint": "eslint --fix",
     "build": "tsc",
-    "start": "node dist/infra/http/server/app.ts",
+    "start": "node ../dist/infra/http/server/app.ts",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:watch": "vitest  --watch",
