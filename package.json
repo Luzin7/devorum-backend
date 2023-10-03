@@ -6,6 +6,9 @@
   "author": "Luan Victor <lvictor.dutra@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "tsx watch ./src/infra/http/server/app.js",
     "lint": "eslint --fix",
