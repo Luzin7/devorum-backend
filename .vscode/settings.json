@@ -6,13 +6,12 @@
   },
   "material-icon-theme.folders.associations": {
     "useCases": "controller",
-    "repositories": "database",
+    "repositories": "database"
   },
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
   "files.eol": "\n",
-  "cSpell.words": [
-    "doesnt",
-    "unixistent"
-  ]
+  "cSpell.words": ["doesnt", "unixistent"],
+  "vscode.tsc.compiler.alertTSConfigChanges": "never",
+  "vscode.tsc.compiler.alertOnError": "never"
 }
