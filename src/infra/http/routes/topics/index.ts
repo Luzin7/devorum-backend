@@ -10,11 +10,7 @@ const fetchRecentTopicsController = new FetchRecentTopicsController()
 
 const topicsRoutes = Router()
 
-topicsRoutes.post(
-  '/topics',
-  authMiddleware.middle,
-  createTopicController.handle,
-)
+topicsRoutes.post('/topics', createTopicController.handle)
 topicsRoutes.delete(
   '/topics/:topicId',
   authMiddleware.middle,
