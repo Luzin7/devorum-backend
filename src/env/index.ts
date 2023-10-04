@@ -9,6 +9,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('production'),
   JWT_PRIVATE_KEY: z.string(),
   JWT_PUBLIC_KEY: z.string(),
+  DAYS_TO_EXPIRES_REFRESH_TOKEN: z.coerce.number().default(7),
 })
 type EnvSchema = z.infer<typeof envSchema>
 const _env = envSchema.safeParse(process.env)
