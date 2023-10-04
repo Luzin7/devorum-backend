@@ -3,4 +3,5 @@ export const Repositories = {
   Topics: 'topics-repository',
   Comments: 'comments-repository',
   Notifications: 'notifications-repository',
+  RefreshTokens: 'refresh-tokens-repository',
 }
