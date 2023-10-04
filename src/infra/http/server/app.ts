@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-import 'dotenv/config'
 import '@infra/containers/index'
 import 'express-async-errors'
 import express, { NextFunction, Request, Response } from 'express'
@@ -13,7 +12,7 @@ import { routes } from '../routes'
 
 const app = express()
 const corsOptions = {
-  origin: process.env.DEV_URL,
+  origin: env.DEV_URL,
 }
 app.use(cookieParser())
 app.use(express.json())
