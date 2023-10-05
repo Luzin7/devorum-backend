@@ -13,6 +13,7 @@ export default defineConfig({
       '@test/': '/src/test/',
       '@env/': '/src/env/',
       '@infra/': '/src/infra/',
+      '@providers/': '/src/providers/',
     },
   },
 })

@@ -6,27 +6,35 @@ import { CreateSessionUseCase } from '.'
 import { FakeAuthProvider } from '@test/providers/auth/fakeAuthProvider'
 import { WrongCredentialsError } from '@module/users/errors/WrongCredentialsError'
 import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
+import { RefreshTokensInMemoryRepository } from '@test/module/user/repositories/RefreshTokensInMemoryRepository'
+import { DateDayJsProvider } from '@providers/date/implementations/DateDayJsProvider'
 
 let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
+let refreshTokensRepository: RefreshTokensInMemoryRepository
 
 let cryptographyProvider: FakeCryptographyProvider
-
 let authProvider: FakeAuthProvider
+let dateProvider: DateDayJsProvider
+
 let sut: CreateSessionUseCase
 
 describe('create session', () => {
   beforeEach(() => {
     notificationsRepository = new NotificationsInMemoryRepository()
     usersRepository = new UsersInMemoryRepository(notificationsRepository)
+    refreshTokensRepository = new RefreshTokensInMemoryRepository()
 
     cryptographyProvider = new FakeCryptographyProvider()
     authProvider = new FakeAuthProvider()
+    dateProvider = new DateDayJsProvider()
 
     sut = new CreateSessionUseCase(
       cryptographyProvider,
       usersRepository,
       authProvider,
+      dateProvider,
+      refreshTokensRepository,
     )
   })
 
@@ -51,6 +59,7 @@ describe('create session', () => {
 
     if (response.isRight()) {
       expect(response.value.accessToken).toEqual(`${user.id.toString()}-access`)
+      expect(refreshTokensRepository.refreshTokens).toHaveLength(1)
     }
   })
 

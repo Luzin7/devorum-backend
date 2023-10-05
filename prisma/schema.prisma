@@ -28,7 +28,7 @@ model User {
 
 model RefreshToken {
   id           String   @id @default(uuid())
-  refreshToken String   @map("refresh_token") @db.VarChar(1000)
+  refreshToken String   @unique @map("refresh_token") @db.VarChar(1000)
   expiresDate  DateTime @map("expires_date")
   createdAt    DateTime @default(now()) @map("created_at")
   userId       String   @map("user_id")
