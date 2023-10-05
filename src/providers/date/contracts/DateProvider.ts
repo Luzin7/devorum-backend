@@ -1,4 +1,4 @@
-interface IsBeforeProps {
+export interface IsBeforeProps {
   initialDate: Date
   endDate: Date
 }
