@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/shared/errors/PermissionDeniedError/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,yCAAyC,CAAA;AAG1E,MAAM,OAAO,qBAAsB,SAAQ,KAAK;IAG9C;QACE,KAAK,CAAC,mBAAmB,CAAC,CAAA;QAH5B,eAAU,GAAW,gBAAgB,CAAC,YAAY,CAAA;IAIlD,CAAC;CACF"}

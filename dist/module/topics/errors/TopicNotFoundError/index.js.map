@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../src/module/topics/errors/TopicNotFoundError/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,yCAAyC,CAAA;AAG1E,MAAM,OAAO,kBAAmB,SAAQ,KAAK;IAG3C;QACE,KAAK,CAAC,iBAAiB,CAAC,CAAA;QAH1B,eAAU,GAAW,gBAAgB,CAAC,QAAQ,CAAA;IAI9C,CAAC;CACF"}
