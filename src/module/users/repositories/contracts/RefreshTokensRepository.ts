@@ -1,6 +1,6 @@
 import { RefreshToken } from '@module/users/entities/RefreshToken'
 
-interface FindByUserIdAndRefreshTokenProps {
+export interface FindByUserIdAndRefreshTokenProps {
   userId: string
   refreshToken: string
 }
