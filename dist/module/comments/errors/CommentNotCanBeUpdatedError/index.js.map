@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../src/module/comments/errors/CommentNotCanBeUpdatedError/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,yCAAyC,CAAA;AAG1E,MAAM,OAAO,2BAA4B,SAAQ,KAAK;IAGpD;QACE,KAAK,CAAC,wBAAwB,CAAC,CAAA;QAHjC,eAAU,GAAW,gBAAgB,CAAC,QAAQ,CAAA;IAI9C,CAAC;CACF"}

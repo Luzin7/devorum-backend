@@ -7,6 +7,10 @@ import { AuthProvider } from '@providers/auth/contracts/AuthProvider'
 import { CryptographyProvider } from '@providers/cryptography/contracts/CryptographyProvider'
 import { inject, injectable } from 'tsyringe'
 import { UseCase } from '@shared/core/module/UseCase'
+import { RefreshToken } from '@module/users/entities/RefreshToken'
+import { DateProvider } from '@providers/date/contracts/DateProvider'
+import { env } from '@env/index'
+import { RefreshTokensRepository } from '@module/users/repositories/contracts/RefreshTokensRepository'
 
 interface Request {
   email: string
@@ -33,6 +37,12 @@ export class CreateSessionUseCase implements UseCase<Request, Response> {
 
     @inject(Injectable.Providers.Auth)
     private readonly authProvider: AuthProvider,
+
+    @inject(Injectable.Providers.Date)
+    private readonly dateProvider: DateProvider,
+
+    @inject(Injectable.Repositories.RefreshTokens)
+    private readonly refreshTokensRepository: RefreshTokensRepository,
   ) {}
 
   async execute({ email, password }: Request): Promise<Response> {
@@ -52,16 +62,30 @@ export class CreateSessionUseCase implements UseCase<Request, Response> {
       return left(new WrongCredentialsError())
     }
 
-    const accessToken = await this.authProvider.encrypt(user.id.toString())
-    const refreshToken = await this.authProvider.encrypt(
+    const accessTokenEncrypted = await this.authProvider.encrypt(
+      user.id.toString(),
+    )
+    const refreshTokenEncrypted = await this.authProvider.encrypt(
       user.id.toString(),
       'refresh',
     )
 
+    const expiresDate = this.dateProvider.addDays(
+      env.DAYS_TO_EXPIRES_REFRESH_TOKEN,
+    )
+
+    const refreshToken = RefreshToken.create({
+      userId: user.id,
+      refreshToken: refreshTokenEncrypted,
+      expiresDate,
+    })
+
+    await this.refreshTokensRepository.create(refreshToken)
+
     return right({
       user,
-      accessToken,
-      refreshToken,
+      accessToken: accessTokenEncrypted,
+      refreshToken: refreshTokenEncrypted,
     })
   }
 }
