@@ -1,6 +1,6 @@
 {
   "name": "turmaqa-backend",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "main": "server.js",
   "repository": "git@github.com:Luzin7/TurmaQA-Backend.git",
   "author": "Luan Victor <lvictor.dutra@gmail.com>",
