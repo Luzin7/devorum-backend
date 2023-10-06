@@ -13,6 +13,7 @@ import { routes } from '../routes'
 const app = express()
 const corsOptions = {
   origin: env.DEV_URL,
+  credentials: true,
 }
 app.use(cookieParser())
 app.use(express.json())
