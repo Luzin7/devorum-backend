@@ -38,7 +38,7 @@ export class CreateSessionController implements Controller {
       secure: true,
     })
 
-    res.cookie(AuthConfig.accessTokenCookie, refreshToken, {
+    res.cookie(AuthConfig.refreshTokenCookie, refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       httpOnly: true,
       path: '/',
