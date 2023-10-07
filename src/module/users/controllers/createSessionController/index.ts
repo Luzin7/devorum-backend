@@ -34,7 +34,7 @@ export class CreateSessionController implements Controller {
       maxAge: 1000 * 60 * 5, // 5 min
       httpOnly: true,
       path: '/',
-      sameSite: 'strict',
+      sameSite: 'none',
       secure: true,
     })
 
@@ -42,7 +42,7 @@ export class CreateSessionController implements Controller {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       httpOnly: true,
       path: '/',
-      sameSite: 'strict',
+      sameSite: 'none',
       secure: true,
     })
 
