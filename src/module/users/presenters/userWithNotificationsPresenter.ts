@@ -4,7 +4,7 @@ import { UserWithNotifications } from '../valueObjects/UserWithNotifications'
 export class UserWithNotificationsPresenter {
   static toHTTP(userWhitNotifications: UserWithNotifications) {
     return {
-      userId: userWhitNotifications.userId.toString(),
+      id: userWhitNotifications.userId.toString(),
       name: userWhitNotifications.name,
       email: userWhitNotifications.email,
       notifications: userWhitNotifications.notifications.map(
