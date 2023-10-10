@@ -53,6 +53,7 @@ export class TopicsInMemoryRepository implements TopicsRepository {
         topicCreatedAt: topic.createdAt,
         topicId: topic.id,
         topicUpdatedAt: topic.updatedAt,
+        topicTitle: topic.title,
       })
 
       return topicWithAuthor
