@@ -134,3 +134,5 @@ vercel.json
 *.lockb
 /data
 *.pem
+
+/dist
