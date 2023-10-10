@@ -1,4 +1,4 @@
 export const AuthConfig = {
-  accessTokenCookie: '@devoruncookie-access-token',
-  refreshTokenCookie: '@devoruncookie-refresh-token',
+  accessTokenCookie: '__devoruncookie-access-token',
+  refreshTokenCookie: '__devoruncookie-refresh-token',
 } as const

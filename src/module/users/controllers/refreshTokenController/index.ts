@@ -26,7 +26,7 @@ export class RefreshTokenController implements Controller {
       maxAge: 1000 * 60 * 5, // 5 min
       httpOnly: true,
       path: '/',
-      sameSite: false,
+      sameSite: 'strict',
       secure: true,
     })
 
@@ -34,7 +34,7 @@ export class RefreshTokenController implements Controller {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       httpOnly: true,
       path: '/',
-      sameSite: false,
+      sameSite: 'strict',
       secure: true,
     })
 
