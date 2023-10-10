@@ -9,7 +9,7 @@ export class TopicsWithAuthorPresenter {
         name: topicWithAuthor.authorName,
       },
       title: topicWithAuthor.topicTitle,
-      content: topicWithAuthor.content,
+      assertion: topicWithAuthor.topicAssertion,
       createdAt: topicWithAuthor.topicCreatedAt,
       updatedAt: topicWithAuthor.topicUpdatedAt,
       numberOfComments: topicWithAuthor.numberOfComments,
