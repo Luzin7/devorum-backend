@@ -3,12 +3,15 @@ import { TopicWithAuthor } from '../valueObjects/TopicWithAuthor'
 export class TopicsWithAuthorPresenter {
   static toHTTP(topicWithAuthor: TopicWithAuthor) {
     return {
-      topicId: topicWithAuthor.topicId.toString(),
-      authorId: topicWithAuthor.authorId.toString(),
+      id: topicWithAuthor.topicId.toString(),
+      author: {
+        id: topicWithAuthor.authorId.toString(),
+        name: topicWithAuthor.authorName,
+      },
+      title: topicWithAuthor.topicTitle,
       content: topicWithAuthor.content,
-      authorName: topicWithAuthor.authorName,
-      topicCreatedAt: topicWithAuthor.topicCreatedAt,
-      topicUpdatedAt: topicWithAuthor.topicUpdatedAt,
+      createdAt: topicWithAuthor.topicCreatedAt,
+      updatedAt: topicWithAuthor.topicUpdatedAt,
       numberOfComments: topicWithAuthor.numberOfComments,
     }
   }
