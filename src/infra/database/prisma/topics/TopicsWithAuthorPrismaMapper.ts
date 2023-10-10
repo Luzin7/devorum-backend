@@ -19,6 +19,7 @@ export class TopicsWithAuthorMapper {
       topicUpdatedAt: raw.updatedAt,
       topicId: new UniqueId(raw.id),
       numberOfComments: raw._count.comments,
+      topicTitle: raw.title,
     })
   }
 }
