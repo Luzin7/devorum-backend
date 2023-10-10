@@ -27,7 +27,7 @@ model User {
 }
 
 model RefreshToken {
-  id           String   @id @default(uuid())
+  id           String   @id @unique @default(uuid())
   refreshToken String   @unique @map("refresh_token") @db.VarChar(1000)
   expiresDate  DateTime @map("expires_date")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -39,7 +39,7 @@ model RefreshToken {
 }
 
 model Topic {
-  id        String    @unique @default(uuid())
+  id        String    @id @unique @default(uuid())
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   authorId  String
@@ -53,7 +53,7 @@ model Topic {
 }
 
 model Comment {
-  id        String    @unique @default(uuid())
+  id        String    @id @unique @default(uuid())
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   authorId  String

@@ -1,22 +1,23 @@
+import { CommentWithAuthor } from '@module/comments/valueObjects/commentWithAuthor'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { ValueObject } from '@shared/core/entities/ValueObject'
 import { Optional } from '@shared/core/types/optional'
 
-interface TopicWithAuthorProps {
+interface TopicDetailsProps {
   topicId: UniqueId
   authorId: UniqueId
   authorName: string
   topicContent: string
-  topicAssertion?: string | null
   topicTitle: string
   topicCreatedAt: Date
   topicUpdatedAt: Date | null
   numberOfComments: number
+  topicCommentsWithAuthor: CommentWithAuthor[]
 }
 
-export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
-  static create(props: Optional<TopicWithAuthorProps, 'numberOfComments'>) {
-    return new TopicWithAuthor({
+export class TopicDetails extends ValueObject<TopicDetailsProps> {
+  static create(props: Optional<TopicDetailsProps, 'numberOfComments'>) {
+    return new TopicDetails({
       ...props,
       numberOfComments: props.numberOfComments ?? 0,
     })
@@ -38,10 +39,6 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
     return this.props.topicContent
   }
 
-  get topicAssertion() {
-    return this.props.topicAssertion
-  }
-
   get topicCreatedAt() {
     return this.props.topicCreatedAt
   }
@@ -58,23 +55,7 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
     return this.props.numberOfComments
   }
 
-  makeAssertionWithExternal(callback: (raw: string) => string) {
-    const text = callback(this.topicContent)
-      .split('')
-      .map((char, i, txt) => {
-        if (char === '\n') return ''
-
-        if (char === ' ' && txt[i + 1] === ' ') return ''
-
-        return char
-      })
-      .join('')
-
-    const wordsOnText = text.split(' ')
-    const textSliced = wordsOnText.slice(0, 48).join(' ')
-    const assertion =
-      wordsOnText.length > 48 ? textSliced.concat('...') : textSliced
-
-    this.props.topicAssertion = assertion
+  get topicCommentsWithAuthor() {
+    return this.props.topicCommentsWithAuthor
   }
 }

@@ -4,7 +4,7 @@ import { TopicsPrismaMapper } from './TopicsPrismaMapper'
 import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository'
 import { FindManyRecentProps } from '@module/topics/repositories/types/FindManyRecent'
 import { TopicWithAuthor } from '@module/topics/valueObjects/TopicWithAuthor'
-import { TopicsWithAuthorMapper } from './TopicsWithAuthorPrismaMapper'
+import { TopicDetails } from '@module/topics/valueObjects/TopicDetails'
 
 export class TopicsPrismaRepository implements TopicsRepository {
   async create(topic: Topic): Promise<void> {
@@ -61,9 +61,37 @@ export class TopicsPrismaRepository implements TopicsRepository {
         },
       },
       skip: (page - 1) * perPage,
-      take: page * perPage,
+      take: perPage,
     })
 
-    return topics.map(TopicsWithAuthorMapper.toTopicWithAuthor)
+    return topics.map(TopicsPrismaMapper.toTopicWithAuthor)
+  }
+
+  async findByIdWithDetails(id: string): Promise<TopicDetails | null> {
+    const topic = await prisma.topic.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
+        comments: {
+          include: {
+            author: true,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+      },
+    })
+
+    if (!topic) return null
+
+    return TopicsPrismaMapper.toTopicDetails(topic)
   }
 }

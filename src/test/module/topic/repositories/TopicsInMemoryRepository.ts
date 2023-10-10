@@ -1,6 +1,7 @@
 import { Topic } from '@module/topics/entities/Topic'
 import { TopicsRepository } from '@module/topics/repositories/contracts/TopicsRepository'
 import { FindManyRecentProps } from '@module/topics/repositories/types/FindManyRecent'
+import { TopicDetails } from '@module/topics/valueObjects/TopicDetails'
 import { TopicWithAuthor } from '@module/topics/valueObjects/TopicWithAuthor'
 import { UniqueId } from '@shared/core/entities/UniqueId'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
@@ -49,7 +50,7 @@ export class TopicsInMemoryRepository implements TopicsRepository {
       const topicWithAuthor = TopicWithAuthor.create({
         authorId: user.id,
         authorName: user.name,
-        content: topic.content,
+        topicContent: topic.content,
         topicCreatedAt: topic.createdAt,
         topicId: topic.id,
         topicUpdatedAt: topic.updatedAt,
@@ -60,5 +61,9 @@ export class TopicsInMemoryRepository implements TopicsRepository {
     })
 
     return topicsWithAuthor
+  }
+
+  findByIdWithDetails(): Promise<TopicDetails | null> {
+    throw new Error('Method not implemented.')
   }
 }

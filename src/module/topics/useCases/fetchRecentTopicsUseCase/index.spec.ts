@@ -5,10 +5,12 @@ import { FetchRecentTopicsUseCase } from '.'
 import { makeUser } from '@test/module/user/factories/makeUser'
 import { UsersInMemoryRepository } from '@test/module/user/repositories/UsersInMemoryRepository'
 import { NotificationsInMemoryRepository } from '@test/module/notification/repositories/NotificationsInMemory'
+import { TextImplementedProvider } from '@providers/text/implementations/TextImplementedProvider'
 
 let notificationsRepository: NotificationsInMemoryRepository
 let usersRepository: UsersInMemoryRepository
 let topicsRepository: TopicsInMemoryRepository
+let textProvider: TextImplementedProvider
 let sut: FetchRecentTopicsUseCase
 
 describe('Fetch recent topics', () => {
@@ -16,8 +18,9 @@ describe('Fetch recent topics', () => {
     notificationsRepository = new NotificationsInMemoryRepository()
     usersRepository = new UsersInMemoryRepository(notificationsRepository)
     topicsRepository = new TopicsInMemoryRepository(usersRepository)
+    textProvider = new TextImplementedProvider()
 
-    sut = new FetchRecentTopicsUseCase(topicsRepository)
+    sut = new FetchRecentTopicsUseCase(topicsRepository, textProvider)
   })
 
   it('should be able to fetch a recent topics', async () => {
