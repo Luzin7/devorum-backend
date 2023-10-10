@@ -7,6 +7,7 @@ interface TopicWithAuthorProps {
   authorId: UniqueId
   authorName: string
   content: string
+  topicTitle: string
   topicCreatedAt: Date
   topicUpdatedAt: Date | null
   numberOfComments: number
@@ -22,6 +23,10 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
 
   get topicId() {
     return this.props.topicId
+  }
+
+  get topicTitle() {
+    return this.props.topicTitle
   }
 
   get authorId() {
