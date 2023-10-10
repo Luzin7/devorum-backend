@@ -6,7 +6,8 @@ interface TopicWithAuthorProps {
   topicId: UniqueId
   authorId: UniqueId
   authorName: string
-  content: string
+  topicContent: string
+  topicAssertion?: string | null
   topicTitle: string
   topicCreatedAt: Date
   topicUpdatedAt: Date | null
@@ -33,8 +34,12 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
     return this.props.authorId
   }
 
-  get content() {
-    return this.props.content
+  get topicContent() {
+    return this.props.topicContent
+  }
+
+  get topicAssertion() {
+    return this.props.topicAssertion
   }
 
   get topicCreatedAt() {
@@ -51,5 +56,25 @@ export class TopicWithAuthor extends ValueObject<TopicWithAuthorProps> {
 
   get numberOfComments() {
     return this.props.numberOfComments
+  }
+
+  makeAssertionWithExternal(callback: (raw: string) => string) {
+    const text = callback(this.topicContent)
+      .split('')
+      .map((char, i, txt) => {
+        if (char === '\n') return ''
+
+        if (char === ' ' && txt[i + 1] === ' ') return ''
+
+        return char
+      })
+      .join('')
+
+    const wordsOnText = text.split(' ')
+    const textSliced = wordsOnText.slice(0, 48).join(' ')
+    const assertion =
+      wordsOnText.length > 48 ? textSliced.concat('...') : textSliced
+
+    this.props.topicAssertion = assertion
   }
 }
