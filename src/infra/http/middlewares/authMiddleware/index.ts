@@ -1,7 +1,6 @@
 import { Injectable } from '@infra/containers/Injectable'
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
 import { NextFunction, Request, Response } from 'express'
-import { AuthConfig } from '@providers/auth/config'
 import { AuthProvider } from '@providers/auth/contracts/AuthProvider'
 import { container } from 'tsyringe'
 
@@ -11,14 +10,16 @@ export class AuthMiddleware {
       Injectable.Providers.Auth,
     )
 
-    const token = req.cookies[AuthConfig.accessTokenCookie]
+    const authHeader = req.headers.Authorization as string | undefined
 
-    if (!token || token === undefined) {
+    if (!authHeader || authHeader === undefined) {
       return res.status(statusCodeMapper.Unauthorized).json({
         message: 'Unauthorized',
         statusCode: statusCodeMapper.Unauthorized,
       })
     }
+
+    const token = authHeader.split(' ')[1] // Bearer {auth}
 
     const { sub } = await authProvider.decrypt(token)
 
