@@ -1,6 +1,5 @@
 import { statusCodeMapper } from '@infra/http/statusCode/statusCodeMapper'
 import { CreateSessionUseCase } from '@module/users/useCases/createSessionUseCase'
-import { AuthConfig } from '@providers/auth/config'
 import { Controller } from '@shared/core/infra/Controller'
 import { ErrorPresenter } from '@shared/presenters/ErrorPresenter'
 import { Request, Response } from 'express'
@@ -30,22 +29,9 @@ export class CreateSessionController implements Controller {
 
     const { accessToken, refreshToken } = response.value
 
-    res.cookie(AuthConfig.accessTokenCookie, accessToken, {
-      maxAge: 1000 * 60 * 5, // 5 min
-      httpOnly: true,
-      path: '/',
-      sameSite: true,
-      secure: false,
+    return res.status(statusCodeMapper.OK).json({
+      accessToken,
+      refreshToken,
     })
-
-    res.cookie(AuthConfig.refreshTokenCookie, refreshToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-      httpOnly: true,
-      path: '/',
-      sameSite: true,
-      secure: false,
-    })
-
-    return res.status(statusCodeMapper.NoContent).end()
   }
 }

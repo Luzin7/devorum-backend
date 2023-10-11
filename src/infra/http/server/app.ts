@@ -2,8 +2,7 @@ import 'reflect-metadata'
 import '@infra/containers/index'
 import 'express-async-errors'
 import express, { NextFunction, Request, Response } from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
+import cors, { CorsOptions } from 'cors'
 import { ZodError } from 'zod'
 import { statusCodeMapper } from '../statusCode/statusCodeMapper'
 import { fromZodError } from 'zod-validation-error'
@@ -11,11 +10,10 @@ import { env } from '@env/index'
 import { routes } from '../routes'
 
 const app = express()
-const corsOptions = {
+const corsOptions: CorsOptions = {
   origin: env.DEV_URL,
   credentials: true,
 }
-app.use(cookieParser())
 app.use(express.json())
 app.use(cors(corsOptions))
 app.use(routes)
