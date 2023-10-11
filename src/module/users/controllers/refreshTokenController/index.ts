@@ -26,16 +26,16 @@ export class RefreshTokenController implements Controller {
       maxAge: 1000 * 60 * 5, // 5 min
       httpOnly: true,
       path: '/',
-      sameSite: 'strict',
-      secure: true,
+      sameSite: true,
+      secure: false,
     })
 
     res.cookie(AuthConfig.accessTokenCookie, refreshToken, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
       httpOnly: true,
       path: '/',
-      sameSite: 'strict',
-      secure: true,
+      sameSite: true,
+      secure: false,
     })
 
     return res.status(statusCodeMapper.NoContent).end()
