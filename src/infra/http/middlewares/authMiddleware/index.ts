@@ -10,7 +10,7 @@ export class AuthMiddleware {
       Injectable.Providers.Auth,
     )
 
-    const authHeader = req.headers.Authorization as string | undefined
+    const authHeader = req.headers.authorization as string | undefined
 
     if (!authHeader || authHeader === undefined) {
       return res.status(statusCodeMapper.Unauthorized).json({
