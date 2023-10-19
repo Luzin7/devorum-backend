@@ -4,6 +4,7 @@ import { z } from 'zod'
 const envSchema = z.object({
   PORT: z.coerce.number().default(7777),
   DEV_URL: z.string().url().default('http://localhost:3000'),
+  PROD_URL: z.string().url().default('https://devorum.vercel.app/'),
   TEST_URL: z.string().url().default('https://devorum-backend.vercel.app/'),
   DATABASE_URL: z.string().url(),
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('production'),
