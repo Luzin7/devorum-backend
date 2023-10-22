@@ -11,7 +11,7 @@ import { routes } from '../routes'
 
 const app = express()
 const corsOptions: CorsOptions = {
-  origin: [env.DEV_URL, env.PROD_URL],
+  origin: [env.DEV_URL, env.PROD_URL, env.DEPLOY_URL],
   credentials: true,
 }
 app.use(express.json())
