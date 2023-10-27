@@ -29,8 +29,6 @@ export class TextImplementedProvider extends TextProvider {
     function verifyIfIsValid(child: CheerioType) {
       if (shouldBeContinueRunning) {
         if (NotAcceptedTags.includes(child.name)) {
-          console.log(child)
-
           shouldBeContinueRunning = false
           htmlIsValid = false
         }
