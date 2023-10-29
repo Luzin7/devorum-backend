@@ -20,6 +20,7 @@ export class CommentsPrismaMapper {
         topicId: new UniqueId(raw.topicId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
+        isDeleted: raw.isDeleted,
       },
       new UniqueId(raw.id),
     )
@@ -44,6 +45,7 @@ export class CommentsPrismaMapper {
       createdAt: comment.createdAt,
       id: comment.id.toString(),
       updatedAt: comment.updatedAt,
+      isDeleted: comment.isDeleted,
     }
   }
 }
