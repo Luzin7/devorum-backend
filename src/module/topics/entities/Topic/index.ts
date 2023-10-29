@@ -10,11 +10,15 @@ export interface TopicProps {
   createdAt: Date
   updatedAt: Date | null
   comments: TopicCommentsList
+  isDeleted: boolean
 }
 
 export class Topic extends AggregateRoot<TopicProps> {
   static create(
-    props: Optional<TopicProps, 'updatedAt' | 'createdAt' | 'comments'>,
+    props: Optional<
+      TopicProps,
+      'updatedAt' | 'createdAt' | 'comments' | 'isDeleted'
+    >,
     id?: UniqueId,
   ) {
     const topicProps: TopicProps = {
@@ -24,6 +28,7 @@ export class Topic extends AggregateRoot<TopicProps> {
       content: props.content,
       updatedAt: props.updatedAt ?? null,
       comments: props.comments ?? new TopicCommentsList(),
+      isDeleted: props.isDeleted ?? false,
     }
 
     const topic = new Topic(topicProps, id)
@@ -53,5 +58,13 @@ export class Topic extends AggregateRoot<TopicProps> {
 
   get comments() {
     return this.props.comments
+  }
+
+  get isDeleted() {
+    return this.props.isDeleted
+  }
+
+  set isDeleted(value: boolean) {
+    this.props.isDeleted = value
   }
 }
