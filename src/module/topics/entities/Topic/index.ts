@@ -43,8 +43,26 @@ export class Topic extends AggregateRoot<TopicProps> {
     return this.props.title
   }
 
+  set title(title: string) {
+    if (!title) {
+      return
+    }
+
+    this.props.title = title
+    this.update()
+  }
+
   get content() {
     return this.props.content
+  }
+
+  set content(content: string) {
+    if (!content) {
+      return
+    }
+
+    this.props.content = content
+    this.update()
   }
 
   get updatedAt() {
@@ -53,5 +71,9 @@ export class Topic extends AggregateRoot<TopicProps> {
 
   get comments() {
     return this.props.comments
+  }
+
+  update() {
+    this.props.updatedAt = new Date()
   }
 }
