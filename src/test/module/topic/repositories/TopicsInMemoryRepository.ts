@@ -11,8 +11,9 @@ export class TopicsInMemoryRepository implements TopicsRepository {
 
   topics: Topic[] = []
 
-  async save(): Promise<void> {
-    throw new Error('Method not implemented.')
+  async save(topic: Topic): Promise<void> {
+    const topicIndex = this.topics.findIndex((t) => t.id === topic.id)
+    this.topics[topicIndex] = topic
   }
 
   async create(topic: Topic): Promise<void> {
