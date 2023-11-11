@@ -52,11 +52,14 @@ export class TopicsPrismaRepository implements TopicsRepository {
       orderBy: {
         createdAt: 'desc',
       },
+      where: { isDeleted: false },
       include: {
         author: true,
         _count: {
           select: {
-            comments: true,
+            comments: {
+              where: { isDeleted: false },
+            },
           },
         },
       },
@@ -71,15 +74,19 @@ export class TopicsPrismaRepository implements TopicsRepository {
     const topic = await prisma.topic.findUnique({
       where: {
         id,
+        isDeleted: false,
       },
       include: {
         author: true,
         _count: {
           select: {
-            comments: true,
+            comments: {
+              where: { isDeleted: false },
+            },
           },
         },
         comments: {
+          where: { isDeleted: false },
           include: {
             author: true,
           },

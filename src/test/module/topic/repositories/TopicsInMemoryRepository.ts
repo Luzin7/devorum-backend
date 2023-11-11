@@ -12,7 +12,9 @@ export class TopicsInMemoryRepository implements TopicsRepository {
   topics: Topic[] = []
 
   async save(topic: Topic): Promise<void> {
-    const topicIndex = this.topics.findIndex((t) => t.id === topic.id)
+    const topicIndex = this.topics.findIndex((topicI) =>
+      topicI.id.equals(topic.id),
+    )
     this.topics[topicIndex] = topic
   }
 
