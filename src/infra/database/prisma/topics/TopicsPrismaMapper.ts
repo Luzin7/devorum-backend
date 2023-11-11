@@ -36,6 +36,7 @@ export class TopicsPrismaMapper {
         title: raw.title,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
+        isDeleted: raw.isDeleted,
       },
       new UniqueId(raw.id),
     )
@@ -78,6 +79,7 @@ export class TopicsPrismaMapper {
       updatedAt: topic.updatedAt,
       createdAt: topic.createdAt,
       id: topic.id.toString(),
+      isDeleted: topic.isDeleted,
     }
   }
 }

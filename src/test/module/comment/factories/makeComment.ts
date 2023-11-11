@@ -11,6 +11,7 @@ export function makeComment(
       authorId: new UniqueId(fakerPT_BR.string.uuid()),
       content: fakerPT_BR.lorem.sentence(5),
       topicId: new UniqueId(fakerPT_BR.string.uuid()),
+      isDeleted: false,
       ...override,
     },
     id,
