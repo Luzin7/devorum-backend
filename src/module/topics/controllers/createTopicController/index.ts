@@ -8,7 +8,7 @@ import { z } from 'zod'
 
 const createTopicBodySchema = z.object({
   content: z.string().min(6),
-  title: z.string().min(6).max(60),
+  title: z.string().min(6).max(80),
 })
 
 export class CreateTopicController implements Controller {
