@@ -9,11 +9,12 @@ export interface CommentProps {
   content: string
   createdAt: Date
   updatedAt: Date | null
+  isDeleted: boolean
 }
 
 export class Comment extends AggregateRoot<CommentProps> {
   static create(
-    props: Optional<CommentProps, 'createdAt' | 'updatedAt'>,
+    props: Optional<CommentProps, 'createdAt' | 'updatedAt' | 'isDeleted'>,
     id?: UniqueId,
   ) {
     const commentProps: CommentProps = {
@@ -22,6 +23,7 @@ export class Comment extends AggregateRoot<CommentProps> {
       content: props.content,
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? null,
+      isDeleted: props.isDeleted ?? false,
     }
 
     const comment = new Comment(commentProps, id)
@@ -65,5 +67,13 @@ export class Comment extends AggregateRoot<CommentProps> {
 
   update() {
     this.props.updatedAt = new Date()
+  }
+
+  get isDeleted() {
+    return this.props.isDeleted
+  }
+
+  set isDeleted(value: boolean) {
+    this.props.isDeleted = value
   }
 }
