@@ -1,8 +1,8 @@
-# Documentação do Projeto TurmaQA - Backend
+# Documentação do Projeto Devorum - Backend
 
 ## Visão Geral
 
-Esta é a documentação do projeto TurmaQA, que descreve o backend do projeto. O TurmaQA é uma plataforma que permite aos usuários fazer perguntas e obter respostas em um ambiente de colaboração. Esta documentação fornecerá informações sobre a estrutura do projeto, sua arquitetura e como os desenvolvedores podem contribuir para ele.
+Esta é a documentação do projeto Devorum, que descreve o backend do projeto. O Devorum é uma plataforma que permite aos usuários fazer perguntas e obter respostas em um ambiente de colaboração. Esta documentação fornecerá informações sobre a estrutura do projeto, sua arquitetura e como os desenvolvedores podem contribuir para ele.
 
 ## Estrutura de Pastas
 
@@ -59,13 +59,13 @@ O projeto utiliza um banco de dados JSON local para armazenar dados.
 1. Clone o projeto
 
 ```bash
-git clone git@github.com:Luzin7/TurmaQA-Backend.git
+git clone git@github.com:Luzin7/Devorum-Backend.git
 ```
 
 2. Entre no diretório do projeto
 
 ```bash
-cd turmaQA-Backend
+cd Devorum-Backend
 ```
 
 3. Instale as dependências
@@ -94,7 +94,7 @@ cd turmaQA-Backend
 
 O primeiro passo é fazer um fork do repositório principal para a sua própria conta no GitHub. Isso criará uma cópia do projeto que você pode modificar sem afetar o repositório original.
 
-1. Acesse o repositório do TurmaQA em https://github.com/Luzin7/TurmaQA-Backend.
+1. Acesse o repositório do Devorum em https://github.com/Luzin7/Devorum-Backend.
 2. No canto superior direito da página, clique no botão "Fork" para criar uma cópia do projeto na sua conta.
 
 ### Passo 2: Clone o Repositório
@@ -102,7 +102,7 @@ O primeiro passo é fazer um fork do repositório principal para a sua própria 
 Agora você precisa clonar o seu fork do repositório para a sua máquina local para que você possa fazer alterações.
 
 ```bash
-git clone git@github.com:Luzin7/TurmaQA-Backend.git
+git clone git@github.com:Luzin7/Devorum-Backend.git
 ```
 
 ### Passo 3: Crie uma Branch
@@ -158,7 +158,7 @@ Parabéns, você contribuiu para o projeto!
 Mantenha seu fork atualizado com as últimas alterações do projeto principal. Para fazer isso, primeiro atualize seu fork localmente:
 
 ```bash
-git remote add upstream git@github.com:Luzin7/TurmaQA-Backend.git
+git remote add upstream git@github.com:Luzin7/Devorum-Backend.git
 git fetch upstream
 git checkout main
 git merge upstream/main
